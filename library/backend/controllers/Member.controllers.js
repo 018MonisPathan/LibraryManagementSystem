@@ -10,7 +10,7 @@ module.exports = {
             const result = await member.save(); //save to insert
 
             if (result) {
-                console.log('Try');
+             
                 console.log(result);
                 res.send('User Register Successsfully');
             }

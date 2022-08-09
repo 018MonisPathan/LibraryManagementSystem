@@ -1,0 +1,40 @@
+POST http://localhost:5000/member/register/
+Content-Type: application/json
+
+{
+    
+    "lastname":"Bayuu",
+    "address":"21st Street london",
+    "email":"test12@gmail.com",
+    "contactno":"1234567880",
+    "dob":"12-07-2022",
+    "alternate_contact_name":"Momonga Hagen",
+    "alternate_contact_contactno":"0987654321",
+    "username":"test1",
+    "password":"Emal@123",
+    "role":"Student",
+    "total_issued_books":"1"
+}
+
+###Select All 
+GET http://localhost:5000/member/listMembers/
+
+###List member by id
+GET http://localhost:5000/member/listMembersByid/62e92de698c5fe3d11b8ffef
+
+###Update member
+PATCH http://localhost:5000/member/updatemember/62e92de698c5fe3d11b8ffef
+Content-Type: application/json
+
+{
+    "firstname":"Tommy",
+    "lastname":"vercetti",
+    "total_issued_books":"2"
+
+}
+
+###
+DELETE http://localhost:5000/member/deleteMemberByid/62e92de698c5fe3d11b8ffef
+
+
+

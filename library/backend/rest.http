@@ -36,5 +36,5 @@ Content-Type: application/json
 ###
 DELETE http://localhost:5000/member/deleteMemberByid/62e92de698c5fe3d11b8ffef
 
-
-
+### 
+GET http://localhost:5000/member/login

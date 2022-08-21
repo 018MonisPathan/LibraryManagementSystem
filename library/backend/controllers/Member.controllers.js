@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Jwt = require('jsonwebtoken');
+const jwtKey = 'e-comm';
 
 const MemberModule = require('../Models/Member.model');
 
@@ -75,5 +77,40 @@ module.exports = {
             res.send(error.message);
         }
     },
-    login: async (req, res) => {}
+    login: async (req, res, next) => {
+        try {
+            if (req.body.username && req.body.password) {
+               
+                console.log(req.body.username);
+                console.log(req.body.password);
+
+                //Select to hide output
+                let result = await MemberModule.findOne(req.body).select([
+                    '-password',
+                    '-__v'
+                ]);
+                if (result) {
+                    Jwt.sign(
+                        { result },
+                        jwtKey,
+                        { expiresIn: '2h' },
+                            (error, token) => {
+                            if (error) {
+                                return res.send('something went wrong');
+                            }
+                            res.send({ result, auth: token });
+                            // localStorage.setItem('token', token);
+                        }
+                    );
+                } else {
+                    // throw createError(404, 'usernot found');
+                    resp.send("User not found")
+                }
+
+                //console.log({ result, auth: token})
+            } else {
+                return res.send('Invalid creadential');
+            }
+        } catch (err) {console.log(err.message)}
+    }
 };

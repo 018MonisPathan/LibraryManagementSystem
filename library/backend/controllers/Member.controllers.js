@@ -13,7 +13,6 @@ module.exports = {
             const result = await member.save(); //save to insert
 
             if (result) {
-             
                 console.log(result);
                 res.send('User Register Successsfully');
             }
@@ -39,6 +38,9 @@ module.exports = {
             const result = await MemberModule.findById(id);
             if (result) {
                 res.send(result);
+            } else {
+                res.send('Not found');
+                return;
             }
         } catch (error) {
             console.log(error.message);
@@ -81,7 +83,6 @@ module.exports = {
     login: async (req, res, next) => {
         try {
             if (req.body.username && req.body.password) {
-               
                 console.log(req.body.username);
                 console.log(req.body.password);
 
@@ -95,7 +96,7 @@ module.exports = {
                         { result },
                         jwtKey,
                         { expiresIn: '2h' },
-                            (error, token) => {
+                        (error, token) => {
                             if (error) {
                                 return res.send('something went wrong');
                             }
@@ -105,13 +106,15 @@ module.exports = {
                     );
                 } else {
                     // throw createError(404, 'usernot found');
-                    resp.send("User not found")
+                    resp.send('User not found');
                 }
 
                 //console.log({ result, auth: token})
             } else {
                 return res.send('Invalid creadential');
             }
-        } catch (err) {console.log(err.message)}
+        } catch (err) {
+            console.log(err.message);
+        }
     }
 };

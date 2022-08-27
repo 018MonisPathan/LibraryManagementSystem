@@ -69,3 +69,34 @@ Content-Type: application/json
 {
     "category_name":"test23/08/22"   
 }
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#Category
+
+###Insert
+
+POST http://localhost:5000/subcategory/SubCategoryInsert/
+Content-Type: application/json
+
+{
+    
+    "subcategory_name":"Testdelete"
+    
+}
+
+###Selectbyid
+GET http://localhost:5000/subcategory/SubCategoryById/63049bf653ddae150d23b63f
+
+###Select All 
+GET http://localhost:5000/subcategory/SubSelectAllCategory
+
+### Delete Category
+DELETE http://localhost:5000/subcategory/SubDeleteCategory/63049bf653ddae150d23b63f
+
+###Update Category
+PATCH http://localhost:5000/subcategory/SubUpdateCategory/62f222cb49c055900c565d1e
+Content-Type: application/json
+
+{
+    "subcategory_name":"test23/08/22"   
+}

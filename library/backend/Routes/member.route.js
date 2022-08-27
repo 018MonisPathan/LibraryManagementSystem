@@ -13,7 +13,7 @@ router.patch('/updatemember/:id', MemberController.updatemember);
 router.get('/listMembers', auth ,MemberController.selectallmembers);
 router.get('/listMembersByid/:id', MemberController.selectByid);
 router.delete('/deleteMemberByid/:id', MemberController.deleteByid);
-router.get('/login', MemberController.login);
+router.post('/login', MemberController.login);
 
 function auth(req, res, next) {
     let token = req.headers['authorization'];

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const schema = mongoose.Schema({
+const SubCategorySchema = mongoose.Schema({
     categoryid: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
@@ -12,4 +12,6 @@ const schema = mongoose.Schema({
     }
 });
 
-module.exports = Books = mongoose.model('tbl_member', schema);
+const SubCategory = mongoose.model('subcategory', SubCategorySchema);
+module.exports = SubCategory;
+

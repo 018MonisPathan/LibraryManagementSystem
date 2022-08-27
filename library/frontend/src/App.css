@@ -3,3 +3,36 @@
   height: 800px;
   margin-top: 110px;
 }
+
+.signup{
+  overflow-x: hidden;
+}
+
+.signup-form .txtfname,.txtlname,.txtalternatename,.txtalternatecontactno,.txtusername,.txtpwd{
+  border: 1px solid #b5b3b3;
+  height: 44px;
+  width: 373px;
+  border-radius: 5px;
+}
+
+.signup-form .txtaddress{
+  border: 1px solid #b5b3b3;
+  border-radius: 5px;
+}
+
+.signup-form .txtemail, .txtcontactno,.txtdob{
+  border: 1px solid #b5b3b3;
+  height: 44px;
+  width: 240px;
+  border-radius: 5px;
+}
+
+.login{
+  overflow-x: hidden;
+}
+
+.login-form{
+  width: 410px;
+  height: 500px;
+  margin-top: 110px;
+}

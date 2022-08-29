@@ -4,7 +4,7 @@ const app = express();
 const PORT = 5000;
 const MemberRoute = require('./Routes/member.route');
 const CategoryRoute = require('./Routes/category.route');
-const SubCategoryRoute = require('./Routes/');
+//const SubCategoryRoute = require('./Routes/');
 app.use(express.json());
 app.use(cors());
 

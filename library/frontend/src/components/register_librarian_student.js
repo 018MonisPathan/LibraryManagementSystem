@@ -1,5 +1,5 @@
-import React,{useState,useEffect} from "react";
-import { Link,useNavigate } from 'react-router-dom';
+import React,{useState} from "react";
+//import { Link,useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 
 const RegisterLibrarianStudent=()=>{
@@ -10,19 +10,18 @@ const RegisterLibrarianStudent=()=>{
     const [email,setEmail] = useState("");
     const [contactno,setContactno] = useState("");
     const [dob,setDob] = useState("");
-    const [alternatecontactcontactname,setAlternatecontactcontactname] = useState("");
-    const [alternatecontactcontactno,setAlternatecontactcontactno] = useState("");
+    const [alternate_contact_name,setAltcontactname] = useState("");
+    const [alternate_contact_contactno,setAltcontactno] = useState("");
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
     const [role,setRole] = useState("");
-    const [totalissuedbooks,setTotalissuedbooks] = useState("");
+    const [total_issued_books,setTotalissuedbooks] = useState(0);
 
     const collectdata = async () => {
 
-        setRole(role,"admin");
-        setTotalissuedbooks(totalissuedbooks,"0");
+        //setTotalissuedbooks(total_issued_books,"0");
 
-        //console.log(firstname,lastname,address, email,contactno,dob,alternatecontactcontactname,alternatecontactcontactno,username, password,role,totalissuedbooks);
+        console.log(firstname,lastname,address, email,contactno,dob,alternate_contact_name,alternate_contact_contactno,username, password,role,total_issued_books);
 
         // useEffect(()=>{
         //     const auth = localStorage.getItem('user');
@@ -31,9 +30,24 @@ const RegisterLibrarianStudent=()=>{
         //     }
         // });
 
+        const data = {
+            
+        }
+
         let result = await fetch('http://localhost:5000/member/register',{
             method:'post',
-            body: JSON.stringify({firstname,lastname,address, email,contactno,dob,alternatecontactcontactname,alternatecontactcontactno,username, password,role,totalissuedbooks}),
+            body: JSON.stringify({firstname,
+                lastname,
+                address,
+                email,
+                contactno,
+                dob,
+                alternate_contact_name,
+                alternate_contact_contactno,
+                username,
+                password,
+                role,
+                total_issued_books}),
             headers:{
                 'Content-Type':'application/json'
             },
@@ -56,7 +70,7 @@ const RegisterLibrarianStudent=()=>{
     }
 
     return(
-        <div className="signup">
+        <div className="registerLibrarianStudent">
 
             <div className="row">
                 <div className="col-md-3">
@@ -64,7 +78,7 @@ const RegisterLibrarianStudent=()=>{
                 </div>
 
                 <div className="col-md-8">
-                <div className="signup-form">
+                <div className="registerLibrarianStudent-form">
                 <div className="card">
                     <div className="card-header">
                         <h3>Registration</h3>
@@ -102,11 +116,11 @@ const RegisterLibrarianStudent=()=>{
 
                         <div className="row mt-3">
                             <div className="col-md-6">
-                                <input type="text" placeholder="Enter Alternate Contact Name" className="txtalternatename" value={alternatecontactcontactno} onChange={(e)=>setAlternatecontactcontactno(e.target.value)} title="Enter Alternate Contact Name"/>
+                                <input type="text" placeholder="Enter Alternate Contact Name" className="txtalternatename" value={alternate_contact_name} onChange={(e)=>setAltcontactname(e.target.value)} title="Enter Alternate Contact Name" required/>
                             </div>
 
                             <div className="col-md-6">
-                                <input type="number" placeholder="Enter Alternate Contactno" className="txtalternatecontactno" value={alternatecontactcontactname} onChange={(e)=>setAlternatecontactcontactname(e.target.value)} title="Enter Alternate Contactno"/>
+                                <input type="number" placeholder="Enter Alternate Contactno" className="txtalternatecontactno" value={alternate_contact_contactno} onChange={(e)=>setAltcontactno(e.target.value)} title="Enter Alternate Contactno" required/>
                             </div>
                         </div>
 
@@ -131,13 +145,13 @@ const RegisterLibrarianStudent=()=>{
 
                         <div className="mt-4">
                             <center>
-                                <button type="button" className="btn btn-primary" onClick={collectdata}>Sign Up</button>
+                                <button type="button" className="btn btn-primary" onClick={collectdata}>Add</button>
                             </center>
                         </div>
 
-                        <div>
+                        {/* <div>
                             <p>If you have an account? <Link to="/login">Login Here....</Link></p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

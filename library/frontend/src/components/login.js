@@ -35,7 +35,11 @@ const Login=()=>{
             if(result.auth){
                 localStorage.setItem("user",JSON.stringify(result.result));
                 localStorage.setItem("token",JSON.stringify(result.auth));
-                alert("Login Success");
+                swal({
+                    title: "Login",
+                    text: "Login Successfull!",
+                    icon: "success",
+                });
             }
             
         }catch(error){
@@ -80,9 +84,9 @@ const Login=()=>{
                             </center>
                         </div>
 
-                        <div className="mt-3 mb-0">
+                        {/* <div className="mt-3 mb-0">
                             <p>If you don't have an account? <Link to="/signup">SignUp Here....</Link></p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

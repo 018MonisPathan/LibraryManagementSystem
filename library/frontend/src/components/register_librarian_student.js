@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import { Link,useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 
-const SignUp=()=>{
+const RegisterLibrarianStudent=()=>{
 
     const [firstname,setFirstname] = useState("");
     const [lastname,setLastname] = useState("");
@@ -152,4 +152,4 @@ const SignUp=()=>{
     );
 }
 
-export default SignUp;
+export default RegisterLibrarianStudent;

@@ -5,7 +5,7 @@ import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './layouts/navbar';
 
 //import sign up
-import RegisterLibrarianStudent from './components/register_librarian_student';
+import RegisterLibrarianStudent from './components/admin/register_librarian_student';
 
 //import login
 import Login from './components/login';
@@ -16,7 +16,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path='/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
+          <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
           <Route path='/login' element={<Login />} />
         </Routes>
       </BrowserRouter>

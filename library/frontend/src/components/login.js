@@ -40,6 +40,12 @@ const Login=()=>{
                     text: "Login Successfull!",
                     icon: "success",
                 });
+            }else{
+                swal({
+                    title: "Login",
+                    text: "Invalid Username or Password!",
+                    icon: "warning",
+                });
             }
             
         }catch(error){
@@ -66,7 +72,7 @@ const Login=()=>{
                             <div className="col-md-12">
                                 <input type="text" placeholder="Enter Username" className="txtusername" title="Enter Username" value={username} onChange={(e) => setUsername(e.target.value)} required/>
 
-                                {error && !username && <span className="invalid-input">Please fill out this field!</span>}
+                                {error && !username && <span className="invalid-input" style={{fontWeight:'bold',color:'red'}}>Please fill out this field!</span>}
                             </div>
                         </div>
 
@@ -74,7 +80,7 @@ const Login=()=>{
                             <div className="col-md-12">
                                 <input type="password" placeholder="Enter Password" className="txtpwd" title="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
 
-                                {error && !password && <span className="invalid-input">Please fill out this field!</span>}
+                                {error && !password && <span className="invalid-input" style={{fontWeight:'bold',color:'red'}}>Please fill out this field!</span>}
                             </div>
                         </div>
 

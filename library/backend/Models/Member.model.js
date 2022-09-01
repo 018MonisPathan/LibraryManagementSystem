@@ -37,7 +37,7 @@ const schema = new mongoose.Schema(
         },
         dob: {
             type: Date,
-            min: Date.now,
+            max: Date.now,
             required: false
         },
         alternate_contact_name: {

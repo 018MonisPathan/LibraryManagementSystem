@@ -1,5 +1,6 @@
 const Jwt = require('jsonwebtoken');
 const jwtKey = 'e-comm';
+const bcrypt = require('bcrypt');
 
 const mongoose = require('mongoose');
 
@@ -9,7 +10,14 @@ module.exports = {
     registerMember: async (req, res, next) => {
         try {
             // if(!req.body.firstname){return res.send("No first name")}
-            member = new MemberModule(req.body); //Constructer to moodel
+            const member = new MemberModule(req.body); //Constructer to moodel
+
+            //Generate salt to hash the password
+            const salt = await bcrypt.genSalt(10);
+
+            //now we set user password to hashed password
+            member.password = await bcrypt.hash(member.password, salt);
+
             const result = await member.save(); //save to insert
 
             if (result) {
@@ -88,23 +96,29 @@ module.exports = {
                 console.log(req.body.password);
 
                 //Select to hide output
-                let result = await MemberModule.findOne(req.body).select([
-                    '-password',
-                    '-__v'
-                ]);
+                let result = await MemberModule.findOne({username: req.body.username});
                 if (result) {
-                    Jwt.sign(
-                        { result },
-                        jwtKey,
-                        { expiresIn: '2h' },
-                            (error, token) => {
-                            if (error) {
-                                return res.send('something went wrong');
+                    const validpassword = await bcrypt.compare(req.body.password,result.password);
+
+                    // console.log(validpassword); If your password is matched then it returns true.
+                    if(validpassword)
+                    {
+                        Jwt.sign(
+                            { result },
+                            jwtKey,
+                            { expiresIn: '2h' },
+                                (error, token) => {
+                                if (error) {
+                                    return res.send('something went wrong');
+                                }
+                                res.send({ result, auth: token });
+                                // localStorage.setItem('token', token);
                             }
-                            res.send({ result, auth: token });
-                            // localStorage.setItem('token', token);
-                        }
-                    );
+                        );
+                    }else{
+                        res.send("Invalid Username or Password!");
+                    }
+                        
                 } else {
                     // throw createError(404, 'usernot found');
                     resp.send("User not found")

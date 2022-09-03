@@ -62,10 +62,10 @@ const schema = new mongoose.Schema(
         },
         password: {
             type: String,
-            match: [
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                'Password must contain 1 number,1 uppercase and lowercase letter and 1 special character'
-            ],
+            // match: [
+            //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+            //     'Password must contain 1 number,1 uppercase and lowercase letter and 1 special character'
+            // ],
             required: false
         },
         role: {

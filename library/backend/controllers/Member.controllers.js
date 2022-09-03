@@ -100,6 +100,27 @@ module.exports = {
             res.send(error.message);
         }
     },
+    softdelete: async (req, res, next) => {
+        try {
+            const id = req.params.id;
+            const updates = {deleted_at: Date.now()}
+            const options = {
+                new: true
+            };
+            const result = await MemberModule.findByIdAndUpdate(
+                id,
+                updates,
+                options
+            );
+            if (!result) {
+                return res.send({ error: 'SoftDelete failed' });
+            }
+            res.send(result);
+        } catch (error) {
+            console.log(error.message);
+            res.send(error.message);
+        }
+    },
     login: async (req, res, next) => {
         try {
             if (req.body.username && req.body.password) {

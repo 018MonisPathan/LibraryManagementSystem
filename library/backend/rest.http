@@ -36,6 +36,10 @@ Content-Type: application/json
     "total_issued_books":"2"
 
 }
+###Softdelete member
+PATCH http://localhost:5000/member/softdeletemember/6312f9adcebb3af0d3c07c90
+Content-Type: application/json
+
 
 ### Delete member
 DELETE http://localhost:5000/member/deleteMemberByid/62e92de698c5fe3d11b8ffef

@@ -10,6 +10,7 @@ const MemberController = require('../controllers/Member.controllers');
 
 router.post('/register', MemberController.registerMember);
 router.patch('/updatemember/:id', MemberController.updatemember);
+router.patch('/softdeletemember/:id', MemberController.softdelete);
 router.get('/listMembers', auth, MemberController.selectallmembers);
 router.get('/listMembersnotdeleted', MemberController.selectcondition);
 router.get('/listMembersByid/:id', MemberController.selectByid);

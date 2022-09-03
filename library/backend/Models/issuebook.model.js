@@ -35,7 +35,12 @@ const schema = mongoose.Schema(
         penalty_amount: {
             type: Number,
             required: false
-        }
+        },
+        deleted_at: {
+            type: Date,
+            required: false,
+            default: null
+        },
     },
     { timestamps: true }
 );

@@ -9,6 +9,11 @@ const SubCategorySchema = mongoose.Schema({
         type: String,
         maxLength: 20,
         required: true
+    },
+    deleted_at: {
+        type: Date,
+        required: false,
+        default: null
     }
 });
 

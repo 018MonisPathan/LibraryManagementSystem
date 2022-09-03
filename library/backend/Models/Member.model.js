@@ -5,8 +5,8 @@ const schema = new mongoose.Schema(
         firstname: {
             type: String,
             maxLength: 35,
-            required: [true,'firstname required']           
-        },  
+            required: [true, 'firstname required']
+        },
         lastname: {
             type: String,
             maxLength: 35,
@@ -56,7 +56,7 @@ const schema = new mongoose.Schema(
         username: {
             type: String,
             unique: true,
-           
+
             maxLength: 15,
             required: false
         },
@@ -79,7 +79,8 @@ const schema = new mongoose.Schema(
         },
         deleted_at: {
             type: Date,
-            required: false
+            required: false,
+            default: null
         }
     },
     { timestamps: true }

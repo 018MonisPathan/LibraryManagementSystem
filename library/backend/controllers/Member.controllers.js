@@ -40,6 +40,18 @@ module.exports = {
             console.log(err.message);
         }
     },
+    selectcondition: async (req, res, next) => {
+        try {
+            const result = await MemberModule.find({deleted_at:null}).select([
+                '-password',
+                '-__v'
+            ]);
+            res.send({ result: result });
+            console.log(result);
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
     selectByid: async (req, res, next) => {
         try {
             const id = req.params.id;

@@ -3,7 +3,7 @@ POST http://localhost:5000/member/register/
 Content-Type: application/json
 
 {
-    
+    "firstname":"Baayuu",
     "lastname":"Bayuu",
     "address":"21st Street london",
     "email":"test12@gmail.com",
@@ -19,6 +19,9 @@ Content-Type: application/json
 
 ###Select All 
 GET http://localhost:5000/member/listMembers/
+
+### select conditional
+GET http://localhost:5000/member/listMembersnotdeleted/
 
 ###List member by id
 GET http://localhost:5000/member/listMembersByid/62e92de698c5fe3d11b8ffef

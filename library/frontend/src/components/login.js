@@ -33,13 +33,41 @@ const Login=()=>{
             console.log(result);
 
             if(result.auth){
-                localStorage.setItem("user",JSON.stringify(result.result));
-                localStorage.setItem("token",JSON.stringify(result.auth));
-                swal({
-                    title: "Login",
-                    text: "Login Successfull!",
-                    icon: "success",
-                });
+                if(result.role === "admin")
+                {
+                    sessionStorage.setItem("user",JSON.stringify(result.result));
+                    sessionStorage.setItem("token",JSON.stringify(result.auth));
+                    sessionStorage.setItem("role",JSON.stringify("admin"));
+                    swal({
+                        title: "Login",
+                        text: "Admin Login Successfull!",
+                        icon: "success",
+                    });
+                }
+
+                if(result.role === "student")
+                {
+                    sessionStorage.setItem("user",JSON.stringify(result.result));
+                    sessionStorage.setItem("token",JSON.stringify(result.auth));
+                    sessionStorage.setItem("role",JSON.stringify("student"));
+                    swal({
+                        title: "Login",
+                        text: "Student Login Successfull!",
+                        icon: "success",
+                    });
+                }
+
+                if(result.role === "librarian")
+                {
+                    sessionStorage.setItem("user",JSON.stringify(result.result));
+                    sessionStorage.setItem("token",JSON.stringify(result.auth));
+                    sessionStorage.setItem("role",JSON.stringify("librarian"));
+                    swal({
+                        title: "Login",
+                        text: "Librarian Login Successfull!",
+                        icon: "success",
+                    });
+                }
             }else{
                 swal({
                     title: "Login",
@@ -47,6 +75,23 @@ const Login=()=>{
                     icon: "warning",
                 });
             }
+            
+
+            // if(result.auth){
+            //     localStorage.setItem("user",JSON.stringify(result.result));
+            //     localStorage.setItem("token",JSON.stringify(result.auth));
+            //     swal({
+            //         title: "Login",
+            //         text: "Login Successfull!",
+            //         icon: "success",
+            //     });
+            // }else{
+            //     swal({
+            //         title: "Login",
+            //         text: "Invalid Username or Password!",
+            //         icon: "warning",
+            //     });
+            // }
             
         }catch(error){
             console.log(error.message);

@@ -136,20 +136,55 @@ module.exports = {
                     // console.log(validpassword); If your password is matched then it returns true.
                     if(validpassword)
                     {
-                        Jwt.sign(
-                            { result },
-                            jwtKey,
-                            { expiresIn: '2h' },
-                                (error, token) => {
-                                if (error) {
-                                    return res.send('something went wrong');
+                        if(result.role === "admin")
+                        {
+                            Jwt.sign(
+                                { result },
+                                jwtKey,
+                                { expiresIn: '2h' },
+                                    (error, token) => {
+                                    if (error) {
+                                        return res.send('something went wrong');
+                                    }
+                                    res.send({ result, auth: token,role: result.role });
+                                    // localStorage.setItem('token', token);
                                 }
-                                res.send({ result, auth: token });
-                                // localStorage.setItem('token', token);
-                            }
-                        );
+                            );
+                        }
+                        
+                        if(result.role === "student")
+                        {
+                            Jwt.sign(
+                                { result },
+                                jwtKey,
+                                { expiresIn: '2h' },
+                                    (error, token) => {
+                                    if (error) {
+                                        return res.send('something went wrong');
+                                    }
+                                    res.send({ result, auth: token,role: result.role });
+                                    // localStorage.setItem('token', token);
+                                }
+                            );
+                        }
+
+                        if(result.role === "librarian")
+                        {
+                            Jwt.sign(
+                                { result },
+                                jwtKey,
+                                { expiresIn: '2h' },
+                                    (error, token) => {
+                                    if (error) {
+                                        return res.send('something went wrong');
+                                    }
+                                    res.send({ result, auth: token,role: result.role });
+                                    // localStorage.setItem('token', token);
+                                }
+                            );
+                        }
                     }else{
-                        res.send("Invalid Username or Password!");
+                        res.send(JSON.stringify("Invalid Username or Password!"));
                     }
                         
                 } else {

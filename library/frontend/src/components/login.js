@@ -8,6 +8,8 @@ const Login=()=>{
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
 
+    let navigate = useNavigate();
+
     const handlelogin = async () => {
         if(!username || !password){
             setError(true);
@@ -43,6 +45,8 @@ const Login=()=>{
                         text: "Admin Login Successfull!",
                         icon: "success",
                     });
+
+                    navigate("/admin/registerlibrarianstudent");
                 }
 
                 if(result.role === "student")

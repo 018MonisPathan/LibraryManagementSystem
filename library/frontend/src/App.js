@@ -10,13 +10,18 @@ import RegisterLibrarianStudent from './components/admin/register_librarian_stud
 //import login
 import Login from './components/login';
 
+//import private component for admin
+import PrivateComponentAdmin from './components/privateComponentAdmin';
+
 function App() {
   return (
     <div className='App'>
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
+          <Route element={<PrivateComponentAdmin/>}>
+            <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
+          </Route>
           <Route path='/login' element={<Login />} />
         </Routes>
       </BrowserRouter>

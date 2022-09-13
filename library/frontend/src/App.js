@@ -15,6 +15,9 @@ import Login from './components/login';
 
 import AddCategory from './components/admin/AddCategory';
 
+//import private component for admin
+import PrivateComponentAdmin from './components/privateComponentAdmin';
+
 function App() {
   return (
     <div className='App' >
@@ -23,7 +26,9 @@ function App() {
       <div style={{display:'flex'}}>
       <Sidebar />
         <Routes>
-          <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
+          <Route element={<PrivateComponentAdmin/>}>
+            <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
+          </Route>
           <Route path='/login' element={<Login />} />
           <Route path='/admin/AddCategory' element={<AddCategory />} />
         </Routes>

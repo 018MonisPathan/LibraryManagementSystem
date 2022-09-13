@@ -202,7 +202,7 @@ const RegisterLibrarianStudent = () => {
             <div className='row'>
                 <div className='col-md-3'></div>
 
-                <div className='col-md-8'>
+                <div className=' col-md-12' style={{paddingLeft:'129px'}}>
                     <div className='registerLibrarianStudent-form'>
                         <div className='card'>
                             <div className='card-header'>
@@ -291,10 +291,10 @@ const RegisterLibrarianStudent = () => {
                                 </div>
 
                                 <div className='row mt-3'>
-                                    <div className='col-md-12'>
+                                    <div className='col-md-5 textareaAddress' >
                                         <textarea
                                             type='textarea'
-                                            cols={101}
+                                            cols={83}
                                             rows={4}
                                             placeholder='Enter Address'
                                             className='txtaddress'

@@ -7,6 +7,10 @@ const CategorySchema = new mongoose.Schema(
             required: true,
             unique: true
         },
+        description:{
+            type: String,
+            required: true
+        },
         deleted_at: {
             type: Date,
             required: false,

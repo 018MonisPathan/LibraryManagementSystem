@@ -1,7 +1,19 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React,{useEffect} from "react";
+import { Link,useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+
+  const adminauth = sessionStorage.getItem("role");
+
+  let navigate = useNavigate();
+
+  const logout = () =>{
+    sessionStorage.clear();
+    navigate("/login");
+  }
+
+  console.log("Helllo",adminauth);
+
   return (
     <div>
         
@@ -15,8 +27,18 @@ const Navbar = () => {
     </button>
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav">
-        <Link to='/admin/registerlibrarianstudent' className="nav-link">Add Librarian & Student</Link>
-        <Link to='/login' className="nav-link">Login</Link>
+
+        {
+          adminauth ?
+            <>
+              <Link to='/admin/registerlibrarianstudent' className="nav-link">Add Librarian & Student</Link>
+              <Link to='/login' className="nav-link" onClick={logout}>Logout</Link>
+            </>
+          :
+            <>
+              <Link to='/login' className="nav-link">Login</Link>
+            </>
+        }
       </div>
     </div>
   </div>

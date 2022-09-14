@@ -207,7 +207,7 @@ const RegisterLibrarianStudent = () => {
             <div className='row'>
                 <div className='col-md-3'></div>
 
-                <div className=' col-md-12' style={{paddingLeft:'129px'}}>
+                <div className=' col-md-12'>
                     <div className='registerLibrarianStudent-form'>
                         <div className='card'>
                             <div className='card-header'>

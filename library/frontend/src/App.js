@@ -13,7 +13,11 @@ import RegisterLibrarianStudent from './components/admin/register_librarian_stud
 //import login
 import Login from './components/login';
 
+//Import  Category
 import AddCategory from './components/admin/AddCategory';
+
+//Import SubCategory
+import AddSubCategory from './components/admin/AddSubCategory';
 
 //import private component for admin
 import PrivateComponentAdmin from './components/privateComponentAdmin';
@@ -31,6 +35,7 @@ function App() {
           </Route>
           <Route path='/login' element={<Login />} />
           <Route path='/admin/AddCategory' element={<AddCategory />} />
+          <Route path='/admin/AddSubCategory' element={<AddSubCategory/>}></Route>
         </Routes>
         </div>
       </BrowserRouter>

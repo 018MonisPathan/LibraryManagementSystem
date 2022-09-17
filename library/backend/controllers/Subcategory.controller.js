@@ -6,8 +6,8 @@ module.exports = {
         category = new SubCategoryModel(req.body);
         const result = await category.save();
         if (result) {
-            console.log(result);
-            res.send('SubCategory Registered Successsfully');
+            // console.log(result);
+            res.send(JSON.stringify('SubCategory Registered Successsfully'));
         }
     },
     selectSubCategoryByID: async (req, res) => {

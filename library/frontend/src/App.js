@@ -15,6 +15,8 @@ import Login from './components/login';
 
 import AddCategory from './components/admin/AddCategory';
 
+import AddBook from './components/admin/AddBook';
+
 //import private component for admin
 import PrivateComponentAdmin from './components/privateComponentAdmin';
 
@@ -31,6 +33,7 @@ function App() {
           </Route>
           <Route path='/login' element={<Login />} />
           <Route path='/admin/AddCategory' element={<AddCategory />} />
+          <Route path='/admin/AddBook' element={<AddBook />} />
         </Routes>
         </div>
       </BrowserRouter>

@@ -1,44 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import swal from 'sweetalert';
 import validator from 'validator';
-
+const { VerifyToken } = require('../AuthGuard');
 const AddCategory = () => {
-    const [CategoryName, setCategoryname] = useState('');
-    const [Description, setDescription] = useState('');
+    const [category_name, setcategory_name] = useState('');
+    const [description, setdescription] = useState('');
     const [error, setError] = useState(false);
-    const [CategoryNameError, setCategoryNameError] = useState('');
-    const [DescriptionError, setDescriptionError] = useState('')
+    const [category_nameError, setcategory_nameError] = useState('');
+    const [descriptionError, setdescriptionError] = useState('');
+
+    useEffect(() => { 
+        VerifyToken();
+    }, []);
     const collectdata = async () => {
         //setTotalissuedbooks(total_issued_books,"0");
 
-        console.log(
-            CategoryName,
-            Description,
-            
-        );
+        console.log(category_name, description);
 
-        if (
-            !CategoryName ||
-            !Description 
-            
-        ) {
+        if (!category_name || !description) {
             setError(true);
             return false;
         }
 
-       
-        let result = await fetch('http://localhost:5000/category/CategoryInsert/', {
-            method: 'post',
-            body: JSON.stringify({
-                CategoryName,
-                Description
-            }),
-            headers: {
-                'Content-Type': 'application/json'
+        let result = await fetch(
+            'http://localhost:5000/category/CategoryInsert/',
+            {
+                method: 'post',
+                body: JSON.stringify({
+                    category_name,
+                    description
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }
-        });
+        );
 
-        result = await result.json();
+        result = await result;
 
         console.log(result);
 
@@ -49,38 +47,35 @@ const AddCategory = () => {
                 icon: 'success'
             });
         }
-
-        
     };
 
-    //Validate CategoryName
-    const validateCategoryName = (e) => {
+    //Validate category_name
+    const validatecategory_name = (e) => {
         var pattern = new RegExp(/[A-Za-z ]+/);
-        if (!pattern.test(CategoryName)) {
-            setCategoryNameError('Please Enter Valid Category Name!');
+        if (!pattern.test(category_name)) {
+            setcategory_nameError('Please Enter Valid Category Name!');
             return;
         } else {
-            setCategoryNameError('');
+            setcategory_nameError('');
         }
     };
 
-    const validateDescription = (e) => {
+    const validatedescription = (e) => {
         var pattern = new RegExp(/[A-Za-z ]+/);
-        if (!pattern.test(Description)) {
-            setDescriptionError('Please Enter Valid Description!');
+        if (!pattern.test(description)) {
+            setdescriptionError('Please Enter Valid description!');
             return;
         } else {
-            setDescriptionError('');
+            setdescriptionError('');
         }
     };
 
-    
-return(
-<div>
-<div className='row'>
+    return (
+        <div className='registerLibrarianStudent'>
+            <div className='row'>
                 <div className='col-md-3'></div>
 
-                <div className=' col-md-12' style={{paddingLeft:'129px'}}>
+                <div className=' col-md-12' >
                     <div className='registerLibrarianStudent-form'>
                         <div className='card'>
                             <div className='card-header'>
@@ -94,10 +89,12 @@ return(
                                             placeholder='Enter Category'
                                             className='txtfname'
                                             title='Enter Category'
-                                            value={CategoryName}
+                                            value={category_name}
                                             onChange={(e) => {
-                                                setCategoryname(e.target.value);
-                                                validateCategoryName();
+                                                setcategory_name(
+                                                    e.target.value
+                                                );
+                                                validatecategory_name();
                                             }}
                                             id='txtfname'
                                             required
@@ -111,11 +108,11 @@ return(
                                                 color: 'red'
                                             }}
                                         >
-                                            {setCategoryNameError}
+                                            {category_nameError}
                                         </span>
 
                                         {/* print empty field message */}
-                                        {error && !CategoryName && (
+                                        {error && !category_name && (
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -127,24 +124,22 @@ return(
                                             </span>
                                         )}
                                     </div>
-
-                                    
                                 </div>
 
                                 <div className='row mt-3'>
-                                    <div className='col-md-5 textareaAddress' >
+                                    <div className='col-md-5 textareaAddress'>
                                         <textarea
                                             type='textarea'
                                             cols={83}
                                             rows={4}
-                                            placeholder='Enter Description'
+                                            placeholder='Enter description'
                                             className=''
-                                            value={Description}
+                                            value={description}
                                             onChange={(e) => {
-                                                setDescription(e.target.value);
-                                                validateDescription();
+                                                setdescription(e.target.value);
+                                                validatedescription();
                                             }}
-                                            title='Enter Description'
+                                            title='Enter description'
                                             required
                                         />
 
@@ -156,11 +151,11 @@ return(
                                                 color: 'red'
                                             }}
                                         >
-                                            {DescriptionError}
+                                            {descriptionError}
                                         </span>
 
                                         {/* print empty field message */}
-                                        {error && !Description && (
+                                        {error && !description && (
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -196,8 +191,8 @@ return(
 
                 <div className='col-md-1'></div>
             </div>
-</div>
-);
+        </div>
+    );
 };
 
 export default AddCategory;

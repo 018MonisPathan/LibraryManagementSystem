@@ -47,6 +47,12 @@ DELETE http://localhost:5000/member/deleteMemberByid/62e92de698c5fe3d11b8ffef
 
 ### Login
 POST http://localhost:5000/member/login
+Content-Type: application/json
+
+{
+    "username":"meet",
+    "password":"Meet@123"  
+}
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Category
 
@@ -56,7 +62,8 @@ POST http://localhost:5000/category/CategoryInsert/
 Content-Type: application/json
 
 {
-    "category_name":"Testdelete"
+    "category_name":"Testdelete15/09/2022",
+    "description":"hello test"
     
 }
 
@@ -78,16 +85,17 @@ Content-Type: application/json
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#Category
+###SUBCategory
 
 ###Insert
 
-POST http://localhost:5000/subcategory/SubCategoryInsert/
+POST http://localhost:5000/subcategory/SubCategoryInsert
 Content-Type: application/json
 
 {
     
-    "subcategory_name":"Testdelete"
+    "subcategory_name":"17/09/Third",
+    "categoryid":"62f222cb49c055900c565d1e"
     
 }
 
@@ -107,3 +115,6 @@ Content-Type: application/json
 {
     "subcategory_name":"test23/08/22"   
 }
+
+
+

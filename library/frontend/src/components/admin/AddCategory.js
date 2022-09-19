@@ -1,26 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import swal from 'sweetalert';
 import validator from 'validator';
-
+const { VerifyToken } = require('../AuthGuard');
 const AddCategory = () => {
     const [category_name, setCategoryname] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState(false);
     const [CategoryNameError, setCategoryNameError] = useState('');
-    const [DescriptionError, setDescriptionError] = useState('')
+    const [DescriptionError, setDescriptionError] = useState('');
+
+    useEffect(() => { 
+        VerifyToken();
+    }, []);
     const collectdata = async () => {
         //setTotalissuedbooks(total_issued_books,"0");
 
-        console.log(
-            category_name,
-            description,
-        );
+        console.log(category_name, description);
 
-        if (
-            !category_name ||
-            !description 
-            
-        ) {
+        if (!category_name || !description) {
             setError(true);
             return false;
         }
@@ -75,7 +72,7 @@ const AddCategory = () => {
         }
     };
 
-    const validateDescription = (e) => {
+    const validatedescription = (e) => {
         var pattern = new RegExp(/[A-Za-z ]+/);
         if (!pattern.test(description)) {
             setDescriptionError('Please Enter Valid Description!');
@@ -127,9 +124,9 @@ return(
                                             value={description}
                                             onChange={(e) => {
                                                 setDescription(e.target.value);
-                                                validateDescription();
+                                                validatedescription();
                                             }}
-                                            title='Enter Description'
+                                            title='Enter description'
                                             required
                             /><br/>
 
@@ -144,9 +141,8 @@ return(
                                             {DescriptionError}
                         </span>
 
-
-                            {/* print empty field message */}
-                            {error && !description && (
+                                        {/* print empty field message */}
+                                        {error && !description && (
                                             <span
                                                 className='invalid-input'
                                                 style={{

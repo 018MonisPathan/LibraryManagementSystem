@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-
+const CategoryModel = require('../Models/Category');
 const SubCategorySchema = mongoose.Schema({
     categoryid: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'category' }],
         required: [true,"Category is required"]
         //ref: Category
     },
@@ -24,4 +24,3 @@ const SubCategorySchema = mongoose.Schema({
 
 const SubCategory = mongoose.model('tbl_subcategory', SubCategorySchema);
 module.exports = SubCategory;
-

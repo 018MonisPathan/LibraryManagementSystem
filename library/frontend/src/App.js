@@ -16,6 +16,8 @@ import Login from './components/login';
 //Import  Category
 import AddCategory from './components/admin/AddCategory';
 
+import AddBook from './components/admin/AddBook';
+
 //Import SubCategory
 import AddSubCategory from './components/admin/AddSubCategory';
 
@@ -36,6 +38,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/admin/AddCategory' element={<AddCategory />} />
           <Route path='/admin/AddSubCategory' element={<AddSubCategory/>}></Route>
+          <Route path='/admin/AddBook' element={<AddBook />} />
         </Routes>
         </div>
       </BrowserRouter>

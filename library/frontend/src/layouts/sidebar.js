@@ -1,7 +1,9 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+const {VerifyToken} = require("../components/AuthGuard");
 
 const Sidebar = () => {
+  
     return(
        <div className="d-flex flex-column flex-shrink-0 p-3 bg-light  " style={{width: 280, minHeight: '100vh'}}>
   <a href="/login" className="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
@@ -13,6 +15,7 @@ const Sidebar = () => {
       
     </svg><span className="fs-5 fw-semibold">Username</span></a>
     
+    
   <ul className="list-unstyled ps-0">
     <li className="mb-1">
       <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#member-collapse" aria-expanded="false">
@@ -21,7 +24,7 @@ const Sidebar = () => {
       <div className="collapse" id="member-collapse">
         <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
           <li><a href="#" className="link-dark rounded">View Member</a></li>
-          <li><a href="#" className="link-dark rounded">Add Member</a></li>
+          <li><Link to='/admin/registerlibrarianstudent' className="link-dark rounded">Add Member</Link></li>
           <li><a href="#" className="link-dark rounded">View Deleted Members</a></li>
         </ul>
       </div>
@@ -58,7 +61,7 @@ const Sidebar = () => {
       <div className="collapse" id="book-collapse">
         <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
           <li><a href="#" className="link-dark rounded">View</a></li>
-          <li><a href="#" className="link-dark rounded">Add</a></li>
+          <li><Link to='/admin/AddBook' className="link-dark rounded">Add Book</Link></li>
           <li><a href="#" className="link-dark rounded">View Deleted</a></li>
         </ul>
       </div>

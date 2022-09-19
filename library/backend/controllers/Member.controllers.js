@@ -189,13 +189,13 @@ module.exports = {
                         
                 } else {
                     // throw createError(404, 'usernot found');
-                    resp.send("User not found")
+                    res.send(JSON.stringify("User not found"))
                 }
 
                 //console.log({ result, auth: token})
             } else {
                 return res.send('Invalid creadential');
             }
-        } catch (err) {console.log(err.message)}
+        } catch (err) {console.log("server error")}
     },
 };

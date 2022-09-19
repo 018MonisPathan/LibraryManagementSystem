@@ -39,7 +39,14 @@ module.exports = {
     selectallCategories: async (req, res, next) => {
         try {
             const result = await CategoryModel.find();
-            res.send({ data: result });
+
+            if(result)
+            {
+                res.send({ data: result });
+            }else{
+                res.send(JSON.stringify("No records found!"));
+            }
+
             //console.log(result);
         } catch (err) {
             console.log(err.message);

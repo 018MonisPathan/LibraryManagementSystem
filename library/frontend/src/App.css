@@ -42,9 +42,32 @@
   margin-top: 110px;
 }
 
-.AddCategory-form{
+.addCategory, .addSubCategory{
   width: 100%;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.addCategory .addcategory-form .card,.addSubCategory .addsubcategory-form .card{
+  margin-top: -70px;
+}
+
+.addCategory .addcategory-form .txtcategoryname, .addSubCategory .addsubcategory-form .txtsubcategoryname{
+  width: 390px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  height: 45px;
+}
+
+.addCategory .addcategory-form .txtcategorydescription, .addSubCategory .addsubcategory-form .txtsubcategorydescription{
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+}
+
+.addSubCategory .addsubcategory-form .ddlcategory{
+  width: 390px;
+  height: 42px;
+  border: 1px solid lightgray;
+  border-radius: 2px;
 }

@@ -5,7 +5,7 @@ const PORT = 5000;
 const MemberRoute = require('./Routes/member.route');
 const CategoryRoute = require('./Routes/category.route');
 const SubCategory=require('./Routes/subcategory.route');
-//const SubCategoryRoute = require('./Routes/');
+const SubCategoryRoute = require('./Routes/subcategory.route');
 app.use(express.json());
 app.use(cors());
 
@@ -13,6 +13,6 @@ require('./DB/config')();
 
 app.use('/member', MemberRoute);
 app.use('/category', CategoryRoute);
-app.use('/subcategory', SubCategory);
+app.use('/subcategory', SubCategoryRoute);
 console.log('Running at Port: ' + PORT);
 app.listen(PORT);

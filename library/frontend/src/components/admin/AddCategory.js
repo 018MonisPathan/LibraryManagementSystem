@@ -6,8 +6,8 @@ const AddCategory = () => {
     const [category_name, setCategoryname] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState(false);
-    const [category_nameError, setcategory_nameError] = useState('');
-    const [descriptionError, setdescriptionError] = useState('');
+    const [CategoryNameError, setCategoryNameError] = useState('');
+    const [DescriptionError, setDescriptionError] = useState('');
 
     useEffect(() => { 
         VerifyToken();
@@ -68,7 +68,7 @@ const AddCategory = () => {
             setCategoryNameError('Please Enter Valid Category Name!');
             return;
         } else {
-            setcategory_nameError('');
+            setCategoryNameError('');
         }
     };
 
@@ -78,7 +78,7 @@ const AddCategory = () => {
             setDescriptionError('Please Enter Valid Description!');
             return;
         } else {
-            setdescriptionError('');
+            setDescriptionError('');
         }
     };
 
@@ -123,7 +123,7 @@ return(
                                             className='txtcategorydescription'
                                             value={description}
                                             onChange={(e) => {
-                                                setdescription(e.target.value);
+                                                setDescription(e.target.value);
                                                 validatedescription();
                                             }}
                                             title='Enter description'

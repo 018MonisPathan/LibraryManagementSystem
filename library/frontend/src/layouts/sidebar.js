@@ -35,7 +35,7 @@ const Sidebar = () => {
       </button>
       <div className="collapse" id="category-collapse">
         <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" className="link-dark rounded">View</a></li>
+          <li><Link to='/admin/ManageCategory' className="link-dark rounded">Manage Category</Link></li>
           <li><Link to='/admin/AddCategory' className="link-dark rounded">Add Category</Link></li>
          
           <li><a href="#" className="link-dark rounded">Deleted</a></li>
@@ -48,7 +48,7 @@ const Sidebar = () => {
       </button>
       <div className="collapse" id="subcategory-collapse">
         <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" className="link-dark rounded">View</a></li>
+        <li><Link to='/admin/ManageSubCategory' className="link-dark rounded">Manage SubCategory</Link></li>
           <li><Link to='/admin/AddSubCategory' className="link-dark rounded">Add SubCategory</Link></li>
           <li><a href="#" className="link-dark rounded">Deleted</a></li>
         </ul>

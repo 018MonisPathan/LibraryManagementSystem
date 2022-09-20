@@ -18,7 +18,7 @@ module.exports = {
                 console.log(result);
                 res.send({ result: result });
             } else {
-                res.send('Not found');
+                res.send('Not record found');
                 return;
             }
         } catch (err) {
@@ -27,9 +27,16 @@ module.exports = {
     },
     selectallSubCategories: async (req, res, next) => {
         try {
-            const result = await SubCategoryModel.find();
-            res.send({ result: result });
-            console.log(result);
+            const result = await SubCategoryModel.find().populate("categoryid" ,"category_name description");
+
+            if(result)
+            {
+                res.send({ data: result });
+                console.log(result);
+            }else{
+                res.send(JSON.stringify("No Records Found!"));
+            }
+
         } catch (err) {
             console.log(err.message);
         }

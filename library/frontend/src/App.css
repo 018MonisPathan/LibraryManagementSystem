@@ -71,3 +71,10 @@
   border: 1px solid lightgray;
   border-radius: 2px;
 }
+
+.managecategory, .managesubcategory {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}

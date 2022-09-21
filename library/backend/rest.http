@@ -3,18 +3,18 @@ POST http://localhost:5000/member/register/
 Content-Type: application/json
 
 {
-    "firstname":"Baayuu",
-    "lastname":"Bayuu",
+    "firstname":"tewntyone",
+    "lastname":"nine",
     "address":"21st Street london",
-    "email":"test12@gmail.com",
-    "contactno":"1234567880",
-    "dob":"12-07-2022",
-    "alternate_contact_name":"Momonga Hagen",
-    "alternate_contact_contactno":"0987654321",
-    "username":"test1",
+    "email":"email210922@gmail.com",
+    "contactno":"2109202211",
+    "dob":"8/22/2022",
+    "alternate_contact_name":"Alternate Name",
+    "alternate_contact_contactno":"2109202212",
+    "username":"twentyone",
     "password":"Emal@123",
     "role":"Student",
-    "total_issued_books":"1"
+    "total_issued_books":"2"
 }
 
 ###Select All 
@@ -24,25 +24,25 @@ GET http://localhost:5000/member/listMembers/
 GET http://localhost:5000/member/listMembersnotdeleted/
 
 ###List member by id
-GET http://localhost:5000/member/listMembersByid/62e92de698c5fe3d11b8ffef
+GET http://localhost:5000/member/listMembersByid/62e8f4daa0669c0d478e8c85
 
 ###Update member
-PATCH http://localhost:5000/member/updatemember/62e92de698c5fe3d11b8ffef
+PATCH http://localhost:5000/member/updatemember/632ac89b5ec8818373039b70
 Content-Type: application/json
 
 {
-    "firstname":"Tommy",
-    "lastname":"vercetti",
-    "total_issued_books":"2"
+    "firstname":"UpdatedName",
+    "lastname":"UpdatedLastName"
+    
 
 }
 ###Softdelete member
-PATCH http://localhost:5000/member/softdeletemember/6312f9adcebb3af0d3c07c90
+PATCH http://localhost:5000/member/softdeletemember/632ac89b5ec8818373039b70
 Content-Type: application/json
 
 
 ### Delete member
-DELETE http://localhost:5000/member/deleteMemberByid/62e92de698c5fe3d11b8ffef
+DELETE http://localhost:5000/member/deleteMemberByid/632ac89b5ec8818373039b70
 
 
 ### Login
@@ -62,13 +62,13 @@ POST http://localhost:5000/category/CategoryInsert/
 Content-Type: application/json
 
 {
-    "category_name":"Testdelete15/09/2022",
-    "description":"hello test"
+    "category_name":"T21/09/2022",
+    "description":"hello test work"
     
 }
 
 ###Selectbyid
-GET http://localhost:5000/category/CategoryById/63049bf653ddae150d23b63f
+GET http://localhost:5000/category/CategoryById/6322cf134aec6f34ac0dd8de
 
 ###Select All 
 GET http://localhost:5000/category/SelectAllCategory
@@ -77,11 +77,11 @@ GET http://localhost:5000/category/SelectAllCategory
 DELETE http://localhost:5000/category/DeleteCategory/63049bf653ddae150d23b63f
 
 ###Update Category
-PATCH http://localhost:5000/category/UpdateCategory/62f222cb49c055900c565d1e
+PATCH http://localhost:5000/category/UpdateCategory/6322cf134aec6f34ac0dd8de
 Content-Type: application/json
 
 {
-    "category_name":"test23/08/22"   
+    "category_name":"test21/09/22"   
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -94,27 +94,61 @@ Content-Type: application/json
 
 {
     
-    "subcategory_name":"17/09/Third",
-    "categoryid":"62f222cb49c055900c565d1e"
+    "subcategory_name":"21/09/22ffffff",
+    "categoryid":"6322c85c4d21070a910e296e",
+    "subcategory_description":"Subcategory Description"
     
 }
 
 ###Selectbyid
-GET http://localhost:5000/subcategory/SubCategoryById/63049bf653ddae150d23b63f
+GET http://localhost:5000/subcategory/SubCategoryById/632acaf5a8ad829d0dba825f
 
 ###Select All 
 GET http://localhost:5000/subcategory/SubSelectAllCategory
 
 ### Delete Category
-DELETE http://localhost:5000/subcategory/SubDeleteCategory/63049bf653ddae150d23b63f
+DELETE http://localhost:5000/subcategory/SubDeleteCategory/632acb1ca8ad829d0dba8261
 
 ###Update Category
-PATCH http://localhost:5000/subcategory/SubUpdateCategory/62f222cb49c055900c565d1e
+PATCH http://localhost:5000/subcategory/SubUpdateCategory/632acb1ca8ad829d0dba8261
 Content-Type: application/json
 
 {
-    "subcategory_name":"test23/08/22"   
+    "subcategory_name":"Updated/08/22"   
 }
 
+###AddBook
 
+###Insert AddBook
+
+POST http://localhost:5000/AddBook/BookInsert
+Content-Type: application/json
+
+{
+    "title":"Book title",
+    "subcategoryid":"63256285b62aa6839defeac8",
+    "ISBN_no":"1234",
+    "edition":"1st",
+    "author":"Monis",
+    "publisher":"Penguin books",
+    "published_on":"07/07/2022",
+    "quantity":"1"
+}
+
+###Selectbyid AddBook
+GET http://localhost:5000/AddBook/SelectBookById/632acaf5a8ad829d0dba825f
+
+###Select All  AddBook
+GET http://localhost:5000/AddBook/SelectAllBooks
+
+### Delete Category AddBook
+DELETE http://localhost:5000/AddBook/DeleteBooks/632acb1ca8ad829d0dba8261
+
+###Update Category AddBook
+PATCH http://localhost:5000/AddBook/UpdateBooks/632acb1ca8ad829d0dba8261
+Content-Type: application/json
+
+{
+    "title":"Updated/08/22"   
+}
 

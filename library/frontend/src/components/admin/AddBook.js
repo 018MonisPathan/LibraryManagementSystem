@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { mockComponent } from 'react-dom/test-utils';
-//import { Link,useNavigate } from 'react-router-dom';
+// import {Outlet} from 'react-router-dom';
 import swal from 'sweetalert';
 import validator from 'validator';
 const { VerifyToken } = require('../AuthGuard');
@@ -321,7 +321,7 @@ const AddBook = () => {
                                 </div>
 
                                 <div className='row mt-3'>
-                                <div className='col-md-4'>
+                                 <div className='col-md-4'>
                                         {/* dateid.max=new
                                         Date().toISOString().split("T")[0]; */}
 

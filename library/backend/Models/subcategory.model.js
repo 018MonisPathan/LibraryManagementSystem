@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const CategoryModel = require('../Models/Category');
-const SubCategorySchema = mongoose.Schema({
+const SubCategorySchema = new mongoose.Schema({
     categoryid: {
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'category' }],
         required: [true,"Category is required"]

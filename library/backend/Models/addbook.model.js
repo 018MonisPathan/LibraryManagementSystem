@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
-const schema = mongoose.Schema(
-    {
+const AddBookschema =new  mongoose.Schema(
+    { 
         title: {
             type: String,
             maxLength: 100,
             required: true
         },
         subcategoryid: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true
+            type:[{ type: mongoose.Schema.Types.ObjectId, ref:'tbl_subcategories'}],
+            required: [true,"Category is required"]
         },
         ISBN_no: {
             type: Number,
@@ -44,7 +44,7 @@ const schema = mongoose.Schema(
         pdf: {
             type: String,
             maxLength: 100,
-            required: true
+            required: false
         },
         bookstatus: {
             type: Boolean,
@@ -60,4 +60,5 @@ const schema = mongoose.Schema(
     { timestamps: true }
 );
 
-module.exports = Book = mongoose.model('tbl_book_details', schema);
+const AddBookModel = mongoose.model('tbl_book_details', AddBookschema);
+module.exports = AddBookModel;

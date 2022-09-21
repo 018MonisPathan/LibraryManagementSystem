@@ -39,6 +39,7 @@ const Login = () => {
                     sessionStorage.setItem("user", JSON.stringify(result.result));
                     sessionStorage.setItem("token", JSON.stringify(result.auth));
                     sessionStorage.setItem("role", JSON.stringify("admin"));
+                    sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
                     swal({
                         title: "Login",
                         text: "Admin Login Successfull!",
@@ -104,11 +105,11 @@ const Login = () => {
         <div className="login">
 
             <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-4">
 
                 </div>
 
-                <div className="col-md-5">
+                <div className="col-md-4 login-div">
                     <div className="login-form">
                         <div className="card">
                             <div className="card-header">

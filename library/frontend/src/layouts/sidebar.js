@@ -4,11 +4,13 @@ const {VerifyToken} = require("../components/AuthGuard");
 
 const Sidebar = () => {
 
-  const [adminauth, setAdminAuth] = useState("");
-  //const adminauth = sessionStorage.getItem("role");
+  // const [adminauth, setAdminAuth] = useState("");
+  // //const adminauth = sessionStorage.getItem("role");
+
+  const [firstname,setFirstname] = useState("");
 
   useEffect(()=>{
-    setAdminAuth(sessionStorage.getItem("role"));
+    setFirstname(sessionStorage.getItem("firstname"));
     //alert(adminauth)
   })
   
@@ -24,19 +26,7 @@ const Sidebar = () => {
         
       </svg>
       
-    </svg><span className="fs-5 fw-semibold">Username</span></a>
-
-    {
-    adminauth ?
-    <>
-      <h1>Login done</h1>
-    </>
-    :
-
-    <>
-      <h1>Login not</h1>
-    </>
-  }
+    </svg><span className="fs-5 fw-semibold">{firstname.replace(/['"]+/g, '')}</span></a>
     
   <ul className="list-unstyled ps-0">
     <li className="mb-1">

@@ -1,12 +1,23 @@
 import { Link } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 const {VerifyToken} = require("../components/AuthGuard");
 
 const Sidebar = () => {
+
+  const [adminauth, setAdminAuth] = useState("");
+  //const adminauth = sessionStorage.getItem("role");
+
+  useEffect(()=>{
+    setAdminAuth(sessionStorage.getItem("role"));
+    //alert(adminauth)
+  })
   
     return(
-       <div className="d-flex flex-column flex-shrink-0 p-3 bg-light  " style={{width: 280, minHeight: '100vh'}}>
-  <a href="/login" className="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+      
+
+       <div className="d-flex flex-column flex-shrink-0 p-3 bg-light  sidebar-div" style={{width: 280, minHeight: '100vh'}}>
+
+  <a href="#" className="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
     <svg className="bi me-4" width={30} height={27}><svg xmlns="http://www.w3.org/2000/svg" width={25} height={25} fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
         <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
@@ -14,7 +25,18 @@ const Sidebar = () => {
       </svg>
       
     </svg><span className="fs-5 fw-semibold">Username</span></a>
-    
+
+    {
+    adminauth ?
+    <>
+      <h1>Login done</h1>
+    </>
+    :
+
+    <>
+      <h1>Login not</h1>
+    </>
+  }
     
   <ul className="list-unstyled ps-0">
     <li className="mb-1">

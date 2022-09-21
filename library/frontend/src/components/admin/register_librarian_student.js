@@ -300,7 +300,7 @@ const RegisterLibrarianStudent = () => {
                                     <div className='col-md-5 textareaAddress' >
                                         <textarea
                                             type='textarea'
-                                            cols={83}
+                                            cols={101}
                                             rows={4}
                                             placeholder='Enter Address'
                                             className='txtaddress'

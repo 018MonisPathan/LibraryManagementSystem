@@ -1,3 +1,5 @@
+/*Registration Form css*/
+
 .registerLibrarianStudent-form {
   width: 800px;
   height: 800px;
@@ -31,6 +33,8 @@
   border-radius: 5px;
 }
 
+/*Login Form css*/
+
 .login{
   overflow-x: hidden;
   width: 100%;
@@ -41,6 +45,14 @@
   height: 500px;
   margin-top: 110px;
 }
+
+.login .login-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*Category and SubCategory Form css*/
 
 .addCategory, .addSubCategory{
   width: 100%;

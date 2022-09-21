@@ -46,6 +46,7 @@ const Login = () => {
                     });
 
                     navigate("/admin/registerlibrarianstudent");
+                    
                 }
 
                 if (result.role === "student") {

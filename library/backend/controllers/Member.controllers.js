@@ -18,12 +18,21 @@ module.exports = {
             //now we set user password to hashed password
             member.password = await bcrypt.hash(member.password, salt);
 
-            const result = await member.save(); //save to insert
+            checkexists_email = await MemberModule.findOne({email: req.body.email});
 
-            if (result) {
-                console.log(result);
-                res.send(JSON.stringify('User Register Successsfully'));
+            if(checkexists_email)
+            {
+                console.log(JSON.stringify("Email Already exists!"));
+                return res.send(JSON.stringify("Email Already exists!"));
+            }else{
+                const result = await member.save(); //save to insert
+    
+                if (result) {
+                    console.log(result);
+                    res.send(JSON.stringify('User Register Successsfully'));
+                }
             }
+
         } catch (error) {
             console.log(error.message);
         }

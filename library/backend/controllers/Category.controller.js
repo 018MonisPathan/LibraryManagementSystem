@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 
 const CategoryModel = require('../Models/Category');
 
-const {check,validationResult} = require('express-validator');
-
 module.exports = {
     insertCategory: async (req, res) => {
         category = new CategoryModel(req.body);

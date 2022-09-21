@@ -36,10 +36,11 @@ function App() {
       <BrowserRouter>
       <Navbar />
       <div style={{display:'flex'}}>
-      <Sidebar />
+          <Sidebar/>
         <Routes>
           <Route element={<PrivateComponentAdmin/>}>
             <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
+
           </Route>
           <Route path='/login' element={<Login />} />
           <Route path='/admin/AddCategory' element={<AddCategory />} />

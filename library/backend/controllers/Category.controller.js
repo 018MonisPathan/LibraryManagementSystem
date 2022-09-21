@@ -6,6 +6,10 @@ module.exports = {
     insertCategory: async (req, res) => {
         category = new CategoryModel(req.body);
 
+        if(!req.body.category_name || !req.body.description){
+            return res.send("Please Fill all the fields");
+        }
+
         checkexists_category = await CategoryModel.findOne({category_name: req.body.category_name});
 
         if(checkexists_category)
@@ -54,6 +58,11 @@ module.exports = {
     },
     updateCategorybyid: async (req, res, next) => {
         try {
+
+            if(!req.body.category_name || !req.body.description){
+                return res.send("Please Fill all the fields");
+            }
+
             const id = req.params.id;
             const updates = req.body;
             const options = {

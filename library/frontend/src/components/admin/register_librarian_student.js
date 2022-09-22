@@ -1,9 +1,9 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { mockComponent } from 'react-dom/test-utils';
 //import { Link,useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import validator from 'validator';
-const {VerifyToken} = require("../AuthGuard");
+const { VerifyToken } = require("../AuthGuard");
 
 const RegisterLibrarianStudent = () => {
     const [firstname, setFirstname] = useState('');
@@ -28,18 +28,18 @@ const RegisterLibrarianStudent = () => {
     const [altcontactnoError, setAltContactnoError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    
-    useEffect(()=>{
-        VerifyToken();
-    },[]);
 
-    const testdisable=()=>{
-        
+    useEffect(() => {
+        VerifyToken();
+    }, []);
+
+    const testdisable = () => {
+
         return new Date().toISOString().split("T")[0];
     }
 
     const collectdata = async () => {
-        
+
         //setTotalissuedbooks(total_issued_books,"0");
 
         console.log(
@@ -168,7 +168,7 @@ const RegisterLibrarianStudent = () => {
 
     //Validate Alternate contact name
     const validateAltContactname = (e) => {
-        var pattern = new RegExp(/[A-Za-z]+/);
+        var pattern = new RegExp(/[A-Za-z ]+/);
         if (!pattern.test(alternate_contact_name)) {
             setAltNameError('Please Enter Valid Alternate Contact Name!');
             return;

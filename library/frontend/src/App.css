@@ -26,6 +26,13 @@
   border-radius: 5px;
 }
 
+.dropdownCategory,.dropdownSubCategory{
+  border: 1px solid #b5b3b3;
+  height: 44px;
+  width: 371px;
+  border-radius: 5px;
+}
+
 .registerLibrarianStudent-form .txtemail, .txtcontactno,.txtdob{
   border: 1px solid #b5b3b3;
   height: 44px;

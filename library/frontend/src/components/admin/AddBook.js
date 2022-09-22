@@ -72,7 +72,7 @@ const AddBook = () => {
             return false;
         }
 
-        let result = await fetch('http://localhost:5000/member/register', {
+        let result = await fetch('http://localhost:5000/AddBook/BookInsert', {
             method: 'post',
             body: JSON.stringify({
                 title,
@@ -143,8 +143,8 @@ const AddBook = () => {
     };
 
     const validateISBNno = (e) => {
-        var pattern = new RegExp(/[0-9]+/);
-        if (!pattern.test(publisher)) {
+        var pattern = new RegExp(/^[0-9]+$/);
+        if (!pattern.test(isbnno)) {
             setISBNnoError('Please Enter Valid ISBNno!');
             return;
         } else {
@@ -152,7 +152,7 @@ const AddBook = () => {
         }
     };
     const validateEdition = (e) => {
-        var pattern = new RegExp(/[A-Za-z ]+/);
+        var pattern = new RegExp(/^[a-zA-Z0-9 ]*$/);
         if (!pattern.test(edition)) {
             setEditionError('Please Enter Valid ISBNno!');
             return;
@@ -172,7 +172,7 @@ const AddBook = () => {
     };
 
     const validateQuantity = (e) => {
-        var pattern = new RegExp(/[0-9]+/);
+        var pattern = new RegExp(/^[0-9]+$/);
         if (!pattern.test(quantitity)) {
             setQuantitityError('Please Enter Valid Publisedon!');
             return;
@@ -205,15 +205,17 @@ const AddBook = () => {
                             <div className='card-body'>
                                 <div className='row mt-3'>
                                     <div className='col-md-4'>
+
                                         <input
                                             type='text'
                                             placeholder='Enter Title'
                                             className='txtemail'
                                             title='Enter Title'
                                             value={title}
-                                            onChange={(e) =>
-                                                setTitle(e.target.value)
-                                            }
+                                            onChange={(e) =>{
+                                                setTitle(e.target.value);
+                                                validateTitle();
+                                            }}
                                             required
                                         />
 
@@ -249,9 +251,10 @@ const AddBook = () => {
                                             className='txtemail'
                                             title='Enter Author'
                                             value={author}
-                                            onChange={(e) =>
-                                                setAuthor(e.target.value)
-                                            }
+                                            onChange={(e) =>{
+                                                setAuthor(e.target.value);
+                                                validateAuthor();
+                                            }}
                                             required
                                         />
 
@@ -286,9 +289,10 @@ const AddBook = () => {
                                             className='txtemail'
                                             title='Enter Publisher'
                                             value={publisher}
-                                            onChange={(e) =>
-                                                setPublisher(e.target.value)
-                                            }
+                                            onChange={(e) =>{
+                                                setPublisher(e.target.value);
+                                                validatePublisher();
+                                            }}
                                             required
                                         />
 
@@ -316,21 +320,19 @@ const AddBook = () => {
                                             </span>
                                         )}
                                     </div>
-
-                                    
                                 </div>
 
                                 <div className='row mt-3'>
-                                 <div className='col-md-4'>
+                                    <div className='col-md-auto'>
                                         {/* dateid.max=new
                                         Date().toISOString().split("T")[0]; */}
 
                                         <select
-                                            className='ddlrole'
+                                            className=' dropdownCategory'
                                             value={category}
-                                            onChange={(e) =>
-                                                setCategory(e.target.value)
-                                            }
+                                            onChange={(e) =>{
+                                                setCategory(e.target.value);
+                                            }}
                                         >
                                             <option value={'librarian'}>
                                                 Category
@@ -353,13 +355,13 @@ const AddBook = () => {
                                         )}
                                     </div>
 
-                                    <div className='col-md-6'>
+                                    <div className='col-md-auto'>
                                         <select
-                                            className='ddlrole'
+                                            className='dropdownSubCategory'
                                             value={subcategory}
-                                            onChange={(e) =>
-                                                setSubcCategory(e.target.value)
-                                            }
+                                            onChange={(e) =>{
+                                                setSubcCategory(e.target.value);
+                                            }}
                                         >
                                             <option value={'librarian'}>
                                                 Subcategory
@@ -391,8 +393,9 @@ const AddBook = () => {
                                             </span>
                                         )}
                                     </div>
-
-                                    <div className='col-md-6'>
+                                </div>
+                                <div className='row mt-3'>
+                                    <div className='col-md-4'>
                                         <input
                                             type='number'
                                             placeholder='Enter ISBN no'
@@ -430,8 +433,6 @@ const AddBook = () => {
                                             </span>
                                         )}
                                     </div>
-                                </div>
-                                <div className='row mt-3'>
                                     <div className='col-md-4'>
                                         <input
                                             type='text'
@@ -439,9 +440,10 @@ const AddBook = () => {
                                             className='txtemail'
                                             title='Enter Edition'
                                             value={edition}
-                                            onChange={(e) =>
-                                                setEdition(e.target.value)
-                                            }
+                                            onChange={(e) =>{
+                                                setEdition(e.target.value);
+                                                validateEdition();
+                                            }}
                                             required
                                         />
 
@@ -490,11 +492,12 @@ const AddBook = () => {
                                                     color: 'red'
                                                 }}
                                             >
-                                                Please fill out this field!
+                                                Published On Date!
                                             </span>
                                         )}
                                     </div>
-
+                                </div>
+                                <div className='row mt-3'>
                                     <div className='col-md-4'>
                                         {/* dateid.max=new
                                         Date().toISOString().split("T")[0]; */}
@@ -505,11 +508,21 @@ const AddBook = () => {
                                             className='txtemail'
                                             title='Enter Quantity'
                                             value={quantitity}
-                                            onChange={(e) =>
-                                                setEdition(e.target.value)
-                                            }
+                                            onChange={(e) =>{
+                                                setQuantitity(e.target.value);
+                                                validateQuantity();
+                                            }}
                                             required
                                         />
+                                        <span
+                                            className='invalid-input'
+                                            style={{
+                                                fontWeight: 'bold',
+                                                color: 'red'
+                                            }}
+                                        >
+                                            {quantitityError}
+                                        </span>
                                         {error && !quantitity && (
                                             <span
                                                 className='invalid-input'
@@ -522,17 +535,16 @@ const AddBook = () => {
                                             </span>
                                         )}
                                     </div>
-                                </div>
-                                <div className='row mt-3'>
                                     <div className='col-md-6'>
                                         <input
                                             type='file'
                                             className='txtusername'
                                             title='Enter PDF'
                                             value={pdf}
-                                            onChange={(e) =>
-                                                setPDF(e.target.value)
-                                            }
+                                            onChange={(e) =>{
+                                                setPDF(e.target.value);
+                                                validatePDF();
+                                            }}
                                             required
                                         />
 

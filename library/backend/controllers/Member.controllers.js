@@ -48,7 +48,7 @@ module.exports = {
                 '-password',
                 '-__v'
             ]);
-            res.send({ result: result });
+            res.send({ data: result });
             console.log(result);
         } catch (err) {
             console.log(err.message);
@@ -60,7 +60,7 @@ module.exports = {
                 '-password',
                 '-__v'
             ]);
-            res.send({ result: result });
+            res.send({ data: result });
             console.log(result);
         } catch (err) {
             console.log(err.message);

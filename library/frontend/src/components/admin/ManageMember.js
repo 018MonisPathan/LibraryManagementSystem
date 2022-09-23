@@ -2,28 +2,28 @@ import React, { useState, useEffect } from 'react';
 
 const { VerifyToken } = require('../AuthGuard');
 
-const ManageCategory = () => {
+const ManageMember = () => {
 
-    const[category,setCategory] = useState("");
+    const [member, setMember] = useState("");
 
     useEffect(()=>{
         VerifyToken();
-        getAllCategory();
+        getAllMember();
     },[])
 
-    //Get All Category
+    //Get All Member
 
-    const getAllCategory = async () =>{
+    const getAllMember = async () =>{
         try{
-            let result = await fetch("http://localhost:5000/category/SelectAllCategory");
+            let result = await fetch("http://localhost:5000/member/listMembers/");
 
             result = await result.json();
 
             //return console.log(result.data);
 
-            if(result)
+            if(result.data)
             {
-                setCategory(result.data);
+                setMember(result.data);
             }else{
                 console.log("Something went wrong");
             }
@@ -35,21 +35,21 @@ const ManageCategory = () => {
     return(
         <div className="managecategory container">
 
-        <div className="breadcrumb-div breadcrumb-wrap bg-spring mb-4">
+            <div className="breadcrumb-div breadcrumb-wrap bg-spring mb-4">
                 <img className="breadcrumbimg" src={process.env.PUBLIC_URL + "/image/breadcrumb_img1.jpg"} alt="breadcrumb image" height={130} width={1210} />
 
                 <div class="breadcrumb-title bottom-left">
-                    <h2>Manage Category</h2>
+                    <h2>Manage Member</h2>
                     <ul class="breadcrumb">
-                        <li className="breadcrumb-item">Category</li>
-                        <li className="breadcrumb-item">ManageCategory</li>
+                        <li className="breadcrumb-item">Member</li>
+                        <li className="breadcrumb-item">ManageMember</li>
                     </ul>
                 </div>
             </div>
 
             <div className="card">
                 <div className="card-header">
-                    Manage Category
+                    Manage Member
                 </div>
 
                 <div className="card-body">
@@ -58,8 +58,14 @@ const ManageCategory = () => {
                         <thead>
                             <tr>
                                 <th>SR No.</th>
-                                <th>Category Name</th>
-                                <th>Category Description</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Address</th>
+                                <th>Email</th>
+                                <th>Contactno</th>
+                                <th>Alternate Contact name</th>
+                                <th>Alternate Contact number</th>
+                                <th>Username</th>
                                 <center>
                                     <th>Option</th>
                                 </center>
@@ -68,11 +74,17 @@ const ManageCategory = () => {
                         
                         <tbody>
                         {
-                                            category.length > 0 ? category.map((item, index) => (
+                                            member.length > 0 ? member.map((item, index) => (
                                                 <tr key={item._id}>
-                                                    <th scope="row" style={{width: "8%"}}>{index + 1}</th>
-                                                    <td style={{width: "20%"}}>{item.category_name}</td>
-                                                    <td style={{width: "50%"}}>{item.description}</td>
+                                                    <th scope="row">{index + 1}</th>
+                                                    <td style={{width: "12%"}}>{item.firstname}</td>
+                                                    <td style={{width: "12%"}}>{item.lastname}</td>
+                                                    <td style={{width: "18%"}}>{item.address}</td>
+                                                    <td style={{width: "11%"}}>{item.email}</td>
+                                                    <td style={{width: "9%"}}>{item.contactno}</td>
+                                                    <td style={{width: "12%"}}>{item.alternate_contact_name}</td>
+                                                    <td style={{width: "11%"}}>{item.alternate_contact_contactno}</td>
+                                                    <td style={{width: "11%"}}>{item.username}</td>
                                                     <td style={{width: "8%"}}>
                                                         <center>
                                                             <i className="fa fa-trash" style={{ marginRight: 10, color: "#3f6ad" }} />
@@ -92,4 +104,4 @@ const ManageCategory = () => {
     )
 }
 
-export default ManageCategory;
+export default ManageMember;

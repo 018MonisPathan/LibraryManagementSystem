@@ -3,12 +3,31 @@ const mongoose = require('mongoose');
 const SubCategoryModel = require('../Models/subcategory.model');
 module.exports = {
     insertSubCategory: async (req, res) => {
-        category = new SubCategoryModel(req.body);
-        const result = await category.save();
-        if (result) {
-            // console.log(result);
-            res.send(JSON.stringify('SubCategory Registered Successsfully'));
+        try{
+            category = new SubCategoryModel(req.body);
+    
+            if(!req.body.categoryid || !req.body.subcategory_name || !req.body.subcategory_description){
+                return res.send("Please Fill all the fields");
+            }
+    
+            checkexists_subcategory = await SubCategoryModel.findOne({subcategory_name: req.body.subcategory_name});
+    
+            if(checkexists_subcategory)
+            {
+                console.log(JSON.stringify("SubCategory Already exists!"));
+                return res.send(JSON.stringify("SubCategory Already exists!"));
+            }else{
+    
+                const result = await category.save();
+                if (result) {
+                    // console.log(result);
+                    res.send(JSON.stringify('SubCategory Registered Successsfully'));
+                }
+            }
+        }catch(err){
+            console.log(err.message);
         }
+
     },
     selectSubCategoryByID: async (req, res) => {
         try {

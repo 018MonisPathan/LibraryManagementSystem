@@ -111,15 +111,25 @@ const RegisterLibrarianStudent = () => {
 
         console.log(result);
 
-        if (result) {
+        if(result === "Email Already exists!")
+        {
+            swal({
+                title: 'Registration',
+                text: 'Email Already Exists!',
+                icon: 'warning'
+            });
+        }else{
             swal({
                 title: 'Registration',
                 text: 'Registration Successfully!',
                 icon: 'success'
             });
+            localStorage.setItem('user', JSON.stringify(result.result)); //Used to store data in local storage.(It will remain until you remove menually.)
         }
 
-        localStorage.setItem('user', JSON.stringify(result.result)); //Used to store data in local storage.(It will remain until you remove menually.)
+        // if (result) {
+        // }
+
         // localStorage.setItem("token",JSON.stringify(result.auth));
     };
 
@@ -191,7 +201,7 @@ const RegisterLibrarianStudent = () => {
     //Validate Password
     const validatePassword = (e) => {
         var pattern = new RegExp(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/
         );
         if (!pattern.test(password)) {
             setPasswordError(

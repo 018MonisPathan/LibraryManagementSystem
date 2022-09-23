@@ -50,8 +50,14 @@ const AddSubCategory = () => {
         result = await result.json();
 
         console.log(result);
-        if(result)
-        {
+
+        if (result === 'SubCategory Already exists!') {
+            swal({
+                title: 'Add SubCategory',
+                text: 'SubCategory Already exists!',
+                icon: 'warning'
+            });
+        } else {
             swal({
                 title: 'Add SubCategory',
                 text: 'SubCategory Added Successfully!',

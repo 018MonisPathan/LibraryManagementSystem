@@ -31,7 +31,6 @@ const Navbar = () => {
         {
           adminauth ?
             <>
-              <Link to='/admin/registerlibrarianstudent' className="nav-link">Add Librarian & Student</Link>
               <Link to='/login' className="nav-link" onClick={logout}>Logout</Link>
             </>
           :

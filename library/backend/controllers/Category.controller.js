@@ -31,7 +31,7 @@ module.exports = {
 
             if (result) {
                 console.log(result);
-                res.send({ result: result });
+                res.send({ data: result });
             } else {
                 res.send('Not found');
                 return;

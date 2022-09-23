@@ -25,6 +25,9 @@ import ManageCategory from './components/admin/ManageCategory';
 //Import ManageSubCategory
 import ManageSubCategory from './components/admin/ManageSubCategory';
 
+//Import ManageMember
+import ManageMember from './components/admin/ManageMember';
+
 //import private component for admin
 import PrivateComponentAdmin from './components/privateComponentAdmin';
 
@@ -46,6 +49,7 @@ function App() {
             <Route path='/admin/AddBook' element={<AddBook />} />
             <Route path='/admin/ManageCategory' element={<ManageCategory />} />
             <Route path='/admin/ManageSubCategory' element={<ManageSubCategory />} />
+            <Route path='/admin/ManageMember' element={<ManageMember/>}/>
           </Route>
           
           <Route path='/login' element={<Login />} />

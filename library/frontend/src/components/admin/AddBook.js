@@ -10,11 +10,12 @@ const AddBook = () => {
     const [author, setAuthor] = useState('');
     const [publisher, setPublisher] = useState('');
     const [category, setCategory] = useState('');
-    const [subcategory, setSubcCategory] = useState('');
-    const [isbnno, setISBNno] = useState('');
+    const [subcategory, setSubCategory] = useState('');
+    const [subcategoryid, setSubCategoryID] = useState('');
+    const [ISBN_no, setISBNno] = useState('');
     const [edition, setEdition] = useState('');
-    const [publishedon, setPublishedon] = useState('');
-    const [quantitity, setQuantitity] = useState('');
+    const [published_on, setPublishedon] = useState('');
+    const [quantity, setQuantitity] = useState('');
     const [pdf, setPDF] = useState('');
 
     const [error, setError] = useState(false);
@@ -29,8 +30,13 @@ const AddBook = () => {
     const [quantitityError, setQuantitityError] = useState('');
     const [pdfError, setPDFError] = useState('');
 
+   // const [categoryid,setCategoryid] = useState("");
+    
+    const [subcategorystatus,setSubcategorystatus] = useState(true);
+
     useEffect(() => {
         VerifyToken();
+        getcategoryname();
     }, []);
 
     const collectdata = async () => {
@@ -38,14 +44,13 @@ const AddBook = () => {
 
         console.log(
             title,
+            subcategoryid,
+            ISBN_no,
+            edition,
             author,
             publisher,
-            category,
-            subcategory,
-            isbnno,
-            edition,
-            publishedon,
-            quantitity,
+            published_on,
+            quantity,
             pdf
         );
 
@@ -58,14 +63,13 @@ const AddBook = () => {
 
         if (
             !title ||
+            !subcategoryid ||
+            !ISBN_no ||
+            !edition ||
             !author ||
             !publisher ||
-            !category ||
-            !subcategory ||
-            !isbnno ||
-            !edition ||
-            !publishedon ||
-            !quantitity ||
+            !published_on ||
+            !quantity ||
             !pdf
         ) {
             setError(true);
@@ -76,14 +80,13 @@ const AddBook = () => {
             method: 'post',
             body: JSON.stringify({
                 title,
+                subcategoryid,
+                ISBN_no,
+                edition,
                 author,
                 publisher,
-                category,
-                subcategory,
-                isbnno,
-                edition,
-                publishedon,
-                quantitity,
+                published_on,
+                quantity,
                 pdf
             }),
             headers: {
@@ -143,9 +146,9 @@ const AddBook = () => {
     };
 
     const validateISBNno = (e) => {
-        var pattern = new RegExp(/^[0-9]+$/);
-        if (!pattern.test(isbnno)) {
-            setISBNnoError('Please Enter Valid ISBNno!');
+        var pattern = new RegExp(/^[0-9]{13}$/);
+        if (!pattern.test(ISBN_no)) {
+            setISBNnoError('Please Enter Valid ISBNno (13 digits)!');
             return;
         } else {
             setISBNnoError('');
@@ -163,7 +166,7 @@ const AddBook = () => {
 
     const validatePublishedon = (e) => {
         var pattern = new RegExp(/[A-Za-z ]+/);
-        if (!pattern.test(publishedon)) {
+        if (!pattern.test(published_on)) {
             setPublishedonError('Please Enter Valid Publisedon!');
             return;
         } else {
@@ -173,7 +176,7 @@ const AddBook = () => {
 
     const validateQuantity = (e) => {
         var pattern = new RegExp(/^[0-9]+$/);
-        if (!pattern.test(quantitity)) {
+        if (!pattern.test(quantity)) {
             setQuantitityError('Please Enter Valid Publisedon!');
             return;
         } else {
@@ -191,6 +194,37 @@ const AddBook = () => {
         }
     };
 
+    //Get Categoryname
+    const getcategoryname = async () => {
+        let result = await fetch("http://localhost:5000/category/SelectAllCategory");
+
+        result = await result.json();
+
+        //console.info(result.data);
+        setCategory(result.data);
+    };
+
+     //Get Categoryname
+     const getsubcategorynameby_cateagoryid = async (categoryid) => {
+       
+        let result = await fetch(`http://localhost:5000/subcategory/selectSubcategoryByCategoryID/${categoryid}`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        result = await result.json();
+
+        //console.info(result.data);
+        setSubCategory(result.data);
+    }
+    const onchangeHandel = (e) => {
+        
+        //setCategoryid(e.target.value);
+        setSubcategorystatus(false);
+        getsubcategorynameby_cateagoryid(e.target.value);
+    };
     return (
         <div className='registerLibrarianStudent'>
             <div className='row'>
@@ -205,14 +239,13 @@ const AddBook = () => {
                             <div className='card-body'>
                                 <div className='row mt-3'>
                                     <div className='col-md-4'>
-
                                         <input
                                             type='text'
                                             placeholder='Enter Title'
                                             className='txtemail'
                                             title='Enter Title'
                                             value={title}
-                                            onChange={(e) =>{
+                                            onChange={(e) => {
                                                 setTitle(e.target.value);
                                                 validateTitle();
                                             }}
@@ -251,7 +284,7 @@ const AddBook = () => {
                                             className='txtemail'
                                             title='Enter Author'
                                             value={author}
-                                            onChange={(e) =>{
+                                            onChange={(e) => {
                                                 setAuthor(e.target.value);
                                                 validateAuthor();
                                             }}
@@ -289,7 +322,7 @@ const AddBook = () => {
                                             className='txtemail'
                                             title='Enter Publisher'
                                             value={publisher}
-                                            onChange={(e) =>{
+                                            onChange={(e) => {
                                                 setPublisher(e.target.value);
                                                 validatePublisher();
                                             }}
@@ -326,20 +359,30 @@ const AddBook = () => {
                                     <div className='col-md-auto'>
                                         {/* dateid.max=new
                                         Date().toISOString().split("T")[0]; */}
-
                                         <select
-                                            className=' dropdownCategory'
-                                            value={category}
-                                            onChange={(e) =>{
-                                                setCategory(e.target.value);
+                                            className='dropdownCategory'
+                                            onChange={(e) => {
+                                                onchangeHandel(e);
                                             }}
                                         >
-                                            <option value={'librarian'}>
-                                                Category
+                                            <option value={0}>
+                                                Select Category
                                             </option>
-                                            <option value={'student'}>
-                                                student
-                                            </option>
+
+                                            {category.length > 0 ? (
+                                                category.map((item, index) => (
+                                                    <option
+                                                        key={item._id}
+                                                        value={item._id}
+                                                    >
+                                                        {item.category_name}
+                                                    </option>
+                                                ))
+                                            ) : (
+                                                <option value={0}>
+                                                    No Records Founds!
+                                                </option>
+                                            )}
                                         </select>
 
                                         {error && !category && (
@@ -358,17 +401,30 @@ const AddBook = () => {
                                     <div className='col-md-auto'>
                                         <select
                                             className='dropdownSubCategory'
-                                            value={subcategory}
-                                            onChange={(e) =>{
-                                                setSubcCategory(e.target.value);
+                                            value={subcategoryid}
+                                            disabled={subcategorystatus}
+                                            onChange={(e) => {
+                                                setSubCategoryID(e.target.value);
                                             }}
                                         >
-                                            <option value={'librarian'}>
-                                                Subcategory
+                                            <option value={0}>
+                                                Select SubCategory
                                             </option>
-                                            <option value={'student'}>
-                                                student
-                                            </option>
+
+                                            {subcategory.length > 0 ? (
+                                                subcategory.map((item, index) => (
+                                                    <option
+                                                        key={item._id}
+                                                        value={item._id}
+                                                    >
+                                                        {item.subcategory_name}
+                                                    </option>
+                                                ))
+                                            ) : (
+                                                <option value={0}>
+                                                    No Records Founds!
+                                                </option>
+                                            )}
                                         </select>
 
                                         {/* print invalid input message */}
@@ -400,13 +456,16 @@ const AddBook = () => {
                                             type='number'
                                             placeholder='Enter ISBN no'
                                             className='txtemail'
-                                            value={isbnno}
+                                            value={ISBN_no}
                                             onChange={(e) => {
                                                 setISBNno(e.target.value);
                                                 validateISBNno();
                                             }}
                                             title='Enter ISBN no'
                                             required
+                                            min={0}
+                                            
+                                           
                                         />
 
                                         {/* print invalid input message */}
@@ -421,7 +480,7 @@ const AddBook = () => {
                                         </span>
 
                                         {/* print empty field message */}
-                                        {error && !isbnno && (
+                                        {error && !ISBN_no && (
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -440,7 +499,7 @@ const AddBook = () => {
                                             className='txtemail'
                                             title='Enter Edition'
                                             value={edition}
-                                            onChange={(e) =>{
+                                            onChange={(e) => {
                                                 setEdition(e.target.value);
                                                 validateEdition();
                                             }}
@@ -477,14 +536,14 @@ const AddBook = () => {
                                             id='dateid'
                                             type='date'
                                             className='txtdob'
-                                            value={publishedon}
+                                            value={published_on}
                                             onChange={(e) =>
                                                 setPublishedon(e.target.value)
                                             }
                                             required
                                             max={testdisable()}
                                         />
-                                        {error && !publishedon && (
+                                        {error && !published_on && (
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -507,12 +566,13 @@ const AddBook = () => {
                                             placeholder='Enter Quantity'
                                             className='txtemail'
                                             title='Enter Quantity'
-                                            value={quantitity}
-                                            onChange={(e) =>{
+                                            value={quantity}
+                                            onChange={(e) => {
                                                 setQuantitity(e.target.value);
                                                 validateQuantity();
                                             }}
                                             required
+                                            min={0}
                                         />
                                         <span
                                             className='invalid-input'
@@ -523,7 +583,7 @@ const AddBook = () => {
                                         >
                                             {quantitityError}
                                         </span>
-                                        {error && !quantitity && (
+                                        {error && !quantity && (
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -541,7 +601,7 @@ const AddBook = () => {
                                             className='txtusername'
                                             title='Enter PDF'
                                             value={pdf}
-                                            onChange={(e) =>{
+                                            onChange={(e) => {
                                                 setPDF(e.target.value);
                                                 validatePDF();
                                             }}

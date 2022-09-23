@@ -68,7 +68,7 @@ Content-Type: application/json
 }
 
 ###Selectbyid
-GET http://localhost:5000/category/CategoryById/6322cf134aec6f34ac0dd8de
+GET http://localhost:5000/category/CategoryById/62f222cb49c055900c565d1e
 
 ###Select All 
 GET http://localhost:5000/category/SelectAllCategory
@@ -102,6 +102,14 @@ Content-Type: application/json
 
 ###Selectbyid
 GET http://localhost:5000/subcategory/SubCategoryById/632acaf5a8ad829d0dba825f
+
+###SelectBycategoryID
+GET http://localhost:5000/subcategory/selectSubcategoryByCategoryID/
+Content-Type: application/json
+
+{
+    "categoryid":"62f222cb49c055900c565d1e"   
+}
 
 ###Select All 
 GET http://localhost:5000/subcategory/SubSelectAllCategory

@@ -29,15 +29,30 @@ module.exports = {
         }
 
     },
+    selectSubcategoryByCategoryID:async(req,res)=>{
+        try {
+        const result=await SubCategoryModel.find({categoryid:req.params.categoryid});
+
+         if (result) {
+            console.log(result);
+            res.send({ data: result });
+        } else {
+            res.send(JSON.stringify('Not record found'));
+            return;
+        }
+    } catch (err) {
+        console.log(err.message);
+    }
+    },
     selectSubCategoryByID: async (req, res) => {
         try {
             const result = await SubCategoryModel.findById(req.params.id);
 
             if (result) {
                 console.log(result);
-                res.send({ result: result });
+                res.send({ data: result });
             } else {
-                res.send('Not record found');
+                res.send(JSON.stringify('Not record found'));
                 return;
             }
         } catch (err) {

@@ -10,12 +10,12 @@ const schema = new mongoose.Schema(
         lastname: {
             type: String,
             maxLength: 35,
-            required: false
+            required: [true, 'lastname required']
         },
         address: {
             type: String,
             maxLength: 100,
-            required: false
+            required: [true, 'address required']
         },
         email: {
             type: String,
@@ -25,40 +25,39 @@ const schema = new mongoose.Schema(
                 'Invalid Email Address'
             ],
             unique: true,
-            required: false
+            required: [true, 'email required']
         },
         contactno: {
             type: Number,
             minLength: 10,
             maxLength: 10,
-            required: false,
+            required: [true, 'contactno required'],
             unique: true,
             match: [/^[789]\d{9}$/, 'Please Fill a valid Contact Number']
         },
         dob: {
             type: Date,
             max: Date.now,
-            required: false
+            required: [true, 'dob required']
         },
         alternate_contact_name: {
             type: String,
             maxLength: 70,
-            required: false
+            required: [true, 'alternate_contact_name required']
         },
         alternate_contact_contactno: {
             type: Number,
             minLength: 10,
             maxLength: 10,
-            required: false,
+            required: [true, 'alternate_contact_contactno required'],
             unique: true,
             match: [/^[789]\d{9}$/, 'Please Fill a valid Contact Number']
         },
         username: {
             type: String,
             unique: true,
-
             maxLength: 15,
-            required: false
+            required: [true, 'username required']
         },
         password: {
             type: String,
@@ -66,11 +65,11 @@ const schema = new mongoose.Schema(
             //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
             //     'Password must contain 1 number,1 uppercase and lowercase letter and 1 special character'
             // ],
-            required: false
+            required: [true, 'password required']
         },
         role: {
             type: String,
-            required: false
+            required: [true, 'role required']
         },
         total_issued_books: {
             type: Number,

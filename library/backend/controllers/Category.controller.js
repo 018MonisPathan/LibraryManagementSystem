@@ -59,10 +59,6 @@ module.exports = {
     updateCategorybyid: async (req, res, next) => {
         try {
 
-            if(!req.body.category_name || !req.body.description){
-                return res.send("Please Fill all the fields");
-            }
-
             const id = req.params.id;
             const updates = req.body;
             const options = {

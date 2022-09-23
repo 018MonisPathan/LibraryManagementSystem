@@ -12,6 +12,11 @@ module.exports = {
             // if(!req.body.firstname){return res.send("No first name")}
             const member = new MemberModule(req.body); //Constructer to moodel
 
+            if(!req.body.firstname || !req.body.lastname || !req.body.address || !req.body.email || !req.body.contactno || !req.body.dob || !req.body.alternate_contact_name || !req.body.alternate_contact_contactno || !req.body.username || !req.body.password || !req.body.role)
+            {
+                return res.send("Please Fill all the fields");
+            }
+
             //Generate salt to hash the password
             const salt = await bcrypt.genSalt(10);
 
@@ -95,6 +100,7 @@ module.exports = {
             const options = {
                 new: true
             };
+            
             const result = await MemberModule.findByIdAndUpdate(
                 id,
                 updates,

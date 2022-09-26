@@ -15,7 +15,16 @@ const ManageCategory = () => {
 
     const getAllCategory = async () =>{
         try{
-            let result = await fetch("http://localhost:5000/category/SelectAllCategory");
+
+            let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+
+            //return console.log(token.replace(/['"]+/g, ''));
+
+            let result = await fetch("http://localhost:5000/category/SelectAllCategory",{
+                headers:{
+                    "authorization": token
+                }
+            });
 
             result = await result.json();
 

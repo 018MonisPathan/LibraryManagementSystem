@@ -2,9 +2,26 @@ const mongoose = require('mongoose');
 
 const AddBookModel = require('../Models/addbook.model');
 
+
 module.exports = {
     insertBook: async (req, res) => {
-        book = new AddBookModel(req.body);
+
+        const path = req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
+
+        var model = {
+            title: req.body.title,
+            subcategoryid: req.body.subcategoryid,
+            ISBN_no: req.body.ISBN_no,
+            edition: req.body.edition,
+            author: req.body.author,
+            publisher: req.body.publisher,
+            published_on: req.body.published_on,
+            quantity: req.body.quantity,
+            pdf: path != "" ? "/" + path : ""
+        };
+
+        book = new AddBookModel(model);        
+
         console.log('insert book controller');
         checkexists_title = await AddBookModel.findOne({
             title: req.body.title

@@ -54,22 +54,28 @@ const Login = () => {
                     sessionStorage.setItem("user", JSON.stringify(result.result));
                     sessionStorage.setItem("token", JSON.stringify(result.auth));
                     sessionStorage.setItem("role", JSON.stringify("student"));
+                    sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
                     swal({
                         title: "Login",
                         text: "Student Login Successfull!",
                         icon: "success",
                     });
+
+                    navigate("/admin/registerlibrarianstudent");
                 }
 
                 if (result.role === "librarian") {
                     sessionStorage.setItem("user", JSON.stringify(result.result));
                     sessionStorage.setItem("token", JSON.stringify(result.auth));
                     sessionStorage.setItem("role", JSON.stringify("librarian"));
+                    sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
                     swal({
                         title: "Login",
                         text: "Librarian Login Successfull!",
                         icon: "success",
                     });
+
+                    
                 }
             } else {
                 swal({

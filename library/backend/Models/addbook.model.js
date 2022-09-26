@@ -43,7 +43,6 @@ const AddBookschema =new  mongoose.Schema(
         },
         pdf: {
             type: String,
-            maxLength: 100,
             required: false
         },
         bookstatus: {

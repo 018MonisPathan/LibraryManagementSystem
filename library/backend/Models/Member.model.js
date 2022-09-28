@@ -71,15 +71,14 @@ const schema = new mongoose.Schema(
             type: String,
             required: [true, 'role required']
         },
-        total_issued_books: {
-            type: Number,
-            required: false,
-            default: 0
-        },
         deleted_at: {
             type: Date,
             required: false,
             default: null
+        },
+        flag:{
+            type: Number,
+            default: 1
         }
     },
     { timestamps: true }

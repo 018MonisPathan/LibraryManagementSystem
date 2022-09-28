@@ -53,7 +53,7 @@ module.exports = {
     },
     selectallBooks: async (req, res, next) => {
         try {
-            const result = await AddBookModel.find();
+            const result = await AddBookModel.find().populate("subcategoryid","subcategory_name");
 
             if(result)
             {

@@ -4,6 +4,7 @@ import Sidebar from '../layouts/sidebar';
 // Private Route OR Private Component
 
 const PrivateComponentAdmin = () => {
+    //console.log("private");
     const auth = sessionStorage.getItem('role');
      return auth ? <><Sidebar/><Outlet/></> : <Navigate to="/login" />
 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const SettingsSchema = new mongoose.Schema({
-    panalty_amount: {
+    penalty_amount: {
         type: Number,
         required: true
     },
@@ -16,6 +16,9 @@ const SettingsSchema = new mongoose.Schema({
         type: Number,
         required: true
     }
-});
+},
+{ timestamps: true });
+const Settings = mongoose.model('tbl_settings', SettingsSchema);
+module.exports = Settings;
 
-module.exports = Book = mongoose.model('settings', SettingsSchema);
+

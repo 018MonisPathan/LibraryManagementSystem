@@ -85,7 +85,7 @@ const RegisterLibrarianStudent = () => {
             setEmailError('Please Enter valid email!');
             return;
         }
-
+        let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
         let result = await fetch('http://localhost:5000/member/register', {
             method: 'post',
             body: JSON.stringify({
@@ -103,7 +103,8 @@ const RegisterLibrarianStudent = () => {
                 total_issued_books
             }),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "authorization": token
             }
         });
 

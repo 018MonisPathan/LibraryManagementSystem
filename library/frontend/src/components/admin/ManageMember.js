@@ -15,7 +15,12 @@ const ManageMember = () => {
 
     const getAllMember = async () =>{
         try{
-            let result = await fetch("http://localhost:5000/member/listMembers/");
+            let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            let result = await fetch("http://localhost:5000/member/listMembers/",{
+                headers:{
+                    "authorization": token
+                }
+            });
 
             result = await result.json();
 

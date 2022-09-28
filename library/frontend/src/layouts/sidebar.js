@@ -72,7 +72,7 @@ const Sidebar = () => {
       </button>
       <div className="collapse" id="book-collapse">
         <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" className="link-dark rounded">View</a></li>
+        <li><Link to='/admin/ManageBook' className="link-dark rounded">Manage Book</Link></li>
           <li><Link to='/admin/AddBook' className="link-dark rounded">Add Book</Link></li>
           <li><a href="#" className="link-dark rounded">View Deleted</a></li>
         </ul>

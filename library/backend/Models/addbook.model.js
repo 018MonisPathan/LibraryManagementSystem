@@ -8,8 +8,8 @@ const AddBookschema =new  mongoose.Schema(
             required: true
         },
         subcategoryid: {
-            type:[{ type: mongoose.Schema.Types.ObjectId, ref:'tbl_subcategories'}],
-            required: [true,"Category is required"]
+            type:[{ type: mongoose.Schema.Types.ObjectId, ref:'tbl_subcategory'}],
+            required: [true,"SubCategory is required"]
         },
         ISBN_no: {
             type: Number,

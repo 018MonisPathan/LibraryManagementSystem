@@ -91,7 +91,7 @@
   border-radius: 2px;
 }
 
-.managecategory, .managesubcategory {
+.managecategory, .managesubcategory,.managebook {
   width: 100%;
   align-items: center;
   justify-content: center;

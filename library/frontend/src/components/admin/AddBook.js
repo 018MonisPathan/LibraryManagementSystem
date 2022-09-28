@@ -599,7 +599,7 @@ const AddBook = () => {
                                         <input
                                             type='file'
                                             className='txtusername'
-                                            title='Enter PDF'
+                                            title='Select PDF'
                                             value={pdf}
                                             onChange={(e) => {
                                                 setPDF(e.target.value);

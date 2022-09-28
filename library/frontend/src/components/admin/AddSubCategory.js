@@ -34,7 +34,7 @@ const AddSubCategory = () => {
         //     subcategory_name,
         //     subcategory_description
         // }));
-
+        let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
         let result = await fetch("http://localhost:5000/subcategory/SubCategoryInsert/",{
             method: "post",
             body: JSON.stringify({
@@ -43,7 +43,8 @@ const AddSubCategory = () => {
                 subcategory_description
             }),
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                "authorization": token
             }
         });
 

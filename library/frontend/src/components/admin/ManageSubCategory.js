@@ -34,11 +34,15 @@ const ManageSubCategory = () => {
     // }
 
     //Get All SubCategory
-
+    
     const getAllSubCategory = async () => {
         try {
-            let result = await fetch("http://localhost:5000/subcategory/SubSelectAllCategory");
-
+            let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            let result = await fetch("http://localhost:5000/subcategory/SubSelectAllCategory",{
+                headers:{
+                    "authorization": token
+                }
+            });
             result = await result.json();
 
             //return console.log(result.data);
@@ -60,9 +64,9 @@ const ManageSubCategory = () => {
             <div className="breadcrumb-div breadcrumb-wrap bg-spring mb-4">
                 <img className="breadcrumbimg" src={process.env.PUBLIC_URL + "/image/breadcrumb_img1.jpg"} alt="breadcrumb image" height={130} width={1210} />
 
-                <div class="breadcrumb-title bottom-left">
+                <div className="breadcrumb-title bottom-left">
                     <h2>Manage SubCategory</h2>
-                    <ul class="breadcrumb">
+                    <ul className="breadcrumb">
                         <li className="breadcrumb-item">SubCategory</li>
                         <li className="breadcrumb-item">ManageSubCategory</li>
                     </ul>
@@ -84,9 +88,9 @@ const ManageSubCategory = () => {
                                 <th>Category Description</th>
                                 <th>SubCategory Name</th>
                                 <th>SubCategory Description</th>
-                                <center>
+                                
                                     <th>Option</th>
-                                </center>
+                                
                             </tr>
                         </thead>
 
@@ -107,7 +111,7 @@ const ManageSubCategory = () => {
                                         </td>
                                     </tr>
                                 ))
-                                    : <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
+                                    : <tr> <td colSpan="3" style={{ textAlign: "center" }}><strong>No Records
                                         Founds!</strong></td></tr>
                             }
                         </tbody>

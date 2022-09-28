@@ -53,8 +53,8 @@ Content-Type: application/json
     "username":"meet",
     "password":"Meet@123"  
 }
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#Category
+###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+###Category
 
 ###Insert
 
@@ -159,4 +159,37 @@ Content-Type: application/json
 {
     "title":"Updated/08/22"   
 }
+
+###~~~~~~~~~~~~~~~~~~Settings~~~~~~~~~~~~~~~~~~~~~~~~~
+
+POST http://localhost:5000/Settings/InsertSettings
+Content-Type: application/json
+
+{
+    "penalty_amount":"50",
+    "student_booklimit":"5",
+    "faculty_booklimit":"5",
+    "renewdaylimit":"15"
+}
+
+###select Settings
+
+GET http://localhost:5000/Settings/SelectSettings/
+
+###update Settings
+
+PATCH http://localhost:5000/Settings/UpdateSettings/6332bc9f5355fb8751fc3bbc
+Content-Type: application/json
+
+{
+    "penalty_amount":"100",
+    "student_booklimit":"5",
+    "faculty_booklimit":"15",
+    "renewdaylimit":"10"
+}
+
+###Delete Settings
+
+DELETE http://localhost:5000/Settings/DeleteSettings/6332bc9f5355fb8751fc3bbc
+
 

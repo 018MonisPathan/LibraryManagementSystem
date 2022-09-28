@@ -82,23 +82,23 @@ const ManageBook = () =>{
                         
                         <tbody>
                         {
-                                            book.length > 0 ? book.map((item, index) => (
-                                                <tr key={item._id}>
-                                                    <th scope="row" style={{width: "8%"}}>{index + 1}</th>
-                                                    <td style={{width: "11%"}}>{item.title}</td>
-                                                    <td>{item.author}</td>
-                                                    <td>{item.publisher}</td>
-                                                    <td style={{width: "11%"}}>{item['subcategoryid'][0].subcategory_name}</td>
-                                                    <td style={{width: "11%"}}>{item.ISBN_no}</td>
-                                                    <td>{item.edition}</td>
-                                                    <td style={{width: "5%"}}>{item.published_on}</td>
-                                                    <td style={{width: "3%"}}>{item.quantity}</td>
-                                                    <td style={{width: "5%"}}><a href={item.pdf} >PDF</a></td>
-                                                    <td style={{width: "8%"}}>
-                                                        <center>
+                            book.length > 0 ? book.map((item, index) => (
+                            <tr key={item._id}>
+                            <th scope="row" style={{width: "8%"}}>{index + 1}</th>
+                            <td style={{width: "11%"}}>{item.title}</td>
+                            <td>{item.author}</td>
+                            <td>{item.publisher}</td>
+                            <td style={{width: "11%"}}>{item['subcategoryid'][0].subcategory_name}</td>
+                            <td style={{width: "11%"}}>{item.ISBN_no}</td>
+                            <td>{item.edition}</td>
+                            <td style={{width: "5%"}}>{item.published_on}</td>
+                            <td style={{width: "3%"}}>{item.quantity}</td>
+                            <td style={{width: "5%"}}><a href={item.pdf} >PDF</a></td>
+                            <td style={{width: "8%"}}>
+                            <center>
                                                             <i className="fa fa-trash" style={{ marginRight: 10, color: "#3f6ad" }} />
                                                             {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link> */}
-                                                        </center>
+                            </center>
                                                     </td>
                                                 </tr>
                                             ))

@@ -22,10 +22,10 @@ function auth(req, res, next) {
 }
 
 
-router.post('/CategoryInsert/', CategoryController.insertCategory);
-router.get('/CategoryById/:id', CategoryController.selectCategoryByID);
+router.post('/CategoryInsert/',[auth], CategoryController.insertCategory);
+router.get('/CategoryById/:id',[auth], CategoryController.selectCategoryByID);
 router.get('/SelectAllCategory',[auth], CategoryController.selectallCategories);
-router.patch('/UpdateCategory/:id', CategoryController.updateCategorybyid);
-router.delete('/DeleteCategory/:id', CategoryController.deleteCategoryByid);
+router.patch('/UpdateCategory/:id',[auth], CategoryController.updateCategorybyid);
+router.delete('/DeleteCategory/:id',[auth], CategoryController.deleteCategoryByid);
 
 module.exports = router;

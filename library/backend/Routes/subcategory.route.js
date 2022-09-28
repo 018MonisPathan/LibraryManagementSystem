@@ -6,11 +6,11 @@ const SubCategoryController = require('../controllers/Subcategory.controller');
 const jwtKey = 'e-comm';
 
 router.post('/SubCategoryInsert/',[auth], SubCategoryController.insertSubCategory);
-router.get('/SubCategoryById/:id', SubCategoryController.selectSubCategoryByID);
-router.get('/selectSubcategoryByCategoryID/:categoryid', SubCategoryController.selectSubcategoryByCategoryID);
+router.get('/SubCategoryById/:id',[auth], SubCategoryController.selectSubCategoryByID);
+router.get('/selectSubcategoryByCategoryID/:categoryid',[auth], SubCategoryController.selectSubcategoryByCategoryID);
 router.get('/SubSelectAllCategory',[auth],SubCategoryController.selectallSubCategories);
-router.patch('/SubUpdateCategory/:id', SubCategoryController.updateSubCategorybyid);
-router.delete('/SubDeleteCategory/:id', SubCategoryController.deleteSubCategoryByid);
+router.patch('/SubUpdateCategory/:id',[auth], SubCategoryController.updateSubCategorybyid);
+router.delete('/SubDeleteCategory/:id',[auth], SubCategoryController.deleteSubCategoryByid);
 
 function auth(req, res, next) {
     let token = req.headers['authorization'];

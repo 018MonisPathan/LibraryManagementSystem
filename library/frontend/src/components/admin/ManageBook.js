@@ -93,7 +93,7 @@ const ManageBook = () =>{
                                                     <td>{item.edition}</td>
                                                     <td style={{width: "5%"}}>{item.published_on}</td>
                                                     <td style={{width: "3%"}}>{item.quantity}</td>
-                                                    <td style={{width: "5%"}}><a href={item.pdf} >PDF</a></td>
+                                                    <td style={{width: "5%"}}><a href={"http://localhost:5000"+item.pdf} target="_blank">PDF</a></td>
                                                     <td style={{width: "8%"}}>
                                                         <center>
                                                             <i className="fa fa-trash" style={{ marginRight: 10, color: "#3f6ad" }} />

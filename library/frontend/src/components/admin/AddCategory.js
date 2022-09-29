@@ -21,7 +21,7 @@ const AddCategory = () => {
             setError(true);
             return false;
         }
-
+        let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
         let result = await fetch(
             'http://localhost:5000/category/CategoryInsert',
             {
@@ -31,7 +31,9 @@ const AddCategory = () => {
                     description
                 }),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    "authorization":token
+
                 }
             }
         );

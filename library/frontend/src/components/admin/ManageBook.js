@@ -98,7 +98,7 @@ const ManageBook = () =>{
                                                         <center>
                                                             <i className="fa fa-trash" style={{ marginRight: 10, color: "#3f6ad" }} />
                                                             {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link> */}
-                                                        </center>
+                            </center>
                                                     </td>
                                                 </tr>
                                             ))

@@ -10,12 +10,12 @@ const router = express.Router();
 const MemberController = require('../controllers/Member.controllers');
 
 router.post('/register',[auth] ,MemberController.registerMember);
-router.patch('/updatemember/:id', MemberController.updatemember);
-router.patch('/softdeletemember/:id', MemberController.softdelete);
+router.patch('/updatemember/:id',[auth], MemberController.updatemember);
+router.patch('/softdeletemember/:id',[auth], MemberController.softdelete);
 router.get('/listMembers',[auth], MemberController.selectallmembers);
-router.get('/listMembersnotdeleted', MemberController.selectcondition);
-router.get('/listMembersByid/:id', MemberController.selectByid);
-router.delete('/deleteMemberByid/:id', MemberController.deleteByid);
+router.get('/listMembersnotdeleted',[auth], MemberController.selectcondition);
+router.get('/listMembersByid/:id',[auth], MemberController.selectByid);
+router.delete('/deleteMemberByid/:id',[auth], MemberController.deleteByid);
 router.post('/login', MemberController.login);
 
 function auth(req, res, next) {

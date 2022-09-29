@@ -75,7 +75,7 @@ const AddBook = () => {
             setError(true);
             return false;
         }
-
+        let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
         let result = await fetch('http://localhost:5000/AddBook/BookInsert', {
             method: 'post',
             body: JSON.stringify({
@@ -90,7 +90,8 @@ const AddBook = () => {
                 pdf
             }),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "authorization":token
             }
         });
 
@@ -196,7 +197,12 @@ const AddBook = () => {
 
     //Get Categoryname
     const getcategoryname = async () => {
-        let result = await fetch("http://localhost:5000/category/SelectAllCategory");
+        let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+        let result = await fetch("http://localhost:5000/category/SelectAllCategory",{
+            headers:{
+                "authorization":token
+            }
+        });
 
         result = await result.json();
 
@@ -206,11 +212,12 @@ const AddBook = () => {
 
      //Get Categoryname
      const getsubcategorynameby_cateagoryid = async (categoryid) => {
-       
+        let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
         let result = await fetch(`http://localhost:5000/subcategory/selectSubcategoryByCategoryID/${categoryid}`, {
             method: 'get',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "authorization":token
             }
         });
         

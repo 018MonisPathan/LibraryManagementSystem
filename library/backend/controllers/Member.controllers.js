@@ -56,7 +56,7 @@ module.exports = {
     },
     selectcondition: async (req, res, next) => {
         try {
-            const result = await MemberModule.find({deleted_at:null}).select([
+            const result = await MemberModule.find({flag:0}).select([
                 '-password',
                 '-__v'
             ]);
@@ -118,7 +118,7 @@ module.exports = {
     softdelete: async (req, res, next) => {
         try {
             const id = req.params.id;
-            const updates = {deleted_at: Date.now()}
+            const updates = {flag: 0}
             const options = {
                 new: true
             };

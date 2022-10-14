@@ -37,7 +37,7 @@ const Sidebar = () => {
         <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
           <li><Link to='/admin/ManageMember' className="link-dark rounded">Manage Member</Link></li>
           <li><Link to='/admin/registerlibrarianstudent' className="link-dark rounded">Add Member</Link></li>
-          <li><a href="#" className="link-dark rounded">View Deleted Members</a></li>
+          <li><Link to="/admin/ManageDeletedMember" className="link-dark rounded">View Deleted Members</Link></li>
         </ul>
       </div>
     </li>

@@ -91,7 +91,8 @@
   border-radius: 2px;
 }
 
-.managecategory, .managesubcategory,.managebook {
+/*Manage all module css*/
+.managecategory, .managesubcategory,.managebook, .managedeletedmember {
   width: 100%;
   align-items: center;
   justify-content: center;

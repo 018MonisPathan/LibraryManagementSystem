@@ -192,16 +192,61 @@ Content-Type: application/json
 
 DELETE http://localhost:5000/Settings/DeleteSettings/6332bc9f5355fb8751fc3bbc
 
+
+###~~~~~~~~~~~~~~~~~~IssueBook~~~~~~~~~~~~~~~~~~~~~~~~~
+
+POST http://localhost:5000/IssueBook/insertIssueBookDetails
+Content-Type: application/json
+
+{
+    "book_id":"6334176c8a6a0f07eeac8b12",
+    "membership_id":"62e8f4daa0669c0d478e8c85",
+    "duedate":"10/20/2099"
+}
+
+###Select all IssueBook
+GET http://localhost:5000/IssueBook/selectIssueBookDetails
+
+###Select active IssueBook
+GET http://localhost:5000/IssueBook/selectActiveIssueBookDetails
+
+###Select Deactive IssueBook
+GET http://localhost:5000/IssueBook/selectDeactiveIssueBookDetails
+
+###Update IssueBook
+PATCH http://localhost:5000/IssueBook/updateIssueBookDetails/634a9487951ac832fb4c2775
+Content-Type: application/json
+
+{
+    "book_id":"632ad34c55508edd64430551",
+    "membership_id":"62e8f4daa0669c0d478e8c85",
+    "duedate":"10/20/2021"
+}
+
+###Delete IssueBook 
+DELETE http://localhost:5000/IssueBook/deleteIssueBookDetails/634a9487951ac832fb4c2775
+
+
+###Change Flag status 
+PATCH http://localhost:5000/IssueBook/activate_deactivateIssueBookDetails/634a9487951ac832fb4c2775
+Content-Type: application/json
+
+{
+    
+}
+
+
 ###~~~~~~~~~~~~~~~~~~ReturnBook~~~~~~~~~~~~~~~~~~~~~~~~~
 
 POST http://localhost:5000/ReturnBook/insertReturnBookDetails
 Content-Type: application/json
 
 {
-    "returndate":"07/07/2022",
+    "issuebookid":"632ad34c55508edd64430551",
     "latedays":"10",
     "totalpanelty":"10"
 }
+
 
 ###Select all ReturnBook
 GET http://localhost:5000/ReturnBook/selectReturnBookDetails

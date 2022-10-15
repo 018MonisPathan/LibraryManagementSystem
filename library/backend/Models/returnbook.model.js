@@ -8,7 +8,7 @@ const schema =new mongoose.Schema({
     },
     returndate: {
         type: Date,
-        required: [true, 'returndate is required'],
+        required: false,
         default: Date.now
     },
     latedays:{
@@ -18,7 +18,7 @@ const schema =new mongoose.Schema({
     },
     totalpanelty:{
         type: Number,
-        required: false,
+        required: [true,'total penalty required'],
         default: 0
     },
     deleted_at: {

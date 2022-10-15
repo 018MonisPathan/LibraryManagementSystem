@@ -1,23 +1,30 @@
 const mongoose = require('mongoose');
 
-const ReturnBookModule=require('../Models/returnbook.model');
+const IssueBookModel=require('../Models/issuebook.model');
 const AddBookModel = require('../Models/addbook.model');
 
 module.exports={
-    insertReturnBookDetails: async (req, res) => {
-        setting = new ReturnBookModule(req.body);
+ insertIssueBookDetails: async (req, res) => {
+    try{
+        Issuebook = new IssueBookModel(req.body);
         
-        if(!req.body.latedays || !req.body.totalpanelty){
+        if(!req.body.book_id || !req.body.membership_id  || !req.body.duedate)
+        {
             return res.send("Please Fill all the fields");
         }
-        const checkquantity=await AddBookModel.findById(req.body.issuebookid);
+
+        const checkquantity=await AddBookModel.findById(req.body.book_id);
+
         var quant=checkquantity.quantity;
 
-            const result = await setting.save();
+        if(quant>0){
+            console.log("book in stock");
+            
+            const result = await Issuebook.save();
             if(result)
-            {
-                quant=quant+1;
-                const id=req.body.issuebookid;
+            {  
+                quant=quant-1;
+                const id=req.body.book_id;
                 const update={quantity: quant}
                 const options = {
                     new: true
@@ -25,21 +32,29 @@ module.exports={
                 const quantitiymanage=await AddBookModel.findByIdAndUpdate(id,update,options);
 
                 if(quantitiymanage){
-                    console.log("Quantitiy increased by one");
+                    console.log("Quantitiy decresed by one");
                 }
                 else{
-                    console.log("Quantitiy NOT increased by one");
+                    console.log("Quantitiy NOT decresed by one");
                 }
 
-                return res.send(JSON.stringify('Return book details added Successsfully'));
+                return res.send(JSON.stringify('Issue book details added Successsfully'));
             }
             else{
-                res.send(JSON.stringify('Return book details!'));
+                res.send(JSON.stringify('Issue book details not added!')); 
             }
+
+        }else{
+            res.send(JSON.stringify('Book out of stock!'));
+        }
+    }catch(err){
+        console.log(err.message);
+    }
+           
     },
-    selectallReturnBookDetails: async (req, res, next) => {
+    selectallIssueBookDetails: async (req, res, next) => {
         try {
-            const result = await ReturnBookModule.find();
+            const result = await IssueBookModel.find();
             if(result){
                 res.send({ data: result });
                 console.log(result);
@@ -55,7 +70,7 @@ module.exports={
     },
     select_onlyActiveDetails:async(req,res)=>{
         try {
-            const result = await ReturnBookModule.find({flag:1});
+            const result = await IssueBookModel.find({flag:1});
             if(result){
                 res.send({ data: result });
                 console.log(result);
@@ -71,7 +86,7 @@ module.exports={
     },
     select_onlyDeactiveDetails:async(req,res)=>{
         try {
-            const result = await ReturnBookModule.find({flag:0});
+            const result = await IssueBookModel.find({flag:0});
             if(result){
                 res.send({ data: result });
                 console.log(result);
@@ -85,14 +100,14 @@ module.exports={
             console.log(err.message);
         }
     },
-    updateReturnBookDetailsByid: async (req, res, next) => {
+    updateIssueBookDetailsByid: async (req, res, next) => {
         try {
             const id = req.params.id;
             const updates = req.body;
             const options = {
                 new: true
             };
-            const result = await ReturnBookModule.findByIdAndUpdate(
+            const result = await IssueBookModel.findByIdAndUpdate(
                 id,
                 updates,
                 options
@@ -106,14 +121,14 @@ module.exports={
             res.send(error.message);
         }
     },
-    deleteReturnBookDetailsid: async (req, res, next) => {
+    deleteIssueBookDetailsid: async (req, res, next) => {
         try {
             //return console.log(req.params.id);
-            const result = await ReturnBookModule.findByIdAndDelete(
+            const result = await IssueBookModel.findByIdAndDelete(
                 req.params.id
             );
             if (result) {
-                return res.send({ msg: 'Return Book Details deleted successfully!' });
+                return res.send({ msg: 'Issue Book Details deleted successfully!' });
             } else {
                 return res.send({ msg: 'Delete failed!' });
             }
@@ -127,7 +142,7 @@ module.exports={
             
             const id = req.params.id;
 
-            const statuscheck=await ReturnBookModule.findById(id);
+            const statuscheck=await IssueBookModel.findById(id);
             console.log(statuscheck.flag);
             let updates={flag:1};
             
@@ -142,7 +157,7 @@ module.exports={
             const options = {
                 new: true
             };
-            const result = await ReturnBookModule.findByIdAndUpdate(
+            const result = await IssueBookModel.findByIdAndUpdate(
                 id,
                 updates,
                 options
@@ -158,4 +173,3 @@ module.exports={
         };
     }
 };
-

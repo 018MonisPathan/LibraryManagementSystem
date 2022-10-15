@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const schema =new mongoose.Schema(
     {
         book_id: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_book_details' }],
             required: true
         },
         membership_id: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_members' }],
             required: true
         },
         issuedate: {
@@ -28,21 +28,18 @@ const schema =new mongoose.Schema(
             default: 0,
             required: true
         },
-        late_days: {
-            type: Number,
-            required: false
-        },
-        penalty_amount: {
-            type: Number,
-            required: false
-        },
         deleted_at: {
             type: Date,
             required: false,
             default: null
         },
+        flag:{
+            type: Boolean,
+            default: 1
+        }
     },
     { timestamps: true }
 );
 
-module.exports = Book = mongoose.model('tbl_IssueBookMaster', schema);
+const IssueBookModule = mongoose.model('tbl_IssueBookMaster', schema);
+module.exports = IssueBookModule;

@@ -192,4 +192,44 @@ Content-Type: application/json
 
 DELETE http://localhost:5000/Settings/DeleteSettings/6332bc9f5355fb8751fc3bbc
 
+###~~~~~~~~~~~~~~~~~~ReturnBook~~~~~~~~~~~~~~~~~~~~~~~~~
 
+POST http://localhost:5000/ReturnBook/insertReturnBookDetails
+Content-Type: application/json
+
+{
+    "returndate":"07/07/2022",
+    "latedays":"10",
+    "totalpanelty":"10"
+}
+
+###Select all ReturnBook
+GET http://localhost:5000/ReturnBook/selectReturnBookDetails
+
+###Select active ReturnBook
+GET http://localhost:5000/ReturnBook/selectActiveReturnBookDetails
+
+###Select Deactive ReturnBook
+GET http://localhost:5000/ReturnBook/selectDeactiveReturnBookDetails
+
+###Update ReturnBook
+PATCH http://localhost:5000/ReturnBook/updateReturnBookDetails/63495197ae0a4618566a10c9
+Content-Type: application/json
+
+{
+    "returndate":"06/01/2012",
+    "latedays":"11",
+    "totalpanelty":"11"
+}
+
+###Delete ReturnBook 
+DELETE http://localhost:5000/ReturnBook/deleteReturnBookDetails/634a461cedcd5f8ee9832840
+
+
+###Change Flag status 63495197ae0a4618566a10c9
+PATCH http://localhost:5000/ReturnBook/activate_deactivateReturnBookDetails/63495197ae0a4618566a10c9
+Content-Type: application/json
+
+{
+    
+}

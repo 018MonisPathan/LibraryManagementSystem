@@ -32,60 +32,74 @@ const Login = () => {
             });
 
             result = await result.json();
-            console.log(result);
+            //return console.log(result);
 
-            if (result.auth) {
-                if (result.role === "admin") {
-                    sessionStorage.setItem("user", JSON.stringify(result.result));
-                    sessionStorage.setItem("token", JSON.stringify(result.auth));
-                    sessionStorage.setItem("role", JSON.stringify("admin"));
-                    sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
-                    swal({
-                        title: "Login",
-                        text: "Admin Login Successfull!",
-                        icon: "success",
-                    });
+            
 
-                    navigate("/admin/registerlibrarianstudent");
-                    
-                }
-
-                if (result.role === "student") {
-                    sessionStorage.setItem("user", JSON.stringify(result.result));
-                    sessionStorage.setItem("token", JSON.stringify(result.auth));
-                    sessionStorage.setItem("role", JSON.stringify("student"));
-                    sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
-                    swal({
-                        title: "Login",
-                        text: "Student Login Successfull!",
-                        icon: "success",
-                    });
-
-                    navigate("/admin/registerlibrarianstudent");
-                }
-
-                if (result.role === "librarian") {
-                    sessionStorage.setItem("user", JSON.stringify(result.result));
-                    sessionStorage.setItem("token", JSON.stringify(result.auth));
-                    sessionStorage.setItem("role", JSON.stringify("librarian"));
-                    sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
-                    swal({
-                        title: "Login",
-                        text: "Librarian Login Successfull!",
-                        icon: "success",
-                    });
-
-                    
-                }
-            } else {
-                swal({
+            if(result === "Your status is deactive right now!!")
+            {
+                return swal({
                     title: "Login",
-                    text: "Invalid Username or Password!",
+                    text: "Your status is deactive right now!!",
                     icon: "warning",
                 });
+            }else{
+                if (result.auth) {
+                    
+                    if (result.role === "admin") {
+                        sessionStorage.setItem("user", JSON.stringify(result.result));
+                        sessionStorage.setItem("token", JSON.stringify(result.auth));
+                        sessionStorage.setItem("role", JSON.stringify("admin"));
+                        sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
+                        swal({
+                            title: "Login",
+                            text: "Admin Login Successfull!",
+                            icon: "success",
+                        });
+    
+                        navigate("/admin/registerlibrarianstudent");
+                        
+                    }
+    
+                    if (result.role === "student") {
+    
+                            sessionStorage.setItem("user", JSON.stringify(result.result));
+                            sessionStorage.setItem("token", JSON.stringify(result.auth));
+                            sessionStorage.setItem("role", JSON.stringify("student"));
+                            sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
+                            swal({
+                                title: "Login",
+                                text: "Student Login Successfull!",
+                                icon: "success",
+                            });
+        
+                            navigate("/admin/registerlibrarianstudent");
+                        
+                    }
+    
+                    if (result.role === "librarian") {
+                        sessionStorage.setItem("user", JSON.stringify(result.result));
+                        sessionStorage.setItem("token", JSON.stringify(result.auth));
+                        sessionStorage.setItem("role", JSON.stringify("librarian"));
+                        sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
+                        swal({
+                            title: "Login",
+                            text: "Librarian Login Successfull!",
+                            icon: "success",
+                        });
+    
+                        
+                    }
+                
+                } else {
+                    swal({
+                        title: "Login",
+                        text: "Invalid Username or Password!",
+                        icon: "warning",
+                    });
+                }
             }
-
-
+                
             // if(result.auth){
             //     localStorage.setItem("user",JSON.stringify(result.result));
             //     localStorage.setItem("token",JSON.stringify(result.auth));

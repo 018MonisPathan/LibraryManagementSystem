@@ -49,17 +49,19 @@ const ManageMember = () => {
         });
 
         if(willDelete){
-            console.log(id);
+            //return console.log(id);
 
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
             let result = await fetch(`http://localhost:5000/member/softdeletemember/${id}`,{
-                method: 'delete',
+                method: 'PATCH',
                 headers:{
                     "authorization": token
                 }
             });
 
             result = result.json();
+
+            return console.log(result);
 
             if(result){
                 swal({

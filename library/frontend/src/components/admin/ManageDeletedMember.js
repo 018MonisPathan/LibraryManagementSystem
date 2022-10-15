@@ -3,107 +3,60 @@ import swal from 'sweetalert';
 
 const { VerifyToken } = require('../AuthGuard');
 
-const ManageMember = () => {
+const ManageDeletedMember = () => {
 
-    const [member, setMember] = useState("");
+    const [deletedmember,setDeletedMember] = useState("");
 
     useEffect(()=>{
         VerifyToken();
-        getAllMember();
+        getAllDeletedMember();
     },[])
 
-    //Get All Member
-
-    const getAllMember = async () =>{
+    //Get All deleted member
+    const getAllDeletedMember = async () =>{
         try{
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch("http://localhost:5000/member/listMembers/",{
+            let result = await fetch("http://localhost:5000/member/listMembersnotdeleted/",{
                 headers:{
                     "authorization": token
                 }
             });
-
+            
             result = await result.json();
-
             //return console.log(result.data);
 
-            if(result.data)
-            {
-                setMember(result.data);
+            if(result.data){
+                setDeletedMember(result.data);
             }else{
-                console.log("Something went wrong");
+                console.log("Something went wrong!!");
             }
+
         }catch(err){
             console.log("Server Error");
         }
     }
 
-    //delete member by id
-    const deleteMember = async (id) => {
-        const willDelete = await swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this imaginary file!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        });
-
-        if(willDelete){
-            //return console.log(id);
-
-            let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch(`http://localhost:5000/member/softdeletemember/${id}`,{
-                method: 'PATCH',
-                headers:{
-                    "authorization": token
-                }
-            });
-
-            result = result.json();
-
-            return console.log(result);
-
-            if(result){
-                swal({
-                    title: "Delete Member",
-                    text: "Deleted Successfully!",
-                    icon: "success",
-                });
-                getAllMember();
-            }else{
-                swal({
-                    title: "Delete Member",
-                    text: "Deleted Fail!!",
-                    icon: "warning",
-                });
-            }
-        }else{
-            swal("Member record is safe!");
-        }
-    }
-
-    return(
-        <div className="managecategory container">
+    return (
+        <div className="managedeletedmember container">
 
             <div className="breadcrumb-div breadcrumb-wrap bg-spring mb-4">
                 <img className="breadcrumbimg" src={process.env.PUBLIC_URL + "/image/breadcrumb_img1.jpg"} alt="breadcrumb image" height={130} width={1210} />
 
                 <div class="breadcrumb-title bottom-left">
-                    <h2>Manage Member</h2>
+                    <h2>Manage Deleted Member</h2>
                     <ul class="breadcrumb">
                         <li className="breadcrumb-item">Member</li>
-                        <li className="breadcrumb-item">ManageMember</li>
+                        <li className="breadcrumb-item">ManageDeletedMember</li>
                     </ul>
                 </div>
             </div>
 
-            <div className="card">
+            <div className='card'>
                 <div className="card-header">
-                    Manage Member
+                    Manage Deleted Member
                 </div>
 
-                <div className="card-body">
-
+                <div className='card-body'>
                     <table className="table table-bordered">
                         <thead>
                             <tr>
@@ -121,13 +74,14 @@ const ManageMember = () => {
                                 </center>
                             </tr>
                         </thead>
-                        
+
                         <tbody>
-                        {
-                                            member.length > 0 ? member.map((item, index) => (
-                                                <tr key={item._id}>
-                                                    <th scope="row">{index + 1}</th>
-                                                    <td style={{width: "12%"}}>{item.firstname}</td>
+                            
+                            {
+                                deletedmember.length > 0 ? deletedmember.map((item, index) => (
+                                    <tr key={item._id}>
+                                        <th scope="row">{index+1}</th>
+                                        <td style={{width: "12%"}}>{item.firstname}</td>
                                                     <td style={{width: "12%"}}>{item.lastname}</td>
                                                     <td style={{width: "18%"}}>{item.address}</td>
                                                     <td style={{width: "11%"}}>{item.email}</td>
@@ -137,18 +91,18 @@ const ManageMember = () => {
                                                     <td style={{width: "11%"}}>{item.username}</td>
                                                     <td style={{width: "8%"}}>
                                                         <center>
-                                                            <button onClick={()=>deleteMember(item._id)} style={{width:"50px"}}>
+                                                            <button onClick={"#"} style={{width:"50px"}}>
                                                                 <i className="fa fa-trash" style={{ marginRight: 10, color: "#3f6ad" }} />
                                                             </button>
                                                             
                                                             {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link> */}
                                                         </center>
                                                     </td>
-                                                </tr>
-                                            ))
-                                                : <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
+                                    </tr>
+                                ))
+                                : <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
                                                     Founds!</strong></td></tr>
-                                        }
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -157,4 +111,4 @@ const ManageMember = () => {
     )
 }
 
-export default ManageMember;
+export default ManageDeletedMember;

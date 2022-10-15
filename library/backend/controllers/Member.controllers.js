@@ -56,7 +56,7 @@ module.exports = {
     },
     selectcondition: async (req, res, next) => {
         try {
-            const result = await MemberModule.find({deleted_at:null}).select([
+            const result = await MemberModule.find({flag:0}).select([
                 '-password',
                 '-__v'
             ]);
@@ -118,7 +118,7 @@ module.exports = {
     softdelete: async (req, res, next) => {
         try {
             const id = req.params.id;
-            const updates = {deleted_at: Date.now()}
+            const updates = {flag: 0}
             const options = {
                 new: true
             };
@@ -151,53 +151,68 @@ module.exports = {
                     // console.log(validpassword); If your password is matched then it returns true.
                     if(validpassword)
                     {
-                        if(result.role === "admin")
-                        {
-                            Jwt.sign(
-                                { result },
-                                jwtKey,
-                                { expiresIn: '2h' },
+
+                        if(result.flag === 0){
+                            console.log("Your status is deactive right now!!");
+                            return res.send(JSON.stringify("Your status is deactive right now!!"));
+                        }else{
+
+                            if(result.role === "admin")
+                            {
+                                // if(result.flag == 0){
+                                //     return console.log("Your status is deactive right now!!");
+                                // }else{
+                                //     return console.log("Your status is Active right now!!");
+                                // }
+                                Jwt.sign(
+                                    { result },
+                                    jwtKey,
+                                    { expiresIn: '2h' },
+                                        (error, token) => {
+                                        if (error) {
+                                            return res.send('something went wrong');
+                                        }
+                                        res.send({ result, auth: token,role: result.role });
+                                        // localStorage.setItem('token', token);
+                                    }
+                                );
+                            }
+                            
+                            if(result.role === "student")
+                            {
+                                //return console.log("Your status is Active right now!!");
+                                Jwt.sign(
+                                    { result },
+                                    jwtKey,
+                                    { expiresIn: '2h' },
                                     (error, token) => {
                                     if (error) {
                                         return res.send('something went wrong');
                                     }
                                     res.send({ result, auth: token,role: result.role });
-                                    // localStorage.setItem('token', token);
-                                }
-                            );
-                        }
-                        
-                        if(result.role === "student")
-                        {
-                            Jwt.sign(
-                                { result },
-                                jwtKey,
-                                { expiresIn: '2h' },
-                                    (error, token) => {
-                                    if (error) {
-                                        return res.send('something went wrong');
+                                                // localStorage.setItem('token', token);
                                     }
-                                    res.send({ result, auth: token,role: result.role });
-                                    // localStorage.setItem('token', token);
-                                }
-                            );
+                                );
+                            }
+
+                            if(result.role === "librarian")
+                            {
+                                Jwt.sign(
+                                    { result },
+                                    jwtKey,
+                                    { expiresIn: '2h' },
+                                        (error, token) => {
+                                        if (error) {
+                                            return res.send('something went wrong');
+                                        }
+                                        res.send({ result, auth: token,role: result.role });
+                                        // localStorage.setItem('token', token);
+                                    }
+                                );
+                            }
                         }
 
-                        if(result.role === "librarian")
-                        {
-                            Jwt.sign(
-                                { result },
-                                jwtKey,
-                                { expiresIn: '2h' },
-                                    (error, token) => {
-                                    if (error) {
-                                        return res.send('something went wrong');
-                                    }
-                                    res.send({ result, auth: token,role: result.role });
-                                    // localStorage.setItem('token', token);
-                                }
-                            );
-                        }
+                        
                     }else{
                         res.send(JSON.stringify("Invalid Username or Password!"));
                     }

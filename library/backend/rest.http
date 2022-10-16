@@ -20,8 +20,11 @@ Content-Type: application/json
 ###Select All 
 GET http://localhost:5000/member/listMembers/
 
-### select conditional
-GET http://localhost:5000/member/listMembersnotdeleted/
+### select deleted members 
+GET http://localhost:5000/member/listMembersdeleted/
+
+### select active members 
+GET http://localhost:5000/member/listActiveMembers/
 
 ###List member by id
 GET http://localhost:5000/member/listMembersByid/62e8f4daa0669c0d478e8c85
@@ -38,6 +41,10 @@ Content-Type: application/json
 }
 ###Softdelete member
 PATCH http://localhost:5000/member/softdeletemember/632ac89b5ec8818373039b70
+Content-Type: application/json
+
+###Changeflag memberchangeflag
+PATCH http://localhost:5000/member/memberchangeflag/634b940a49af8aa0860514fa
 Content-Type: application/json
 
 

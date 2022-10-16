@@ -12,12 +12,12 @@ const ManageMember = () => {
         getAllMember();
     },[])
 
-    //Get All Member
+    //Get only Active Member
 
     const getAllMember = async () =>{
         try{
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch("http://localhost:5000/member/listMembers/",{
+            let result = await fetch("http://localhost:5000/member/listActiveMembers/",{
                 headers:{
                     "authorization": token
                 }
@@ -42,7 +42,7 @@ const ManageMember = () => {
     const deleteMember = async (id) => {
         const willDelete = await swal({
             title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this imaginary file!",
+            text: "Once deleted, you will not be able to see this file here!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -61,7 +61,7 @@ const ManageMember = () => {
 
             result = result.json();
 
-            return console.log(result);
+             console.log(result);
 
             if(result){
                 swal({

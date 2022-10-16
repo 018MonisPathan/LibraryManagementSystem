@@ -54,9 +54,21 @@ module.exports = {
             console.log(err.message);
         }
     },
-    selectcondition: async (req, res, next) => {
+    selectDeactiveMembers: async (req, res, next) => {
         try {
             const result = await MemberModule.find({flag:0}).select([
+                '-password',
+                '-__v'
+            ]);
+            res.send({ data: result });
+            console.log(result);
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
+    selectActiveMembers: async (req, res, next) => {
+        try {
+            const result = await MemberModule.find({flag:1}).select([
                 '-password',
                 '-__v'
             ]);
@@ -135,6 +147,41 @@ module.exports = {
             console.log(error.message);
             res.send(error.message);
         }
+    }, 
+    changeFlagStatus_ReturnBookDetails: async(req,res)=>{
+        try{
+            
+            const id = req.params.id;
+
+            const statuscheck=await MemberModule.findById(id);
+            console.log(statuscheck.flag);
+            let updates={flag:1};
+            
+            if(statuscheck.flag==true  ){
+                console.log("statuscheck true");
+                 updates = {flag:0,deleted_at: Date.now()}
+            }else{
+                console.log("statuscheck false");
+                 updates = {flag:1,deleted_at: null}
+            }
+            
+            const options = {
+                new: true
+            };
+            const result = await MemberModule.findByIdAndUpdate(
+                id,
+                updates,
+                options
+            );
+            if (!result) {
+                return res.send({ error: 'SoftDelete failed' });
+            }
+            res.send(result);
+
+        }catch(err){
+            console.log(err.message);
+            
+        };
     },
     login: async (req, res, next) => {
         try {

@@ -130,7 +130,7 @@ module.exports = {
     softdelete: async (req, res, next) => {
         try {
             const id = req.params.id;
-            const updates = {flag: 0}
+            const updates = {flag:0,deleted_at: Date.now()}
             const options = {
                 new: true
             };

@@ -37,6 +37,33 @@ import ManageBook from './components/admin/ManageBook';
 //import private component for admin
 import PrivateComponentAdmin from './components/privateComponentAdmin';
 
+//----------Student--------------
+
+//Import student dashboard
+import StudentDashboard from './components/student/dashboard';
+
+//Import manage issue book
+import ManageIssueBook from './components/student/ManageIssueBook';
+
+//import private component for student
+import PrivateComponentStudent from './components/PrivateComponentStudent';
+
+//---------Faculty---------------
+
+//Import faculty dashboard
+import FacultyDashboard from './components/faculty/dashboard';
+
+//Import private component for faculty
+import PrivateComponentFaculty from './components/PrivateComponentFaculty';
+
+//---------Librarian-------------
+
+//Import librarian dashboard
+import LibrarianDashboard from './components/librarian/dashboard';
+
+//Import private component for librarian
+import PrivateComponentLibrarian from './components/PrivateComponentLibrarian';
+
 function App() {
   
   return (
@@ -58,6 +85,19 @@ function App() {
             <Route path='/admin/ManageMember' element={<ManageMember/>}/>
             <Route path='/admin/ManageBook' element={<ManageBook/>}/>
             <Route path='/admin/ManageDeletedMember' element={<ManageDeletedMember/>}/>
+          </Route>
+
+          <Route element={<PrivateComponentStudent/>}>
+            <Route path='/student/dashboard' element={<StudentDashboard/>}></Route>
+            <Route path='/student/ManageIssueBook' element={<ManageIssueBook/>}></Route>
+          </Route>
+
+          <Route element={<PrivateComponentFaculty/>}>
+            <Route path='/faculty/dashboard' element={<FacultyDashboard/>}></Route>
+          </Route>
+
+          <Route element={<PrivateComponentLibrarian/>}>
+            <Route path='/librarian/dashboard' element={<LibrarianDashboard/>}></Route>
           </Route>
           
           <Route path='/login' element={<Login />} />

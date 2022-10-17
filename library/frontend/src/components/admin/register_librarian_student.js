@@ -616,11 +616,18 @@ const RegisterLibrarianStudent = () => {
                                                 setRole(e.target.value)
                                             }
                                         >
+                                            <option value={""}>
+                                                ----Select Role----
+                                            </option>
                                             <option value={'librarian'}>
                                                 librarian
                                             </option>
                                             <option value={'student'}>
                                                 student
+                                            </option>
+
+                                            <option value={'faculty'}>
+                                                faculty
                                             </option>
                                         </select>
                                     </div>

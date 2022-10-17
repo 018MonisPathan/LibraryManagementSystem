@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-const { VerifyToken } = require("../components/AuthGuard");
+//const { VerifyToken } = require("../components/AuthGuard");
 
-const Sidebar = () => {
+const LibrarianSidebar = () => {
 
   //const auth = sessionStorage.getItem("role");
 
@@ -77,22 +77,10 @@ const Sidebar = () => {
             </ul>
           </div>
         </li>
-        <li className="border-top my-3" />
-        <li className="mb-1">
-          <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#setting-collapse" aria-expanded="false">
-            Settings
-          </button>
-          <div className="collapse" id="setting-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><a href="#" className="link-dark rounded">View Settings</a></li>
-
-            </ul>
-          </div>
-        </li>
       </ul>
     </div>
 
 
   );
 };
-export default Sidebar;
+export default LibrarianSidebar;

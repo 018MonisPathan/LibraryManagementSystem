@@ -54,7 +54,7 @@ module.exports={
     },
     selectallIssueBookDetails: async (req, res, next) => {
         try {
-            const result = await IssueBookModel.find().populate("book_id","title").populate("membership_id","firstname");
+            const result = await IssueBookModel.find().populate("book_id","title pdf").populate("membership_id","firstname");
             if(result){
                 res.send({ data: result });
                 console.log(result);

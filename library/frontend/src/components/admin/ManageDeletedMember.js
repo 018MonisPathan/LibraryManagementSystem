@@ -16,7 +16,7 @@ const ManageDeletedMember = () => {
     const getAllDeletedMember = async () =>{
         try{
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch("http://localhost:5000/member/listMembersnotdeleted/",{
+            let result = await fetch("http://localhost:5000/member/listMembersdeleted/",{
                 headers:{
                     "authorization": token
                 }
@@ -33,6 +33,49 @@ const ManageDeletedMember = () => {
 
         }catch(err){
             console.log("Server Error");
+        }
+    }
+
+    const undeleteMember = async (id) => {
+        const willDelete = await swal({
+            title: "Are you sure?",
+            text: "Once Recovered, you will not be able to see this file here!!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        });
+
+        if(willDelete){
+            //return console.log(id);
+
+            let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            let result = await fetch(`http://localhost:5000/member/memberchangeflag/${id}`,{
+                method: 'PATCH',
+                headers:{
+                    "authorization": token
+                }
+            });
+
+            result = result.json();
+
+             console.log(result);
+
+            if(result){
+                swal({
+                    title: "Recover Member",
+                    text: "Recovery Successfull!",
+                    icon: "success",
+                });
+                getAllDeletedMember();
+            }else{
+                swal({
+                    title: "Delete Member",
+                    text: "Deleted Fail!!",
+                    icon: "warning",
+                });
+            }
+        }else{
+            swal("Member record is safe!");
         }
     }
 
@@ -91,7 +134,7 @@ const ManageDeletedMember = () => {
                                                     <td style={{width: "11%"}}>{item.username}</td>
                                                     <td style={{width: "8%"}}>
                                                         <center>
-                                                            <button onClick={"#"} style={{width:"50px"}}>
+                                                            <button onClick={()=>undeleteMember(item._id)} style={{width:"50px"}}>
                                                                 <i className="fa fa-trash" style={{ marginRight: 10, color: "#3f6ad" }} />
                                                             </button>
                                                             

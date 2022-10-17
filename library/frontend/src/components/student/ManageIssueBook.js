@@ -67,6 +67,7 @@ const ManageIssueBook=()=>{
                             <tr>
                             <th>SR No.</th>
                                 <th>Book Title</th>
+                                <th>PDF</th>
                                 <th>Due Date</th>
                                 <th>Issue Date</th>
                                 <center>
@@ -80,7 +81,8 @@ const ManageIssueBook=()=>{
                                             issuebook.length > 0 ? issuebook.map((item, index) => (
                                                 <tr key={item._id}>
                                                     <th scope="row">{index + 1}</th>
-                                                    <td style={{width: "32%"}}>{item['book_id'][0].title}</td>
+                                                    <td style={{width: "12%"}}>{item['book_id'][0].title}</td>
+                                                    <td style={{width: "5%"}}><a href={"http://localhost:5000"+item['book_id'][0].pdf} target="_blank">PDF</a></td>
                                                     <td style={{width: "25%"}}>{item.duedate}</td>
                                                     <td style={{width: "25%"}}>{item.issuedate}</td>
                                                     

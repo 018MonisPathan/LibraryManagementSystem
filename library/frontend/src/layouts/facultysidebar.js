@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-const { VerifyToken } = require("../components/AuthGuard");
+//const { VerifyToken } = require("../components/AuthGuard");
 
-const Sidebar = () => {
+const FacultySidebar = () => {
 
   //const auth = sessionStorage.getItem("role");
 
@@ -30,7 +30,7 @@ const Sidebar = () => {
       <ul className="list-unstyled ps-0">
         <li className="mb-1">
           <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#member-collapse" aria-expanded="false">
-            Member
+            Manage Issue book
           </button>
           <div className="collapse" id="member-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -42,7 +42,7 @@ const Sidebar = () => {
         </li>
         <li className="mb-1">
           <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="false">
-            Category
+            Manage Return book
           </button>
           <div className="collapse" id="category-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -53,46 +53,11 @@ const Sidebar = () => {
             </ul>
           </div>
         </li>
-        <li className="mb-1">
-          <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#subcategory-collapse" aria-expanded="false">
-            SubCategory
-          </button>
-          <div className="collapse" id="subcategory-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><Link to='/admin/ManageSubCategory' className="link-dark rounded">Manage SubCategory</Link></li>
-              <li><Link to='/admin/AddSubCategory' className="link-dark rounded">Add SubCategory</Link></li>
-              <li><a href="#" className="link-dark rounded">Deleted</a></li>
-            </ul>
-          </div>
-        </li>
-        <li className="mb-1">
-          <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#book-collapse" aria-expanded="false">
-            Book
-          </button>
-          <div className="collapse" id="book-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><Link to='/admin/ManageBook' className="link-dark rounded">Manage Book</Link></li>
-              <li><Link to='/admin/AddBook' className="link-dark rounded">Add Book</Link></li>
-              <li><a href="#" className="link-dark rounded">View Deleted</a></li>
-            </ul>
-          </div>
-        </li>
-        <li className="border-top my-3" />
-        <li className="mb-1">
-          <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#setting-collapse" aria-expanded="false">
-            Settings
-          </button>
-          <div className="collapse" id="setting-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><a href="#" className="link-dark rounded">View Settings</a></li>
-
-            </ul>
-          </div>
-        </li>
+        
       </ul>
     </div>
 
 
   );
 };
-export default Sidebar;
+export default FacultySidebar;

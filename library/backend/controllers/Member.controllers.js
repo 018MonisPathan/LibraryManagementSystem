@@ -210,6 +210,22 @@ module.exports = {
                                     }
                                 );
                             }
+
+                            if(result.role === "faculty")
+                            {
+                                Jwt.sign(
+                                    { result },
+                                    jwtKey,
+                                    { expiresIn: '2h' },
+                                        (error, token) => {
+                                        if (error) {
+                                            return res.send('something went wrong');
+                                        }
+                                        res.send({ result, auth: token,role: result.role });
+                                        // localStorage.setItem('token', token);
+                                    }
+                                );
+                            }
                         }
 
                         

@@ -73,7 +73,7 @@ const Login = () => {
                                 icon: "success",
                             });
         
-                            navigate("/admin/registerlibrarianstudent");
+                            navigate("/student/dashboard");
                         
                     }
     
@@ -88,7 +88,21 @@ const Login = () => {
                             icon: "success",
                         });
     
-                        
+                        navigate("/librarian/dashboard");
+                    }
+
+                    if (result.role === "faculty") {
+                        sessionStorage.setItem("user", JSON.stringify(result.result));
+                        sessionStorage.setItem("token", JSON.stringify(result.auth));
+                        sessionStorage.setItem("role", JSON.stringify("librarian"));
+                        sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
+                        swal({
+                            title: "Login",
+                            text: "Faculty Login Successfull!",
+                            icon: "success",
+                        });
+    
+                        navigate("/faculty/dashboard");
                     }
                 
                 } else {

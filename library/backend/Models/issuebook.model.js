@@ -7,7 +7,7 @@ const schema =new mongoose.Schema(
             required: true
         },
         membership_id: {
-            type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_members' }],
+            type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_member' }],
             required: true
         },
         issuedate: {

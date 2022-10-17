@@ -92,7 +92,7 @@
 }
 
 /*Manage all module css*/
-.managecategory, .managesubcategory,.managebook, .managedeletedmember {
+.managecategory, .managesubcategory,.managebook, .managedeletedmember, .manageissuebook {
   width: 100%;
   align-items: center;
   justify-content: center;

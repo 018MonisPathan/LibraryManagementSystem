@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { mockComponent } from 'react-dom/test-utils';
-//import { Link,useNavigate } from 'react-router-dom';
+import { Link,useNavigate,useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 import validator from 'validator';
+//import { useParams } from 'react-router-dom';
 const { VerifyToken } = require("../AuthGuard");
 
 const RegisterLibrarianStudent = () => {
@@ -28,10 +29,74 @@ const RegisterLibrarianStudent = () => {
     const [altcontactnoError, setAltContactnoError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
+    const params = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         VerifyToken();
+
+        if(params.id){
+            getAllMemberForUpdate();
+        }
     }, []);
+    
+
+    //Fill data into textbox for update.
+
+    const getAllMemberForUpdate = async () =>{
+        try{
+
+            //If you are passing id in url than whenever you want to access that id from the parameter than no need to provide (_) unserscore in params.id. (No need -> params._id). Just wrire params.id
+
+            //alert(params.id);
+
+            const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+
+            let result = await fetch(`http://localhost:5000/member/listMembersByid/${params.id}`,{
+                method:"get",
+                headers:{
+                    "authorization": token
+                }
+            });
+
+            result = await result.json();
+
+            //return console.log(result.firstname);
+
+            if(result){
+                //console.log(result);
+
+                setFirstname(result.firstname);
+                setLastname(result.lastname);
+                setAddress(result.address);
+                setEmail(result.email);
+                setContactno(result.contactno);
+
+                let date = new Date(result.dob);
+
+                let month = date.getMonth();
+                let onlydate = date.getDate();
+                let fullyear = date.getFullYear();
+
+                //let concate_date = onlydate + "-" + month + "-" + fullyear
+
+                let concate_date = fullyear + "-" + month + "-" + onlydate;
+
+                alert(concate_date)
+
+                setDob(concate_date)
+                setAltcontactname(result.alternate_contact_name);
+                setAltcontactno(result.alternate_contact_contactno);
+                //setUsername(result.username);
+                setRole(result.role);
+            }else{
+                console.log("Error");
+            }
+
+        }catch(err){
+            console.log("server error while retriving data for update");
+        }
+    }
 
     const testdisable = () => {
 
@@ -39,46 +104,39 @@ const RegisterLibrarianStudent = () => {
     }
 
     const collectdata = async () => {
-
+        
         //setTotalissuedbooks(total_issued_books,"0");
 
-        console.log(
-            firstname,
-            lastname,
-            address,
-            email,
-            contactno,
-            dob,
-            alternate_contact_name,
-            alternate_contact_contactno,
-            username,
-            password,
-            role,
-            total_issued_books
-        );
+        // console.log(
+        //     firstname,
+        //     lastname,
+        //     address,
+        //     email,
+        //     contactno,
+        //     dob,
+        //     alternate_contact_name,
+        //     alternate_contact_contactno,
+        //     username,
+        //     password,
+        //     role,
+        //     total_issued_books
+        // );
 
-        // useEffect(()=>{
-        //     const auth = localStorage.getItem('user');
-        //     if(auth){
-        //         navigate('/');
-        //     }
-        // });
-
-        if (
-            !firstname ||
-            !lastname ||
-            !address ||
-            !email ||
-            !contactno ||
-            !dob ||
-            !alternate_contact_name ||
-            !alternate_contact_contactno ||
-            !username ||
-            !password
-        ) {
-            setError(true);
-            return false;
-        }
+        // if (
+        //     !firstname ||
+        //     !lastname ||
+        //     !address ||
+        //     !email ||
+        //     !contactno ||
+        //     !dob ||
+        //     !alternate_contact_name ||
+        //     !alternate_contact_contactno ||
+        //     !username ||
+        //     !password
+        // ) {
+        //     setError(true);
+        //     return false;
+        // }
 
         //Email validation :- @ and . is must.
         if (!validator.isEmail(email)) {
@@ -86,47 +144,121 @@ const RegisterLibrarianStudent = () => {
             return;
         }
         let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-        let result = await fetch('http://localhost:5000/member/register', {
-            method: 'post',
-            body: JSON.stringify({
-                firstname,
-                lastname,
-                address,
-                email,
-                contactno,
-                dob,
-                alternate_contact_name,
-                alternate_contact_contactno,
-                username,
-                password,
-                role,
-                total_issued_books
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                "authorization": token
+
+        if(params.id){
+
+            if (
+                !firstname ||
+                !lastname ||
+                !address ||
+                !email ||
+                !contactno ||
+                !dob ||
+                !alternate_contact_name ||
+                !alternate_contact_contactno
+            ) {
+                setError(true);
+                return false;
             }
-        });
 
-        result = await result.json();
-
-        console.log(result);
-
-        if(result === "Email Already exists!")
-        {
-            swal({
-                title: 'Registration',
-                text: 'Email Already Exists!',
-                icon: 'warning'
+            let result = await fetch(`http://localhost:5000/member/updatemember/${params.id}`,{
+                method: "PATCH",
+                body: JSON.stringify({firstname,
+                    lastname,
+                    address,
+                    email,
+                    contactno,
+                    dob,
+                    alternate_contact_name,
+                    alternate_contact_contactno,
+                    role}),
+                headers:{
+                    'Content-Type': 'application/json',
+                    "authorization": token
+                }
             });
+
+            result = await result.json();
+
+            console.log("update called");
+            //return console.log(result);
+            
+            if(result){
+                swal({
+                    title: 'Update Member',
+                    text: 'Member Updated Successfully!',
+                    icon: 'success'
+                });
+
+                navigate("/admin/ManageMember");
+            }else{
+                swal({
+                    title: 'Update Member',
+                    text: 'Member Updation Failed!',
+                    icon: 'warning'
+                });
+            }
         }else{
-            swal({
-                title: 'Registration',
-                text: 'Registration Successfully!',
-                icon: 'success'
+
+            if (
+                !firstname ||
+                !lastname ||
+                !address ||
+                !email ||
+                !contactno ||
+                !dob ||
+                !alternate_contact_name ||
+                !alternate_contact_contactno ||
+                !username ||
+                !password
+            ) {
+                setError(true);
+                return false;
+            }
+
+            let result = await fetch('http://localhost:5000/member/register', {
+                method: 'post',
+                body: JSON.stringify({
+                    firstname,
+                    lastname,
+                    address,
+                    email,
+                    contactno,
+                    dob,
+                    alternate_contact_name,
+                    alternate_contact_contactno,
+                    username,
+                    password,
+                    role,
+                    total_issued_books
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    "authorization": token
+                }
             });
-            localStorage.setItem('user', JSON.stringify(result.result)); //Used to store data in local storage.(It will remain until you remove menually.)
+    
+            result = await result.json();
+    
+            console.log(result);
+    
+            if(result === "Email Already exists!")
+            {
+                swal({
+                    title: 'Registration',
+                    text: 'Email Already Exists!',
+                    icon: 'warning'
+                });
+            }else{
+                swal({
+                    title: 'Registration',
+                    text: 'Registration Successfully!',
+                    icon: 'success'
+                });
+                localStorage.setItem('user', JSON.stringify(result.result)); //Used to store data in local storage.(It will remain until you remove menually.)
+            }
         }
+
 
         // if (result) {
         // }
@@ -542,68 +674,108 @@ const RegisterLibrarianStudent = () => {
 
                                 <div className='row mt-3'>
                                     <div className='col-md-6'>
-                                        <input
-                                            type='text'
-                                            placeholder='Enter Username'
-                                            className='txtusername'
-                                            title='Enter Username'
-                                            value={username}
-                                            onChange={(e) =>
-                                                setUsername(e.target.value)
-                                            }
-                                            required
-                                        />
 
-                                        {error && !username && (
-                                            <span
-                                                className='invalid-input'
-                                                style={{
-                                                    fontWeight: 'bold',
-                                                    color: 'red'
-                                                }}
-                                            >
-                                                Please fill out this field!
-                                            </span>
-                                        )}
+                                        {
+                                            params.id ? 
+                                            <>
+                                            
+                                                <input
+                                                    type='text'
+                                                    placeholder='Enter Username'
+                                                    className='txtusername'
+                                                    title='Enter Username'
+                                                    value={username}
+                                                    onChange={(e) =>
+                                                        setUsername(e.target.value)
+                                                    }
+                                                    disabled={true}
+                                                />
+                                            </>:
+                                            <>
+                                                <input
+                                                    type='text'
+                                                    placeholder='Enter Username'
+                                                    className='txtusername'
+                                                    title='Enter Username'
+                                                    value={username}
+                                                    onChange={(e) =>
+                                                        setUsername(e.target.value)
+                                                    }
+                                                    required
+                                                />
+
+                                                {error && !username && (
+                                                    <span
+                                                        className='invalid-input'
+                                                        style={{
+                                                            fontWeight: 'bold',
+                                                            color: 'red'
+                                                        }}
+                                                    >
+                                                        Please fill out this field!
+                                                    </span>
+                                                )}
+                                            </>
+                                        }
+
+
+                                        
                                     </div>
 
                                     <div className='col-md-6'>
-                                        <input
-                                            type='password'
-                                            placeholder='Enter Password'
-                                            className='txtpwd'
-                                            title='Enter Password'
-                                            value={password}
-                                            onChange={(e) => {
-                                                setPassword(e.target.value);
-                                                validatePassword();
-                                            }}
-                                            required
-                                        />
 
-                                        {/* print invalid input message */}
-                                        <span
-                                            className='invalid-input'
-                                            style={{
-                                                fontWeight: 'bold',
-                                                color: 'red'
-                                            }}
-                                        >
-                                            {passwordError}
-                                        </span>
+                                        {
+                                            params.id ?
+                                            <>
+                                                <input
+                                                    type='password'
+                                                    placeholder='Enter Password'
+                                                    className='txtpwd'
+                                                    title='Enter Password'
+                                                    disabled={true}
+                                                />
+                                            </>:
+                                            <>
+                                            
+                                                <input
+                                                    type='password'
+                                                    placeholder='Enter Password'
+                                                    className='txtpwd'
+                                                    title='Enter Password'
+                                                    value={password}
+                                                    onChange={(e) => {
+                                                        setPassword(e.target.value);
+                                                        validatePassword();
+                                                    }}
+                                                    required
+                                                />
+        
+                                                {/* print invalid input message */}
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    {passwordError}
+                                                </span>
+        
+                                                {/* print empty field message */}
+                                                {error && !password && (
+                                                    <span
+                                                        className='invalid-input'
+                                                        style={{
+                                                            fontWeight: 'bold',
+                                                            color: 'red'
+                                                        }}
+                                                    >
+                                                        Please fill out this field!
+                                                    </span>
+                                                )}
+                                            </>
+                                        }
 
-                                        {/* print empty field message */}
-                                        {error && !password && (
-                                            <span
-                                                className='invalid-input'
-                                                style={{
-                                                    fontWeight: 'bold',
-                                                    color: 'red'
-                                                }}
-                                            >
-                                                Please fill out this field!
-                                            </span>
-                                        )}
                                     </div>
                                 </div>
 

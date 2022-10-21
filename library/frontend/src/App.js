@@ -76,9 +76,11 @@ function App() {
         <Routes>
           <Route element={<PrivateComponentAdmin/>}>
             <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
-            
+            <Route path='/admin/registerlibrarianstudent/:id' element={<RegisterLibrarianStudent/>}></Route>
             <Route path='/admin/AddCategory' element={<AddCategory />} />
+            <Route path='/admin/AddCategory/:id' element={<AddCategory />} />
             <Route path='/admin/AddSubCategory' element={<AddSubCategory/>}></Route>
+            <Route path='/admin/AddSubCategory/:id' element={<AddSubCategory/>}></Route>
             <Route path='/admin/AddBook' element={<AddBook />} />
             <Route path='/admin/ManageCategory' element={<ManageCategory />} />
             <Route path='/admin/ManageSubCategory' element={<ManageSubCategory />} />

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const { VerifyToken } = require('../AuthGuard');
 
@@ -39,6 +41,52 @@ const ManageCategory = () => {
         }catch(err){
             console.log("Server Error");
         }
+    }
+
+    //delete category by id
+
+    const deleteCategory=async(id)=>{
+
+        //return alert(id);
+        const willDelete = await swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to see this record here!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        });
+
+        if(willDelete){
+            let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            let result = await fetch(`http://localhost:5000/category/DeleteCategory/${id}`,{
+                method: "delete",
+                headers:{
+                    "authorization": token
+                }
+            });
+
+            result = await result.json();
+
+            if(result == "Category already exists in subcategory"){
+                //return console.log("Category already exists in subcategory");
+                swal({
+                    title: "Delete Category",
+                    text: "This category is already exists in subcategory!",
+                    icon: "warning"
+                });
+            }else{
+                getAllCategory();
+                //return console.log("Category deletd");
+                swal({
+                    title: "Delete Category",
+                    text: "Category deleted successfully!",
+                    icon: "success"
+                });
+            }
+        }else{
+            swal("Category record is safe!");
+        }
+
     }
 
     return(
@@ -84,8 +132,11 @@ const ManageCategory = () => {
                                                     <td style={{width: "50%"}}>{item.description}</td>
                                                     <td style={{width: "8%"}}>
                                                         <center>
-                                                            <i className="fa fa-trash" style={{ marginRight: 10, color: "#3f6ad" }} />
-                                                            {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link> */}
+                                                            <button onClick={()=>deleteCategory(item._id)} style={{width:"30px",borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
+                                                                <i className="fa fa-trash" style={{ padding: 2, color: "red", fontSize: 16 }} />
+                                                            </button>
+
+                                                            <Link to={"/admin/AddCategory/" + item._id}><i className="fa fa-edit" style={{ color: "green" }} /></Link>
                                                         </center>
                                                     </td>
                                                 </tr>

@@ -46,7 +46,7 @@ module.exports = {
     },
     selectSubCategoryByID: async (req, res) => {
         try {
-            const result = await SubCategoryModel.findById(req.params.id);
+            const result = await SubCategoryModel.findById(req.params.id).populate("categoryid" ,"category_name description");
 
             if (result) {
                 console.log(result);

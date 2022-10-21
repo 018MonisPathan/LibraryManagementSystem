@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams,useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 
 const AddSubCategory = () => {
@@ -11,11 +12,39 @@ const AddSubCategory = () => {
     const [SubCategoryDescriptionError, setSubCategoryDescriptionError] = useState('')
     const [category, setCategory] = useState("");
 
+    const params = useParams();
+    const navigate = useNavigate();
+
     //const [categoryid, setCategoryId] = useState("");
 
     useEffect(() => {
         getcategoryname();
+
+        if(params.id){
+            getAllSubCategoryForUpdate();
+        }
+
     }, [])
+
+    //Fill data in textbox for update.
+
+    const getAllSubCategoryForUpdate=async()=>{
+        //return alert(params.id);
+
+        let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+        let result = await fetch(`http://localhost:5000/subcategory/SubCategoryById/${params.id}`,{
+            headers:{
+                "authorization": token
+            }
+        });
+
+        result = await result.json();
+
+        setCategoryid(result.data.categoryid)
+        setSubCategoryname(result.data.subcategory_name);
+        setSubCategoryDescription(result.data.subcategory_description);
+        
+    }
 
     const collectdata = async () => {
 
@@ -35,35 +64,70 @@ const AddSubCategory = () => {
         //     subcategory_description
         // }));
         let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-        let result = await fetch("http://localhost:5000/subcategory/SubCategoryInsert/",{
-            method: "post",
-            body: JSON.stringify({
-                categoryid,
-                subcategory_name,
-                subcategory_description
-            }),
-            headers:{
-                'Content-Type':'application/json',
-                "authorization": token
+
+        //Check parameter id exist, if exist than update the record instead of add.
+
+        if(params.id)
+        {
+            let result = await fetch(`http://localhost:5000/subcategory/SubUpdateCategory/${params.id}`,{
+                method: "PATCH",
+                body:JSON.stringify({categoryid,subcategory_name,subcategory_description}),
+                headers:{
+                    'Content-Type':'application/json',
+                    "authorization": token
+                }
+            });
+
+            result = await result.json();
+
+            if(result){
+                swal({
+                    title: 'Update SubCategory',
+                    text: 'SubCategory Updated successfully!',
+                    icon: 'success'
+                });
+                navigate("/admin/ManageSubCategory");
+                //return console.log("Subcategory updated");
+            }else{
+                swal({
+                    title: 'Update SubCategory',
+                    text: 'Something went wrong!',
+                    icon: 'warning'
+                });
+                //return console.log("Error while updating subacategory");
             }
-        });
+        }else{
 
-        result = await result.json();
-
-        console.log(result);
-
-        if (result === 'SubCategory Already exists!') {
-            swal({
-                title: 'Add SubCategory',
-                text: 'SubCategory Already exists!',
-                icon: 'warning'
+            let result = await fetch("http://localhost:5000/subcategory/SubCategoryInsert/",{
+                method: "post",
+                body: JSON.stringify({
+                    categoryid,
+                    subcategory_name,
+                    subcategory_description
+                }),
+                headers:{
+                    'Content-Type':'application/json',
+                    "authorization": token
+                }
             });
-        } else {
-            swal({
-                title: 'Add SubCategory',
-                text: 'SubCategory Added Successfully!',
-                icon: 'success'
-            });
+    
+            result = await result.json();
+    
+            console.log(result);
+    
+            if (result === 'SubCategory Already exists!') {
+                swal({
+                    title: 'Add SubCategory',
+                    text: 'SubCategory Already exists!',
+                    icon: 'warning'
+                });
+            } else {
+                swal({
+                    title: 'Add SubCategory',
+                    text: 'SubCategory Added Successfully!',
+                    icon: 'success'
+                });
+            }
         }
     }
 

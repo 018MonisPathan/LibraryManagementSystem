@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 
 const CategoryModel = require('../Models/Category');
 
+//import subcategory model
+const SubCategoryModel = require('../Models/subcategory.model');
+
 module.exports = {
     insertCategory: async (req, res) => {
         category = new CategoryModel(req.body);
@@ -81,12 +84,23 @@ module.exports = {
     deleteCategoryByid: async (req, res, next) => {
         try {
             //return console.log(req.params.id);
-            const result = await CategoryModel.findByIdAndDelete(req.params.id);
-            if (result) {
-                return res.send({ msg: 'Category deleted successfully!' });
-            } else {
-                return res.send({ msg: 'Delete failed!' });
+
+            //Check wether the category all ready exists in subcategory than do not delete the category.
+            checkexists_categoryInSubCategory = await SubCategoryModel.findOne({categoryid: req.params.id});
+
+            if(checkexists_categoryInSubCategory){
+                console.log(JSON.stringify("Category already exists in subcategory"));
+                return res.send(JSON.stringify("Category already exists in subcategory"))
+            }else{
+
+                const result = await CategoryModel.findByIdAndDelete(req.params.id);
+                if (result) {
+                    return res.send({ msg: 'Category deleted successfully!' });
+                } else {
+                    return res.send({ msg: 'Delete failed!' });
+                }
             }
+
         } catch (err) {
             console.log(err.message);
         }

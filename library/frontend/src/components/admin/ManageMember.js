@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 
 const { VerifyToken } = require('../AuthGuard');
 
@@ -42,7 +43,7 @@ const ManageMember = () => {
     const deleteMember = async (id) => {
         const willDelete = await swal({
             title: "Are you sure?",
-            text: "Once deleted, you will not be able to see this file here!",
+            text: "Once deleted, you will not be able to see this record here!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -66,14 +67,14 @@ const ManageMember = () => {
             if(result){
                 swal({
                     title: "Delete Member",
-                    text: "Deleted Successfully!",
+                    text: "Member Deleted Successfully!",
                     icon: "success",
                 });
                 getAllMember();
             }else{
                 swal({
                     title: "Delete Member",
-                    text: "Deleted Fail!!",
+                    text: "Member Deletion Fail!!",
                     icon: "warning",
                 });
             }
@@ -135,13 +136,13 @@ const ManageMember = () => {
                                                     <td style={{width: "12%"}}>{item.alternate_contact_name}</td>
                                                     <td style={{width: "11%"}}>{item.alternate_contact_contactno}</td>
                                                     <td style={{width: "11%"}}>{item.username}</td>
-                                                    <td style={{width: "8%"}}>
+                                                    <td style={{width: "11%"}}>
                                                         <center>
-                                                            <button onClick={()=>deleteMember(item._id)} style={{width:"50px"}}>
-                                                                <i className="fa fa-trash" style={{ marginRight: 10, color: "#3f6ad" }} />
+                                                            <button onClick={()=>deleteMember(item._id)} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
+                                                                <i className="fa fa-trash" style={{ padding: 2, color: "red", fontSize: 16 }} />
                                                             </button>
                                                             
-                                                            {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link> */}
+                                                            <Link to={"/admin/registerlibrarianstudent/" + item._id}><i className="fa fa-edit" style={{ color: "green" }} /></Link>
                                                         </center>
                                                     </td>
                                                 </tr>

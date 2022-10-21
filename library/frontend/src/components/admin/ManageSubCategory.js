@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 
 const { VerifyToken } = require('../AuthGuard');
 
@@ -11,27 +13,6 @@ const ManageSubCategory = () => {
         //getAllCategory();
         getAllSubCategory();
     }, [])
-
-    //Get All Category
-
-    // const getAllCategory = async () =>{
-    //     try{
-    //         let result = await fetch("http://localhost:5000/category/SelectAllCategory");
-
-    //         result = await result.json();
-
-    //         //return console.log(result.data);
-
-    //         if(result)
-    //         {
-    //             setCategory(result.data);
-    //         }else{
-    //             console.log("Something went wrong");
-    //         }
-    //     }catch(err){
-    //         console.log("Server Error");
-    //     }
-    // }
 
     //Get All SubCategory
     
@@ -54,6 +35,54 @@ const ManageSubCategory = () => {
             }
         } catch (err) {
             console.log("Server Error");
+        }
+    }
+
+    //delete subcategory by id
+
+    const deleteSubCategory=async(id)=>{
+        try{
+            //return alert(id);
+            const willDelete = await swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to see this record here!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            });
+
+            if(willDelete){
+
+                let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+                let result = await fetch(`http://localhost:5000/subcategory/SubDeleteCategory/${id}`,{
+                    method: "delete",
+                    headers:{
+                        "authorization": token
+                    }
+                });
+
+                result = await result.json();
+
+                if(result){
+                    swal({
+                        title: "Delete SubCategory",
+                        text: "SubCategory Deleted Successfully!",
+                        icon: "success"
+                    });
+                    getAllSubCategory();
+                }else{
+                    swal({
+                        title: "Delete Member",
+                        text: "SubCatgory Deletion fail!",
+                        icon: "warning"
+                    });
+                }
+            }else{
+                swal("Subcategory record is safe!");
+            }
+
+        }catch(err){
+            return console.log("Error while deleting subcategory!");
         }
     }
 
@@ -105,8 +134,12 @@ const ManageSubCategory = () => {
                                         <td style={{ width: "50%" }}>{item.subcategory_description}</td>
                                         <td style={{ width: "8%" }}>
                                             <center>
-                                                <i className="fa fa-trash" style={{ marginRight: 10, color: "#3f6ad" }} />
-                                                {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link>  */}
+
+                                                <button onClick={()=>deleteSubCategory(item._id)} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
+                                                    <i className="fa fa-trash" style={{ padding: 2, color: "red" }} />
+                                                </button>
+
+                                                <Link to={"/admin/AddSubCategory/" + item._id}><i className="fa fa-edit" style={{ color: "green" }} /></Link> 
                                             </center>
                                         </td>
                                     </tr>

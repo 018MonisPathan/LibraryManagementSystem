@@ -39,7 +39,7 @@ const ManageDeletedMember = () => {
     const undeleteMember = async (id) => {
         const willDelete = await swal({
             title: "Are you sure?",
-            text: "Once Recovered, you will not be able to see this file here!!",
+            text: "Once Recovered, you will not be able to see this record here!!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -134,8 +134,9 @@ const ManageDeletedMember = () => {
                                                     <td style={{width: "11%"}}>{item.username}</td>
                                                     <td style={{width: "8%"}}>
                                                         <center>
-                                                            <button onClick={()=>undeleteMember(item._id)} style={{width:"50px"}}>
-                                                                <i className="fa fa-trash" style={{ marginRight: 10, color: "#3f6ad" }} />
+                                                            <button onClick={()=>undeleteMember(item._id)} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
+                                                                {/* <i className="fa fa-trash" /> */}
+                                                                <i class="fa fa-recycle"  style={{ marginRight: 10, color: "green", fontSize: 19, padding: 2 }} aria-hidden="true"></i>
                                                             </button>
                                                             
                                                             {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link> */}

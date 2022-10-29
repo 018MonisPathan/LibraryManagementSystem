@@ -155,7 +155,7 @@ const AddSubCategory = () => {
     //Get Categoryname
     const getcategoryname = async () => {
         let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-        let result = await fetch("http://localhost:5000/category/SelectAllCategory",{
+        let result = await fetch("http://localhost:5000/category/SelectActiveCategory",{
             headers:{
                 "authorization": token
             }

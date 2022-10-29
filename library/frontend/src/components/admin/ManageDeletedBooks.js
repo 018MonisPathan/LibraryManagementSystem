@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 const { VerifyToken } = require('../AuthGuard');
 
-const ManageBook = () =>{
+const ManageDeletedBook = () =>{
     const[book,setBook] = useState("");
 
     useEffect(()=>{
@@ -16,7 +16,7 @@ const ManageBook = () =>{
         try{
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
 
-            let result = await fetch("http://localhost:5000/AddBook/SelectActiveBooks",{
+            let result = await fetch("http://localhost:5000/AddBook/SelectDeactiveBooks",{
                 headers:{
                     "authorization":token
                 }
@@ -34,7 +34,7 @@ const ManageBook = () =>{
             }
 
         }catch(err)
-        {
+        {   console.log(err.message);
             console.log("server error");
         }
     }
@@ -99,13 +99,13 @@ const ManageBook = () =>{
                     <h2>Manage Book</h2>
                     <ul class='breadcrumb'>
                         <li className='breadcrumb-item'>Book</li>
-                        <li className='breadcrumb-item'>Manage Book</li>
+                        <li className='breadcrumb-item'>Manage Deleted Book</li>
                     </ul>
                 </div>
             </div>
 
             <div className='card'>
-                <div className='card-header'>Manage Book</div>
+                <div className='card-header'>Manage Deleted Book</div>
 
                 <div className='card-body'>
                     <table className='table table-bordered'>
@@ -227,4 +227,4 @@ const ManageBook = () =>{
     );
 }
 
-export default ManageBook;
+export default ManageDeletedBook;

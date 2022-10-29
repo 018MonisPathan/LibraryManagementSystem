@@ -19,6 +19,9 @@ import AddBook from './components/admin/AddBook';
 //Import SubCategory
 import AddSubCategory from './components/admin/AddSubCategory';
 
+//Import AddSetting
+import AddSettings from './components/admin/AddSettings';
+
 //Import ManageCategory
 import ManageCategory from './components/admin/ManageCategory';
 
@@ -33,6 +36,9 @@ import ManageDeletedMember from './components/admin/ManageDeletedMember';
 
 //Import ManageBook
 import ManageBook from './components/admin/ManageBook';
+
+//Import ManageSettings
+import ManageSettings from './components/admin/ManageSettings';
 
 //import private component for admin
 import PrivateComponentAdmin from './components/privateComponentAdmin';
@@ -87,6 +93,9 @@ function App() {
             <Route path='/admin/ManageMember' element={<ManageMember/>}/>
             <Route path='/admin/ManageBook' element={<ManageBook/>}/>
             <Route path='/admin/ManageDeletedMember' element={<ManageDeletedMember/>}/>
+            <Route path='/admin/AddSetting' element={<AddSettings/>}></Route>
+            <Route path='/admin/ManageSettings' element={<ManageSettings/>}></Route>
+            <Route path='/admin/AddSetting/:id' element={<AddSettings/>}></Route>
           </Route>
 
           <Route element={<PrivateComponentStudent/>}>

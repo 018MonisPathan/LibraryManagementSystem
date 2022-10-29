@@ -7,16 +7,17 @@ module.exports={
         setting = new SettingsModel(req.body);
         
         if(!req.body.penalty_amount || !req.body.student_booklimit || !req.body.faculty_booklimit || !req.body.renewdaylimit){
-            return res.send("Please Fill all the fields");
+            return res.send(JSON.stringify("Please Fill all the fields"));
         }
-            const result = await setting.save();
-            if(result)
-            {
-                return res.send(JSON.stringify('Settings Set Successsfully'));
-            }
-            else{
-                res.send(JSON.stringify('Settings NOT SET!'));
-            }
+        
+        const result = await setting.save();
+        if(result)
+        {
+            return res.send(JSON.stringify('Settings Set Successsfully'));
+        }
+        else{
+            res.send(JSON.stringify('Settings NOT SET!'));
+        }
     },
     selectallsettings: async (req, res, next) => {
         try {
@@ -32,6 +33,20 @@ module.exports={
            
         } catch (err) {
             console.log(err.message);
+        }
+    },
+    selectByid: async (req, res, next) => {
+        try {
+            const id = req.params.id;
+            const result = await SettingsModel.findById(id);
+            if (result) {
+                res.send({data: result});
+            } else {
+                res.send('Not found');
+                return;
+            }
+        } catch (error) {
+            console.log(error.message);
         }
     },
     updateSettingsByid: async (req, res, next) => {

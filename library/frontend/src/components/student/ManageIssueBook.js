@@ -88,7 +88,12 @@ const ManageIssueBook=()=>{
                                                     
                                                     <td style={{width: "8%"}}>
                                                         <center>
-                                                            <button style={{width:"50px"}}>
+
+                                                            <form action="/pay" method="post">
+                                                                <input type="submit" value="Buy"/>
+                                                            </form>
+
+                                                            <button onClick={"#"} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
                                                                 <i className="fa fa-undo" style={{ marginRight: 10, color: "#3f6ad" }} />
                                                             </button>
                                                             

@@ -84,8 +84,8 @@ const Sidebar = () => {
           </button>
           <div className="collapse" id="setting-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><a href="#" className="link-dark rounded">View Settings</a></li>
-
+              <li><Link to="/admin/ManageSettings" className="link-dark rounded">Manage Settings</Link></li>
+              {/* <li><Link to='/admin/AddSetting' className="link-dark rounded">Add Settings</Link></li> */}
             </ul>
           </div>
         </li>

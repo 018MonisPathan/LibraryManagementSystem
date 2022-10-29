@@ -99,6 +99,23 @@
   margin-top: 50px;
 }
 
+/*Add Settings css*/
+
+.addsettigs{
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  /* padding: 67px 50px 54px 186px; */
+}
+
+.addsettings .addsettigs-form .card-body .txtsettingspaneltyamount, .txtstudentbooklimit , .txtfacultybooklimit, .txtrenewdaylimit{
+  height: 40px;
+  width: 372px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
 /*breadcrumb css*/
 
 .breadcrumb-div .breadcrumbimg{

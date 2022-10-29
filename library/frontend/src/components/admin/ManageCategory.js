@@ -22,7 +22,7 @@ const ManageCategory = () => {
 
             //return console.log(token.replace(/['"]+/g, ''));
 
-            let result = await fetch("http://localhost:5000/category/SelectActiveCategory",{
+            let result = await fetch("http://localhost:5000/category/SelectAllCategory",{
                 headers:{
                     "authorization": token
                 }
@@ -45,7 +45,7 @@ const ManageCategory = () => {
 
     //delete category by id
 
-    const softdeleteCategory=async(id)=>{
+    const deleteCategory=async(id)=>{
 
         //return alert(id);
         const willDelete = await swal({
@@ -58,15 +58,14 @@ const ManageCategory = () => {
 
         if(willDelete){
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch(`http://localhost:5000/category/SoftDeleteCategory/${id}`,{
-                method: 'PATCH',
+            let result = await fetch(`http://localhost:5000/category/DeleteCategory/${id}`,{
+                method: "delete",
                 headers:{
                     "authorization": token
                 }
             });
-            
+
             result = await result.json();
-            
 
             if(result == "Category already exists in subcategory"){
                 //return console.log("Category already exists in subcategory");
@@ -100,7 +99,7 @@ const ManageCategory = () => {
                     <h2>Manage Category</h2>
                     <ul class="breadcrumb">
                         <li className="breadcrumb-item">Category</li>
-                        <li className="breadcrumb-item">Manage Category</li>
+                        <li className="breadcrumb-item">ManageCategory</li>
                     </ul>
                 </div>
             </div>
@@ -133,7 +132,7 @@ const ManageCategory = () => {
                                                     <td style={{width: "50%"}}>{item.description}</td>
                                                     <td style={{width: "8%"}}>
                                                         <center>
-                                                            <button onClick={()=>softdeleteCategory(item._id)} style={{width:"30px",borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
+                                                            <button onClick={()=>deleteCategory(item._id)} style={{width:"30px",borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
                                                                 <i className="fa fa-trash" style={{ padding: 2, color: "red", fontSize: 16 }} />
                                                             </button>
 
@@ -151,7 +150,6 @@ const ManageCategory = () => {
             </div>
         </div>
     )
-    }
-
+}
 
 export default ManageCategory;

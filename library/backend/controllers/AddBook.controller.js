@@ -67,38 +67,6 @@ module.exports = {
             console.log(err.message);
         }
     },
-    selectactiveBooks: async (req, res, next) => {
-        try {
-            const result = await AddBookModel.find({flag:1}).populate("subcategoryid","subcategory_name");
-
-            if(result)
-            {
-                res.send({ data: result });
-            }else{
-                res.send(JSON.stringify("No records found!"));
-            }
-
-            //console.log(result);
-        } catch (err) {
-            console.log(err.message);
-        }
-    },
-    selectdeactiveBooks: async (req, res, next) => {
-        try {
-            const result = await AddBookModel.find({flag:0}).populate("subcategoryid","subcategory_name");
-
-            if(result)
-            {
-                res.send({ data: result });
-            }else{
-                res.send(JSON.stringify("No records found!"));
-            }
-
-            //console.log(result);
-        } catch (err) {
-            console.log(err.message);
-        }
-    },
     updateBookbyid: async (req, res, next) => {
         try {
             const id = req.params.id;
@@ -132,41 +100,6 @@ module.exports = {
         } catch (err) {
             console.log(err.message);
         }
-    },
-    changeFlagStatus_AddBookDetails: async(req,res)=>{
-        try{
-            
-            const id = req.params.id;
-
-            const statuscheck=await AddBookModel.findById(id);
-            console.log(statuscheck.flag);
-            let updates={flag:1};
-            
-            if(statuscheck.flag==true  ){
-                console.log("statuscheck true");
-                 updates = {flag:0,deleted_at: Date.now()}
-            }else{
-                console.log("statuscheck false");
-                 updates = {flag:1,deleted_at: null}
-            }
-            
-            const options = {
-                new: true
-            };
-            const result = await AddBookModel.findByIdAndUpdate(
-                id,
-                updates,
-                options
-            );
-            if (!result) {
-                return res.send({ error: 'SoftDelete failed' });
-            }
-            res.send(result);
-
-        }catch(err){
-            console.log(err.message);
-            
-        };
     }
    
 };

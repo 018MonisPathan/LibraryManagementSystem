@@ -11,7 +11,7 @@ router.get("/selectReturnBookDetails",ReturnBookController.selectallReturnBookDe
 router.get("/selectActiveReturnBookDetails",ReturnBookController.select_onlyActiveDetails);
 router.get("/selectDeactiveReturnBookDetails",ReturnBookController.select_onlyDeactiveDetails);
 
-router.patch("/changeBookStatus/:id",ReturnBookController.changeFlagStatus_ReturnBookDetails);
+router.patch("/activate_deactivateReturnBookDetails/:id",ReturnBookController.changeFlagStatus_ReturnBookDetails);
 
 router.patch("/updateReturnBookDetails/:id",ReturnBookController.updateReturnBookDetailsByid);
 router.delete("/deleteReturnBookDetails/:id",ReturnBookController.deleteReturnBookDetailsid);

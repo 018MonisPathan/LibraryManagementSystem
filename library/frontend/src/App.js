@@ -16,14 +16,23 @@ import AddCategory from './components/admin/AddCategory';
 
 import AddBook from './components/admin/AddBook';
 
+import ManageDeletedBook from './components/admin/ManageDeletedBooks';
+
 //Import SubCategory
 import AddSubCategory from './components/admin/AddSubCategory';
 
 //Import ManageCategory
 import ManageCategory from './components/admin/ManageCategory';
 
+//Import ManageDeletedCategory
+import ManageDeletedCategory from './components/admin/ManageDeletedCategory';
+
+//---------Category---------
 //Import ManageSubCategory
 import ManageSubCategory from './components/admin/ManageSubCategory';
+
+//Import Manage Deleted Subcategory
+import ManageDeletedSubCategory from './components/admin/ManageDeletedSubCategory';
 
 //Import ManageMember
 import ManageMember from './components/admin/ManageMember';
@@ -75,18 +84,22 @@ function App() {
       
         <Routes>
           <Route element={<PrivateComponentAdmin/>}>
-            <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
+            <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent/>} />
             <Route path='/admin/registerlibrarianstudent/:id' element={<RegisterLibrarianStudent/>}></Route>
-            <Route path='/admin/AddCategory' element={<AddCategory />} />
-            <Route path='/admin/AddCategory/:id' element={<AddCategory />} />
+            <Route path='/admin/AddCategory' element={<AddCategory/>} />
+            <Route path='/admin/AddCategory/:id' element={<AddCategory/>} />
             <Route path='/admin/AddSubCategory' element={<AddSubCategory/>}></Route>
             <Route path='/admin/AddSubCategory/:id' element={<AddSubCategory/>}></Route>
             <Route path='/admin/AddBook' element={<AddBook />} />
             <Route path='/admin/ManageCategory' element={<ManageCategory />} />
+            <Route path='/admin/ManageDeletedCategory'element={<ManageDeletedCategory/>}/>
             <Route path='/admin/ManageSubCategory' element={<ManageSubCategory />} />
+            <Route path='/admin/ManageDeletedSubCategory' element={<ManageDeletedSubCategory/>}/>
             <Route path='/admin/ManageMember' element={<ManageMember/>}/>
             <Route path='/admin/ManageBook' element={<ManageBook/>}/>
+            <Route path='/admin/ManageDeletedBook' element={<ManageDeletedBook/>}/>
             <Route path='/admin/ManageDeletedMember' element={<ManageDeletedMember/>}/>
+            
           </Route>
 
           <Route element={<PrivateComponentStudent/>}>

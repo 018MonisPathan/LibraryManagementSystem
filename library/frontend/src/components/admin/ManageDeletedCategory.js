@@ -4,50 +4,39 @@ import swal from 'sweetalert';
 
 const { VerifyToken } = require('../AuthGuard');
 
-const ManageCategory = () => {
+const ManageDeletedCategory = () =>
+{
 
-    const[category,setCategory] = useState("");
-
+    const[delcategory,setDelCategory]=useState("");
+    
     useEffect(()=>{
         VerifyToken();
-        getAllCategory();
+        getdeletedcategory();
     },[])
 
-    //Get All Category
-
-    const getAllCategory = async () =>{
+    const getdeletedcategory =async ()=>{
         try{
-
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
 
-            //return console.log(token.replace(/['"]+/g, ''));
-
-            let result = await fetch("http://localhost:5000/category/SelectActiveCategory",{
+            let result= await fetch("http://localhost:5000/category/SelectDeactiveCategories",{
                 headers:{
                     "authorization": token
                 }
             });
-
             result = await result.json();
-
-            //return console.log(result.data);
-
             if(result)
             {
-                setCategory(result.data);
+                setDelCategory(result.data);
             }else{
                 console.log("Something went wrong");
             }
         }catch(err){
+            console.log(err.message);
             console.log("Server Error");
         }
     }
 
-    //delete category by id
-
-    const softdeleteCategory=async(id)=>{
-
-        //return alert(id);
+    const softdeleteCategory=async(id)=>{ 
         const willDelete = await swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to see this record here!",
@@ -57,6 +46,7 @@ const ManageCategory = () => {
         });
 
         if(willDelete){
+
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
             let result = await fetch(`http://localhost:5000/category/SoftDeleteCategory/${id}`,{
                 method: 'PATCH',
@@ -64,32 +54,29 @@ const ManageCategory = () => {
                     "authorization": token
                 }
             });
-            
-            result = await result.json();
-            
 
-            if(result == "Category already exists in subcategory"){
-                //return console.log("Category already exists in subcategory");
+            result = result.json();
+
+             console.log(result);
+
+            if(result){
                 swal({
                     title: "Delete Category",
-                    text: "This category is already exists in subcategory!",
-                    icon: "warning"
+                    text: "Category Deleted Successfully!",
+                    icon: "success",
                 });
+                getdeletedcategory();
             }else{
-                getAllCategory();
-                //return console.log("Category deletd");
                 swal({
                     title: "Delete Category",
-                    text: "Category deleted successfully!",
-                    icon: "success"
+                    text: "Category Deletion Fail!!",
+                    icon: "warning",
                 });
             }
         }else{
             swal("Category record is safe!");
         }
-
     }
-
     return(
         <div className="managecategory container">
 
@@ -97,10 +84,10 @@ const ManageCategory = () => {
                 <img className="breadcrumbimg" src={process.env.PUBLIC_URL + "/image/breadcrumb_img1.jpg"} alt="breadcrumb image" height={130} width={1210} />
 
                 <div class="breadcrumb-title bottom-left">
-                    <h2>Manage Category</h2>
+                    <h2>Manage Deleted Category</h2>
                     <ul class="breadcrumb">
                         <li className="breadcrumb-item">Category</li>
-                        <li className="breadcrumb-item">Manage Category</li>
+                        <li className="breadcrumb-item">Manage Deleted Category</li>
                     </ul>
                 </div>
             </div>
@@ -126,7 +113,7 @@ const ManageCategory = () => {
                         
                         <tbody>
                         {
-                                            category.length > 0 ? category.map((item, index) => (
+                                            delcategory.length > 0 ? delcategory.map((item, index) => (
                                                 <tr key={item._id}>
                                                     <th scope="row" style={{width: "8%"}}>{index + 1}</th>
                                                     <td style={{width: "20%"}}>{item.category_name}</td>
@@ -134,10 +121,9 @@ const ManageCategory = () => {
                                                     <td style={{width: "8%"}}>
                                                         <center>
                                                             <button onClick={()=>softdeleteCategory(item._id)} style={{width:"30px",borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
-                                                                <i className="fa fa-trash" style={{ padding: 2, color: "red", fontSize: 16 }} />
+                                                                <i className="fa fa-recycle" style={{ padding: 2, color: "green", fontSize: 16 }} />
                                                             </button>
 
-                                                            <Link to={"/admin/AddCategory/" + item._id}><i className="fa fa-edit" style={{ color: "green" }} /></Link>
                                                         </center>
                                                     </td>
                                                 </tr>
@@ -153,5 +139,4 @@ const ManageCategory = () => {
     )
     }
 
-
-export default ManageCategory;
+export default ManageDeletedCategory;

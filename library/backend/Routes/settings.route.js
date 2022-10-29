@@ -7,6 +7,7 @@ const jwtKey = 'e-comm';
 
 router.post('/InsertSettings',[auth],SettingController.insertSettings);
 router.get('/SelectSettings',[auth],SettingController.selectallsettings);
+router.get('/SelectSettingsByid/:id',[auth],SettingController.selectByid);
 router.patch('/UpdateSettings/:id',[auth],SettingController.updateSettingsByid);
 router.delete('/DeleteSettings/:id',[auth],SettingController.deleteSettingByid);
 

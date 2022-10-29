@@ -13,6 +13,14 @@ module.exports={
             return res.send("Please Fill all the fields");
         }
 
+        //Check total issue book limit
+
+        const checkissue_limit = await IssueBookModel.findById(req.body.membership_id);
+
+        if(checkissue_limit > 3){
+            return res.send(JSON.stringify("You have already issue 3 book!!"));
+        }
+
         const checkquantity=await AddBookModel.findById(req.body.book_id);
 
         var quant=checkquantity.quantity;

@@ -16,7 +16,7 @@ const AddBook = () => {
     const [edition, setEdition] = useState('');
     const [published_on, setPublishedon] = useState('');
     const [quantity, setQuantitity] = useState('');
-    const [pdf, setPDF] = useState('');
+    const [pdf, setPdf] = useState("");
 
     const [error, setError] = useState(false);
     const [titleError, setTitleError] = useState('');
@@ -75,10 +75,25 @@ const AddBook = () => {
             setError(true);
             return false;
         }
+
+        // const formdata = new FormData();
+
+        // formdata.append('title',title);
+        // formdata.append('author',author);
+        // formdata.append('publisher',publisher);
+        // formdata.append('subcategoryid',subcategoryid);
+        // formdata.append('ISBN_no',ISBN_no);
+        // formdata.append('edition',edition);
+        // formdata.append('published_on',published_on);
+        // formdata.append('quantity',quantity);
+        // formdata.append('pdf',pdf);
+
+        // console.warn(formdata);
+
         let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
         let result = await fetch('http://localhost:5000/AddBook/BookInsert', {
             method: 'post',
-            body: JSON.stringify({
+             body: JSON.stringify({
                 title,
                 subcategoryid,
                 ISBN_no,
@@ -88,6 +103,7 @@ const AddBook = () => {
                 published_on,
                 quantity,
                 pdf
+                //formdata
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -244,34 +260,24 @@ const AddBook = () => {
                                 <h3>Add Book</h3>
                             </div>
                             <div className='card-body'>
-                                <div className='row mt-3'>
-                                    <div className='col-md-4'>
-                                        <input
-                                            type='text'
-                                            placeholder='Enter Title'
-                                            className='txtemail'
-                                            title='Enter Title'
-                                            value={title}
-                                            onChange={(e) => {
-                                                setTitle(e.target.value);
-                                                validateTitle();
-                                            }}
-                                            required
-                                        />
+                                <form>
 
-                                        {/* print invalid input message */}
-                                        <span
-                                            className='invalid-input'
-                                            style={{
-                                                fontWeight: 'bold',
-                                                color: 'red'
-                                            }}
-                                        >
-                                            {titleError}
-                                        </span>
+                                    <div className='row mt-3'>
+                                        <div className='col-md-4'>
+                                            <input
+                                                type='text'
+                                                placeholder='Enter Title'
+                                                className='txtemail'
+                                                title='Enter Title'
+                                                value={title}
+                                                onChange={(e) => {
+                                                    setTitle(e.target.value);
+                                                    validateTitle();
+                                                }}
+                                                required
+                                            />
 
-                                        {/* print empty field message */}
-                                        {error && !title && (
+                                            {/* print invalid input message */}
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -279,120 +285,38 @@ const AddBook = () => {
                                                     color: 'red'
                                                 }}
                                             >
-                                                Please fill out this field!
+                                                {titleError}
                                             </span>
-                                        )}
-                                    </div>
 
-                                    <div className='col-md-4'>
-                                        <input
-                                            type='text'
-                                            placeholder='Enter Author'
-                                            className='txtemail'
-                                            title='Enter Author'
-                                            value={author}
-                                            onChange={(e) => {
-                                                setAuthor(e.target.value);
-                                                validateAuthor();
-                                            }}
-                                            required
-                                        />
-
-                                        {/* print invalid input message */}
-                                        <span
-                                            className='invalid-input'
-                                            style={{
-                                                fontWeight: 'bold',
-                                                color: 'red'
-                                            }}
-                                        >
-                                            {authorError}
-                                        </span>
-
-                                        {/* print empty field message */}
-                                        {error && !author && (
-                                            <span
-                                                className='invalid-input'
-                                                style={{
-                                                    fontWeight: 'bold',
-                                                    color: 'red'
-                                                }}
-                                            >
-                                                Please fill out this field!
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div className='col-md-4'>
-                                        <input
-                                            type='text'
-                                            placeholder='Enter Publisher'
-                                            className='txtemail'
-                                            title='Enter Publisher'
-                                            value={publisher}
-                                            onChange={(e) => {
-                                                setPublisher(e.target.value);
-                                                validatePublisher();
-                                            }}
-                                            required
-                                        />
-
-                                        {/* print invalid input message */}
-                                        <span
-                                            className='invalid-input'
-                                            style={{
-                                                fontWeight: 'bold',
-                                                color: 'red'
-                                            }}
-                                        >
-                                            {publisherError}
-                                        </span>
-
-                                        {/* print empty field message */}
-                                        {error && !publisher && (
-                                            <span
-                                                className='invalid-input'
-                                                style={{
-                                                    fontWeight: 'bold',
-                                                    color: 'red'
-                                                }}
-                                            >
-                                                Please fill out this field!
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className='row mt-3'>
-                                    <div className='col-md-auto'>
-                                        {/* dateid.max=new
-                                        Date().toISOString().split("T")[0]; */}
-                                        <select
-                                            className='dropdownCategory'
-                                            onChange={(e) => {
-                                                onchangeHandel(e);
-                                            }}
-                                        >
-                                            <option value={0}>
-                                                Select Category
-                                            </option>
-
-                                            {category.length > 0 ? (
-                                                category.map((item, index) => (
-                                                    <option
-                                                        key={item._id}
-                                                        value={item._id}
-                                                    >
-                                                        {item.category_name}
-                                                    </option>
-                                                ))
-                                            ) : (
-                                                <option value={0}>
-                                                    No Records Founds!
-                                                </option>
+                                            {/* print empty field message */}
+                                            {error && !title && (
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    Please fill out this field!
+                                                </span>
                                             )}
-                                        </select>
+                                        </div>
 
-                                        {error && !category && (
+                                        <div className='col-md-4'>
+                                            <input
+                                                type='text'
+                                                placeholder='Enter Author'
+                                                className='txtemail'
+                                                title='Enter Author'
+                                                value={author}
+                                                onChange={(e) => {
+                                                    setAuthor(e.target.value);
+                                                    validateAuthor();
+                                                }}
+                                                required
+                                            />
+
+                                            {/* print invalid input message */}
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -400,51 +324,37 @@ const AddBook = () => {
                                                     color: 'red'
                                                 }}
                                             >
-                                                Please fill out this field!
+                                                {authorError}
                                             </span>
-                                        )}
-                                    </div>
 
-                                    <div className='col-md-auto'>
-                                        <select
-                                            className='dropdownSubCategory'
-                                            value={subcategoryid}
-                                            disabled={subcategorystatus}
-                                            onChange={(e) => {
-                                                setSubCategoryID(e.target.value);
-                                            }}
-                                        >
-                                            <option value={0}>
-                                                Select SubCategory
-                                            </option>
-
-                                            {subcategory.length > 0 ? (
-                                                subcategory.map((item, index) => (
-                                                    <option
-                                                        key={item._id}
-                                                        value={item._id}
-                                                    >
-                                                        {item.subcategory_name}
-                                                    </option>
-                                                ))
-                                            ) : (
-                                                <option value={0}>
-                                                    No Records Founds!
-                                                </option>
+                                            {/* print empty field message */}
+                                            {error && !author && (
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    Please fill out this field!
+                                                </span>
                                             )}
-                                        </select>
+                                        </div>
+                                        <div className='col-md-4'>
+                                            <input
+                                                type='text'
+                                                placeholder='Enter Publisher'
+                                                className='txtemail'
+                                                title='Enter Publisher'
+                                                value={publisher}
+                                                onChange={(e) => {
+                                                    setPublisher(e.target.value);
+                                                    validatePublisher();
+                                                }}
+                                                required
+                                            />
 
-                                        {/* print invalid input message */}
-                                        <span
-                                            className='invalid-input'
-                                            style={{
-                                                fontWeight: 'bold',
-                                                color: 'red'
-                                            }}
-                                        ></span>
-
-                                        {/* print empty field message */}
-                                        {error && !subcategory && (
+                                            {/* print invalid input message */}
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -452,42 +362,138 @@ const AddBook = () => {
                                                     color: 'red'
                                                 }}
                                             >
-                                                Please fill out this field!
+                                                {publisherError}
                                             </span>
-                                        )}
+
+                                            {/* print empty field message */}
+                                            {error && !publisher && (
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    Please fill out this field!
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className='row mt-3'>
-                                    <div className='col-md-4'>
-                                        <input
-                                            type='number'
-                                            placeholder='Enter ISBN no'
-                                            className='txtemail'
-                                            value={ISBN_no}
-                                            onChange={(e) => {
-                                                setISBNno(e.target.value);
-                                                validateISBNno();
-                                            }}
-                                            title='Enter ISBN no'
-                                            required
-                                            min={0}
+
+                                    <div className='row mt-3'>
+                                        <div className='col-md-auto'>
+                                            {/* dateid.max=new
+                                            Date().toISOString().split("T")[0]; */}
+                                            <select
+                                                className='dropdownCategory'
+                                                onChange={(e) => {
+                                                    onchangeHandel(e);
+                                                }}
+                                            >
+                                                <option value={0}>
+                                                    Select Category
+                                                </option>
+
+                                                {category.length > 0 ? (
+                                                    category.map((item, index) => (
+                                                        <option
+                                                            key={item._id}
+                                                            value={item._id}
+                                                        >
+                                                            {item.category_name}
+                                                        </option>
+                                                    ))
+                                                ) : (
+                                                    <option value={0}>
+                                                        No Records Founds!
+                                                    </option>
+                                                )}
+                                            </select>
+
+                                            {error && !category && (
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    Please fill out this field!
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        <div className='col-md-auto'>
+                                            <select
+                                                className='dropdownSubCategory'
+                                                value={subcategoryid}
+                                                disabled={subcategorystatus}
+                                                onChange={(e) => {
+                                                    setSubCategoryID(e.target.value);
+                                                }}
+                                            >
+                                                <option value={0}>
+                                                    Select SubCategory
+                                                </option>
+
+                                                {subcategory.length > 0 ? (
+                                                    subcategory.map((item, index) => (
+                                                        <option
+                                                            key={item._id}
+                                                            value={item._id}
+                                                        >
+                                                            {item.subcategory_name}
+                                                        </option>
+                                                    ))
+                                                ) : (
+                                                    <option value={0}>
+                                                        No Records Founds!
+                                                    </option>
+                                                )}
+                                            </select>
+
+                                            {/* print invalid input message */}
+                                            <span
+                                                className='invalid-input'
+                                                style={{
+                                                    fontWeight: 'bold',
+                                                    color: 'red'
+                                                }}
+                                            ></span>
+
+                                            {/* print empty field message */}
+                                            {error && !subcategory && (
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    Please fill out this field!
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className='row mt-3'>
+                                        <div className='col-md-4'>
+                                            <input
+                                                type='number'
+                                                placeholder='Enter ISBN no'
+                                                className='txtemail'
+                                                value={ISBN_no}
+                                                onChange={(e) => {
+                                                    setISBNno(e.target.value);
+                                                    validateISBNno();
+                                                }}
+                                                title='Enter ISBN no'
+                                                required
+                                                min={0}
+                                                
                                             
-                                           
-                                        />
+                                            />
 
-                                        {/* print invalid input message */}
-                                        <span
-                                            className='invalid-input'
-                                            style={{
-                                                fontWeight: 'bold',
-                                                color: 'red'
-                                            }}
-                                        >
-                                            {isbnnoError}
-                                        </span>
-
-                                        {/* print empty field message */}
-                                        {error && !ISBN_no && (
+                                            {/* print invalid input message */}
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -495,37 +501,37 @@ const AddBook = () => {
                                                     color: 'red'
                                                 }}
                                             >
-                                                Please fill out this field!
+                                                {isbnnoError}
                                             </span>
-                                        )}
-                                    </div>
-                                    <div className='col-md-4'>
-                                        <input
-                                            type='text'
-                                            placeholder='Enter Edition'
-                                            className='txtemail'
-                                            title='Enter Edition'
-                                            value={edition}
-                                            onChange={(e) => {
-                                                setEdition(e.target.value);
-                                                validateEdition();
-                                            }}
-                                            required
-                                        />
 
-                                        {/* print invalid input message */}
-                                        <span
-                                            className='invalid-input'
-                                            style={{
-                                                fontWeight: 'bold',
-                                                color: 'red'
-                                            }}
-                                        >
-                                            {editionError}
-                                        </span>
+                                            {/* print empty field message */}
+                                            {error && !ISBN_no && (
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    Please fill out this field!
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className='col-md-4'>
+                                            <input
+                                                type='text'
+                                                placeholder='Enter Edition'
+                                                className='txtemail'
+                                                title='Enter Edition'
+                                                value={edition}
+                                                onChange={(e) => {
+                                                    setEdition(e.target.value);
+                                                    validateEdition();
+                                                }}
+                                                required
+                                            />
 
-                                        {/* print empty field message */}
-                                        {error && !edition && (
+                                            {/* print invalid input message */}
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -533,24 +539,66 @@ const AddBook = () => {
                                                     color: 'red'
                                                 }}
                                             >
-                                                Please fill out this field!
+                                                {editionError}
                                             </span>
-                                        )}
-                                    </div>
 
-                                    <div className='col-md-4'>
-                                        <input
-                                            id='dateid'
-                                            type='date'
-                                            className='txtdob'
-                                            value={published_on}
-                                            onChange={(e) =>
-                                                setPublishedon(e.target.value)
-                                            }
-                                            required
-                                            max={testdisable()}
-                                        />
-                                        {error && !published_on && (
+                                            {/* print empty field message */}
+                                            {error && !edition && (
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    Please fill out this field!
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        <div className='col-md-4'>
+                                            <input
+                                                id='dateid'
+                                                type='date'
+                                                className='txtdob'
+                                                value={published_on}
+                                                onChange={(e) =>
+                                                    setPublishedon(e.target.value)
+                                                }
+                                                required
+                                                max={testdisable()}
+                                            />
+                                            {error && !published_on && (
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    Published On Date!
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className='row mt-3'>
+                                        <div className='col-md-4'>
+                                            {/* dateid.max=new
+                                            Date().toISOString().split("T")[0]; */}
+
+                                            <input
+                                                type='number'
+                                                placeholder='Enter Quantity'
+                                                className='txtemail'
+                                                title='Enter Quantity'
+                                                value={quantity}
+                                                onChange={(e) => {
+                                                    setQuantitity(e.target.value);
+                                                    validateQuantity();
+                                                }}
+                                                required
+                                                min={0}
+                                            />
                                             <span
                                                 className='invalid-input'
                                                 style={{
@@ -558,88 +606,61 @@ const AddBook = () => {
                                                     color: 'red'
                                                 }}
                                             >
-                                                Published On Date!
+                                                {quantitityError}
                                             </span>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className='row mt-3'>
-                                    <div className='col-md-4'>
-                                        {/* dateid.max=new
-                                        Date().toISOString().split("T")[0]; */}
+                                            {error && !quantity && (
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    Please fill out this field!
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className='col-md-6'>
+                                            <input
+                                                type='file'
+                                                className='txtusername'
+                                                title='Select PDF'
+                                                //value={pdf}
+                                                onChange={(e) => {
 
-                                        <input
-                                            type='number'
-                                            placeholder='Enter Quantity'
-                                            className='txtemail'
-                                            title='Enter Quantity'
-                                            value={quantity}
-                                            onChange={(e) => {
-                                                setQuantitity(e.target.value);
-                                                validateQuantity();
-                                            }}
-                                            required
-                                            min={0}
-                                        />
-                                        <span
-                                            className='invalid-input'
-                                            style={{
-                                                fontWeight: 'bold',
-                                                color: 'red'
-                                            }}
-                                        >
-                                            {quantitityError}
-                                        </span>
-                                        {error && !quantity && (
-                                            <span
-                                                className='invalid-input'
-                                                style={{
-                                                    fontWeight: 'bold',
-                                                    color: 'red'
+                                                    setPdf(e.target.files[0]);
+                                                    // validatePDF();
+                                                    //console.warn(pdf);
                                                 }}
-                                            >
-                                                Please fill out this field!
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div className='col-md-6'>
-                                        <input
-                                            type='file'
-                                            className='txtusername'
-                                            title='Select PDF'
-                                            value={pdf}
-                                            onChange={(e) => {
-                                                setPDF(e.target.value);
-                                                validatePDF();
-                                            }}
-                                            required
-                                        />
+                                                required
+                                            />
 
-                                        {error && !pdf && (
-                                            <span
-                                                className='invalid-input'
-                                                style={{
-                                                    fontWeight: 'bold',
-                                                    color: 'red'
-                                                }}
-                                            >
-                                                Please fill out this field!
-                                            </span>
-                                        )}
+                                            {error && !pdf && (
+                                                <span
+                                                    className='invalid-input'
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    Please fill out this field!
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className='mt-4'>
-                                    <center>
-                                        <button
-                                            type='button'
-                                            className='btn btn-primary'
-                                            onClick={collectdata}
-                                        >
-                                            Add
-                                        </button>
-                                    </center>
-                                </div>
+                                    <div className='mt-4'>
+                                        <center>
+                                            <button
+                                                type='button'
+                                                className='btn btn-primary'
+                                                onClick={collectdata}
+                                            >
+                                                Add
+                                            </button>
+                                        </center>
+                                    </div>
+                                </form>
 
                                 {/* <div>
                             <p>If you have an account? <Link to="/login">Login Here....</Link></p>

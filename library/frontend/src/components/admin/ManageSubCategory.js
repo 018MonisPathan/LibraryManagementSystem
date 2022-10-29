@@ -19,7 +19,7 @@ const ManageSubCategory = () => {
     const getAllSubCategory = async () => {
         try {
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch("http://localhost:5000/subcategory/SubSelectActiveCategory",{
+            let result = await fetch("http://localhost:5000/subcategory/SubSelectAllCategory",{
                 headers:{
                     "authorization": token
                 }
@@ -40,7 +40,7 @@ const ManageSubCategory = () => {
 
     //delete subcategory by id
 
-    const SoftdeleteSubCategory=async(id)=>{
+    const deleteSubCategory=async(id)=>{
         try{
             //return alert(id);
             const willDelete = await swal({
@@ -54,12 +54,11 @@ const ManageSubCategory = () => {
             if(willDelete){
 
                 let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-                let result = await fetch(`http://localhost:5000/subcategory/SoftDeleteSubCategory/${id}`,{
-                method: 'PATCH',
-                headers:{
-                    "authorization": token
-                }
-                    
+                let result = await fetch(`http://localhost:5000/subcategory/SubDeleteCategory/${id}`,{
+                    method: "delete",
+                    headers:{
+                        "authorization": token
+                    }
                 });
 
                 result = await result.json();
@@ -86,6 +85,8 @@ const ManageSubCategory = () => {
             return console.log("Error while deleting subcategory!");
         }
     }
+
+
     return (
         <div className="managesubcategory container">
 
@@ -116,7 +117,9 @@ const ManageSubCategory = () => {
                                 <th>Category Description</th>
                                 <th>SubCategory Name</th>
                                 <th>SubCategory Description</th>
-                                <th>Option</th>
+                                
+                                    <th>Option</th>
+                                
                             </tr>
                         </thead>
 
@@ -131,7 +134,8 @@ const ManageSubCategory = () => {
                                         <td style={{ width: "50%" }}>{item.subcategory_description}</td>
                                         <td style={{ width: "8%" }}>
                                             <center>
-                                                <button onClick={()=>SoftdeleteSubCategory(item._id)} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
+
+                                                <button onClick={()=>deleteSubCategory(item._id)} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
                                                     <i className="fa fa-trash" style={{ padding: 2, color: "red" }} />
                                                 </button>
 

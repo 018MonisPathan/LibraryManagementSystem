@@ -15,10 +15,6 @@ const CategorySchema = new mongoose.Schema(
             type: Date,
             required: false,
             default: null
-        },
-        flag:{
-            type: Boolean,
-            default: 1
         }
     },
     { timestamps: true }

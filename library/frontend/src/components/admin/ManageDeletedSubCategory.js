@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const { VerifyToken } = require('../AuthGuard');
 
-const ManageSubCategory = () => {
+const ManageDeletedSubCategory = () => {
 
     const [subcategory, setSubCategory] = useState("");
 
@@ -19,7 +19,7 @@ const ManageSubCategory = () => {
     const getAllSubCategory = async () => {
         try {
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch("http://localhost:5000/subcategory/SubSelectActiveCategory",{
+            let result = await fetch("http://localhost:5000/subcategory/SubSelectDeactive",{
                 headers:{
                     "authorization": token
                 }
@@ -40,7 +40,7 @@ const ManageSubCategory = () => {
 
     //delete subcategory by id
 
-    const deleteSubCategory=async(id)=>{
+    const SoftdeleteSubCategory=async(id)=>{
         try{
             //return alert(id);
             const willDelete = await swal({
@@ -55,10 +55,11 @@ const ManageSubCategory = () => {
 
                 let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
                 let result = await fetch(`http://localhost:5000/subcategory/SoftDeleteSubCategory/${id}`,{
-                    method: 'PATCH',
-                    headers:{
-                        "authorization": token
-                    }
+                method: 'PATCH',
+                headers:{
+                    "authorization": token
+                }
+                    
                 });
 
                 result = await result.json();
@@ -85,8 +86,6 @@ const ManageSubCategory = () => {
             return console.log("Error while deleting subcategory!");
         }
     }
-
-
     return (
         <div className="managesubcategory container">
 
@@ -94,17 +93,17 @@ const ManageSubCategory = () => {
                 <img className="breadcrumbimg" src={process.env.PUBLIC_URL + "/image/breadcrumb_img1.jpg"} alt="breadcrumb image" height={130} width={1210} />
 
                 <div className="breadcrumb-title bottom-left">
-                    <h2>Manage SubCategory</h2>
+                    <h2>Manage Deleted SubCategory</h2>
                     <ul className="breadcrumb">
                         <li className="breadcrumb-item">SubCategory</li>
-                        <li className="breadcrumb-item">ManageSubCategory</li>
+                        <li className="breadcrumb-item">Manage Deleted SubCategory</li>
                     </ul>
                 </div>
             </div>
 
             <div className="card">
                 <div className="card-header">
-                    Manage SubCategory
+                    Manage Deleted SubCategory
                 </div>
 
                 <div className="card-body">
@@ -135,16 +134,15 @@ const ManageSubCategory = () => {
                                         <td style={{ width: "8%" }}>
                                             <center>
 
-                                                <button onClick={()=>deleteSubCategory(item._id)} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
-                                                    <i className="fa fa-trash" style={{ padding: 2, color: "red" }} />
-                                                </button>
-
-                                                <Link to={"/admin/AddSubCategory/" + item._id}><i className="fa fa-edit" style={{ color: "green" }} /></Link> 
+                                            <button onClick={()=>SoftdeleteSubCategory(item._id)} style={{width:"30px",borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
+                                                                <i className="fa fa-recycle" style={{ padding: 2, color: "green", fontSize: 16 }} />
+                                                            </button>
+    
                                             </center>
                                         </td>
                                     </tr>
                                 ))
-                                    : <tr> <td colSpan="3" style={{ textAlign: "center" }}><strong>No Records
+                                    : <tr><td colSpan="3" style={{ textAlign: "center" }}><strong>No Records
                                         Founds!</strong></td></tr>
                             }
                         </tbody>
@@ -155,4 +153,4 @@ const ManageSubCategory = () => {
     )
 }
 
-export default ManageSubCategory;
+export default ManageDeletedSubCategory;

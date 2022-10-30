@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 const { VerifyToken } = require('../AuthGuard');
 
-const ManageBook = () =>{
+const ManageDeletedBook = () =>{
     const[book,setBook] = useState("");
 
     useEffect(()=>{
@@ -16,7 +16,7 @@ const ManageBook = () =>{
         try{
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
 
-            let result = await fetch("http://localhost:5000/AddBook/SelectActiveBooks",{
+            let result = await fetch("http://localhost:5000/AddBook/SelectDeactiveBooks",{
                 headers:{
                     "authorization":token
                 }
@@ -34,10 +34,11 @@ const ManageBook = () =>{
             }
 
         }catch(err)
-        {
+        {   console.log(err.message);
             console.log("server error");
         }
     }
+
     const deleteBook=async(id)=>{
         try{
             //return alert(id);
@@ -83,30 +84,31 @@ const ManageBook = () =>{
             return console.log("Error while deleting subcategory!");
         }
     }
+    return (
+        <div className='managebook container'>
+            <div className='breadcrumb-div breadcrumb-wrap bg-spring mb-4'>
+                <img
+                    className='breadcrumbimg'
+                    src={process.env.PUBLIC_URL + '/image/breadcrumb_img1.jpg'}
+                    alt='breadcrumb image'
+                    height={130}
+                    width={1210}
+                />
 
-    return(
-        <div className="managebook container">
-
-        <div className="breadcrumb-div breadcrumb-wrap bg-spring mb-4">
-                <img className="breadcrumbimg" src={process.env.PUBLIC_URL + "/image/breadcrumb_img1.jpg"} alt="breadcrumb image" height={130} width={1210} />
-
-                <div class="breadcrumb-title bottom-left">
+                <div class='breadcrumb-title bottom-left'>
                     <h2>Manage Book</h2>
-                    <ul class="breadcrumb">
-                        <li className="breadcrumb-item">Book</li>
-                        <li className="breadcrumb-item">Manage Book</li>
+                    <ul class='breadcrumb'>
+                        <li className='breadcrumb-item'>Book</li>
+                        <li className='breadcrumb-item'>Manage Deleted Book</li>
                     </ul>
                 </div>
             </div>
 
-            <div className="card">
-                <div className="card-header">
-                    Manage Book
-                </div>
+            <div className='card'>
+                <div className='card-header'>Manage Deleted Book</div>
 
-                <div className="card-body">
-
-                    <table className="table table-bordered">
+                <div className='card-body'>
+                    <table className='table table-bordered'>
                         <thead>
                             <tr>
                                 <th>SR No.</th>
@@ -124,22 +126,47 @@ const ManageBook = () =>{
                                 </center>
                             </tr>
                         </thead>
-                        
+
                         <tbody>
-                        {
-                                            book.length > 0 ? book.map((item, index) => (
-                                                <tr key={item._id}>
-                                                    <th scope="row" style={{width: "8%"}}>{index + 1}</th>
-                                                    <td style={{width: "11%"}}>{item.title}</td>
-                                                    <td>{item.author}</td>
-                                                    <td>{item.publisher}</td>
-                                                    <td style={{width: "11%"}}>{item['subcategoryid'][0].subcategory_name}</td>
-                                                    <td style={{width: "11%"}}>{item.ISBN_no}</td>
-                                                    <td>{item.edition}</td>
-                                                    <td style={{width: "5%"}}>{item.published_on}</td>
-                                                    <td style={{width: "3%"}}>{item.quantity}</td>
-                                                    <td style={{width: "5%"}}><a href={"http://localhost:5000"+item.pdf} target="_blank">PDF</a></td>
-                                                    <td style={{ width: '8%' }}>
+                            {book.length > 0 ? (
+                                book.map((item, index) => (
+                                    <tr key={item._id}>
+                                        <th scope='row' style={{ width: '8%' }}>
+                                            {index + 1}
+                                        </th>
+                                        <td style={{ width: '11%' }}>
+                                            {item.title}
+                                        </td>
+                                        <td>{item.author}</td>
+                                        <td>{item.publisher}</td>
+                                        <td style={{ width: '11%' }}>
+                                            {
+                                                item['subcategoryid'][0]
+                                                    .subcategory_name
+                                            }
+                                        </td>
+                                        <td style={{ width: '11%' }}>
+                                            {item.ISBN_no}
+                                        </td>
+                                        <td>{item.edition}</td>
+                                        <td style={{ width: '5%' }}>
+                                            {item.published_on}
+                                        </td>
+                                        <td style={{ width: '3%' }}>
+                                            {item.quantity}
+                                        </td>
+                                        <td style={{ width: '5%' }}>
+                                            <a
+                                                href={
+                                                    'http://localhost:5000' +
+                                                    item.pdf
+                                                }
+                                                target='_blank'
+                                            >
+                                                PDF
+                                            </a>
+                                        </td>
+                                        <td style={{ width: '8%' }}>
                                             <center>
                                                 <button
                                                     onClick={() =>
@@ -179,17 +206,25 @@ const ManageBook = () =>{
                                                 </Link>
                                             </center>
                                         </td>
-                                                </tr>
-                                            ))
-                                                : <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
-                                                    Founds!</strong></td></tr>
-                                        }
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    {' '}
+                                    <td
+                                        colspan='3'
+                                        style={{ textAlign: 'center' }}
+                                    >
+                                        <strong>No Records Founds!</strong>
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default ManageBook;
+export default ManageDeletedBook;

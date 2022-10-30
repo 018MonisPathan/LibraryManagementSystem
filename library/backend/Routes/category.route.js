@@ -24,8 +24,10 @@ function auth(req, res, next) {
 
 router.post('/CategoryInsert/',[auth], CategoryController.insertCategory);
 router.get('/CategoryById/:id',[auth], CategoryController.selectCategoryByID);
-router.get('/SelectAllCategory',[auth], CategoryController.selectallCategories);
+router.get('/SelectActiveCategory',[auth], CategoryController.selectActiveCategories);
+router.get('/SelectDeactiveCategories',[auth],CategoryController.selectDeactiveCategories);
 router.patch('/UpdateCategory/:id',[auth], CategoryController.updateCategorybyid);
 router.delete('/DeleteCategory/:id',[auth], CategoryController.deleteCategoryByid);
+router.patch('/SoftDeleteCategory/:id',[auth],CategoryController.SoftdeleteCategoryByid);
 
 module.exports = router;

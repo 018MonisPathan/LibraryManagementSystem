@@ -25,10 +25,12 @@ function auth(req, res, next) {
 
 
 router.post('/BookInsert',[auth,upload], AddBookController.insertBook);
-
+router.get('/SelectActiveBooks',[auth],AddBookController.selectactiveBooks);
+router.get('/SelectDeactiveBooks',[auth],AddBookController.selectdeactiveBooks);
 
 router.get('/SelectBookById/:id',[auth], AddBookController.selectBookByID);
 router.get('/SelectAllBooks',[auth], AddBookController.selectallBooks);
 router.patch('/UpdateBooks/:id',[auth],AddBookController.updateBookbyid);
 router.delete('/DeleteBooks/:id',[auth], AddBookController.deleteBookByid);
+router.patch('/ChangeFlagstatus/:id',[auth],AddBookController.changeFlagStatus_AddBookDetails)
 module.exports = router;

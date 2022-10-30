@@ -8,9 +8,11 @@ const jwtKey = 'e-comm';
 router.post('/SubCategoryInsert/',[auth], SubCategoryController.insertSubCategory);
 router.get('/SubCategoryById/:id',[auth], SubCategoryController.selectSubCategoryByID);
 router.get('/selectSubcategoryByCategoryID/:categoryid',[auth], SubCategoryController.selectSubcategoryByCategoryID);
-router.get('/SubSelectAllCategory',[auth],SubCategoryController.selectallSubCategories);
+router.get('/SubSelectActiveCategory',[auth],SubCategoryController.selectActiveSubCategories);
+router.get('/SubSelectDeactive',[auth],SubCategoryController.selectDeactiveSubCategories);
 router.patch('/SubUpdateCategory/:id',[auth], SubCategoryController.updateSubCategorybyid);
 router.delete('/SubDeleteCategory/:id',[auth], SubCategoryController.deleteSubCategoryByid);
+router.patch('/SoftDeleteSubCategory/:id',[auth],SubCategoryController.SoftdeleteSubCategoryByid);
 
 function auth(req, res, next) {
     let token = req.headers['authorization'];

@@ -16,7 +16,7 @@ const FacultySidebar = () => {
   return (
 
 
-    <div className="d-flex flex-column flex-shrink-0 p-3 bg-light  sidebar-div" style={{ width: 280, minHeight: '100vh' }}>
+    <div className="d-flex flex-column flex-shrink-0 p-3 bg-light  sidebar-div" style={{ width: 200, minHeight: '100vh' }}>
 
       <a href="#" className="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
         <svg className="bi me-4" width={30} height={27}><svg xmlns="http://www.w3.org/2000/svg" width={25} height={25} fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">

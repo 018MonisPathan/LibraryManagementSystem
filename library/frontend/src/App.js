@@ -16,6 +16,7 @@ import AddCategory from './components/admin/AddCategory';
 
 import AddBook from './components/admin/AddBook';
 
+
 //Import SubCategory
 import AddSubCategory from './components/admin/AddSubCategory';
 
@@ -27,6 +28,14 @@ import ManageCategory from './components/admin/ManageCategory';
 
 //Import ManageSubCategory
 import ManageSubCategory from './components/admin/ManageSubCategory';
+
+//Import ManageDeletedCategory
+import ManageDeletedCategory from './components/admin/ManageDeletedCategory';
+
+//Import Manage Deleted Subcategory
+import ManageDeletedSubCategory from './components/admin/ManageDeletedSubCategory';
+
+import ManageDeletedBook from './components/admin/ManageDeletedBooks';
 
 //Import ManageMember
 import ManageMember from './components/admin/ManageMember';
@@ -89,9 +98,12 @@ function App() {
             <Route path='/admin/AddSubCategory/:id' element={<AddSubCategory/>}></Route>
             <Route path='/admin/AddBook' element={<AddBook />} />
             <Route path='/admin/ManageCategory' element={<ManageCategory />} />
+            <Route path='/admin/ManageDeletedCategory'element={<ManageDeletedCategory/>}/>
             <Route path='/admin/ManageSubCategory' element={<ManageSubCategory />} />
+            <Route path='/admin/ManageDeletedSubCategory' element={<ManageDeletedSubCategory/>}/>
             <Route path='/admin/ManageMember' element={<ManageMember/>}/>
             <Route path='/admin/ManageBook' element={<ManageBook/>}/>
+            <Route path='/admin/ManageDeletedBook' element={<ManageDeletedBook/>}/>
             <Route path='/admin/ManageDeletedMember' element={<ManageDeletedMember/>}/>
             <Route path='/admin/AddSetting' element={<AddSettings/>}></Route>
             <Route path='/admin/ManageSettings' element={<ManageSettings/>}></Route>

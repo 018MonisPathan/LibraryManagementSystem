@@ -31,7 +31,7 @@ module.exports = {
     },
     selectSubcategoryByCategoryID:async(req,res)=>{
         try {
-        const result=await SubCategoryModel.find({categoryid:req.params.categoryid});
+        const result=await SubCategoryModel.find({flag:1,categoryid:req.params.categoryid});
 
          if (result) {
             console.log(result);
@@ -59,9 +59,25 @@ module.exports = {
             console.log(err.message);
         }
     },
-    selectallSubCategories: async (req, res, next) => {
+    selectActiveSubCategories: async (req, res, next) => {
         try {
-            const result = await SubCategoryModel.find().populate("categoryid" ,"category_name description");
+            const result = await SubCategoryModel.find({flag:1}).populate("categoryid" ,"category_name description");
+
+            if(result)
+            {
+                res.send({ data: result });
+                console.log(result);
+            }else{
+                res.send(JSON.stringify("No Records Found!"));
+            }
+
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
+    selectDeactiveSubCategories: async (req, res, next) => {
+        try {
+            const result = await SubCategoryModel.find({flag:0}).populate("categoryid" ,"category_name description");
 
             if(result)
             {
@@ -102,6 +118,39 @@ module.exports = {
             const result = await SubCategoryModel.findByIdAndDelete(
                 req.params.id
             );
+            if (result) {
+                return res.send({ msg: 'SubCategory deleted successfully!' });
+            } else {
+                return res.send({ msg: 'Delete failed!' });
+            }
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
+    SoftdeleteSubCategoryByid: async (req, res, next) => {
+        try {
+            //return console.log(req.params.id);
+            const id = req.params.id;
+            const statuscheck=await SubCategoryModel.findById(id);
+            console.log(statuscheck.flag);
+            let updates={flag:1};
+            
+            if(statuscheck.flag==true  ){
+                console.log("statuscheck true");
+                 updates = {flag:0,deleted_at: Date.now()}
+            }else{
+                console.log("statuscheck false");
+                 updates = {flag:1,deleted_at: null}
+            }
+            const options = {
+                new: true
+            };
+            const result = await SubCategoryModel.findByIdAndUpdate(
+                id,
+                updates,
+                options
+            );
+
             if (result) {
                 return res.send({ msg: 'SubCategory deleted successfully!' });
             } else {

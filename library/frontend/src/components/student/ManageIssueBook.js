@@ -9,31 +9,72 @@ import validator from 'validator';
 const ManageIssueBook=()=>{
 
     const [issuebook, setIssueBook] = useState("");
+    const [settings, setSettings] = useState("");
+    let isdate,dedate,month,onlydate,year;
 
     useEffect(() => {
         //VerifyToken();
         //getAllCategory();
-        getAllIssueBook();
+        getAllIssueBookByStudent();
+        getAllSettings()
         //alert("issue book");
     }, [])
 
     //Get all issue book
-    const getAllIssueBook = async () => {
+    const getAllIssueBookByStudent = async () => {
         try{
-            //let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch("http://localhost:5000/IssueBook/selectIssueBookDetails");
+            console.log(new Date().toISOString().split("T")[0]);
+            //return console.log("faculty");
+
+            const membership_id = sessionStorage.getItem("memberid").replace(/['"]+/g, '');
+
+            //return console.log(membership_id);
+
+            let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            let result = await fetch(`http://localhost:5000/IssueBook/selectallIssueBookDetailsByMembershipId/${membership_id}`);
+
+            result = await result.json();
+
+            //return console.log(result.data[0].duedate);
+
+            if(result)
+            {
+                console.log(result.data);
+                setIssueBook(result.data);
+            }else{
+                console.log("Something went wrong!!");
+            }
+        }catch(err){
+            return console.log("Server Error");
+        }
+    }
+
+    //Get All setting for assign panelty to customer
+
+    const getAllSettings=async()=>{
+        try{
+            let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+
+            let result = await fetch("http://localhost:5000/Settings/SelectSettings/",{
+                method: "GET",
+                headers:{
+                    "authorization": token
+                }
+            }) 
 
             result = await result.json();
 
             //return console.log(result.data);
 
-            if (result) {
-                setIssueBook(result.data);
-            } else {
-                console.log("Something went wrong");
+            if(result){
+                console.log(result.data[0].penalty_amount);
+                setSettings(result.data[0].penalty_amount);
+            }else{
+                console.log("something went wrong!");
             }
+
         }catch(err){
-            console.log("Server Error");
+            console.log("server error!");
         }
     }
 
@@ -70,6 +111,7 @@ const ManageIssueBook=()=>{
                                 <th>PDF</th>
                                 <th>Due Date</th>
                                 <th>Issue Date</th>
+                                <th>Panelty Amount</th>
                                 <center>
                                     <th>Option</th>
                                 </center>
@@ -85,13 +127,22 @@ const ManageIssueBook=()=>{
                                                     <td style={{width: "5%"}}><a href={"http://localhost:5000"+item['book_id'][0].pdf} target="_blank">PDF</a></td>
                                                     <td style={{width: "25%"}}>{item.duedate}</td>
                                                     <td style={{width: "25%"}}>{item.issuedate}</td>
+                                                    <td>
+                                                    {
+                                                        new Date().toISOString().split("T")[0] > item.duedate.split("T")[0] ? <>
+                                                        <p>{settings}</p>
+                                                        </>:<>
+                                                            <p>0</p>
+                                                        </>
+                                                    }
+                                                    </td>
                                                     
                                                     <td style={{width: "8%"}}>
                                                         <center>
 
-                                                            <form action="/pay" method="post">
+                                                            {/* <form action="/pay" method="post">
                                                                 <input type="submit" value="Buy"/>
-                                                            </form>
+                                                            </form> */}
 
                                                             <button onClick={"#"} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
                                                                 <i className="fa fa-undo" style={{ marginRight: 10, color: "#3f6ad" }} />

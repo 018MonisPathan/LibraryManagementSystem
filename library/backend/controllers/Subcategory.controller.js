@@ -65,8 +65,8 @@ module.exports = {
 
             if(result)
             {
-                res.send({ data: result });
                 console.log(result);
+                res.send({ data: result });
             }else{
                 res.send(JSON.stringify("No Records Found!"));
             }

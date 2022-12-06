@@ -14,10 +14,14 @@ module.exports={
         }
 
         //Check total issue book limit
+        const membership_id = req.body.membership_id;
+        const checkissue_limit = await IssueBookModel.find({membership_id: membership_id}).count();
 
-        const checkissue_limit = await IssueBookModel.findById(req.body.membership_id);
+        //return console.log(checkissue_limit);
 
-        if(checkissue_limit > 3){
+        console.log(checkissue_limit);
+        if(checkissue_limit > 2){
+            console.log("You have already issue 3 book!!");
             return res.send(JSON.stringify("You have already issue 3 book!!"));
         }
 
@@ -179,5 +183,29 @@ module.exports={
             console.log(err.message);
             
         };
-    }
+    },
+    selectallIssueBookDetailsByMembershipId: async (req, res, next) => {
+        try {
+
+            //return console.log("select called");
+            //const id = req.body.membership_id;
+            const membership_id = req.params.membership_id;
+
+            //return console.log(id);
+
+            const result = await IssueBookModel.find({membership_id: membership_id}).populate("book_id","title pdf").populate("membership_id","firstname");
+            //return console.log(JSON.stringify(result));
+            if(result){
+                res.send({ data: result });
+                console.log(result);
+            }
+            else{
+                console.log('No records found');
+                res.send(JSON.stringify('No records found'));
+            }
+           
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
 };

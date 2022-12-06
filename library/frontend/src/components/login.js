@@ -67,6 +67,7 @@ const Login = () => {
                             sessionStorage.setItem("token", JSON.stringify(result.auth));
                             sessionStorage.setItem("role", JSON.stringify("student"));
                             sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
+                            sessionStorage.setItem("memberid",JSON.stringify(result.result._id));
                             swal({
                                 title: "Login",
                                 text: "Student Login Successfull!",
@@ -94,8 +95,9 @@ const Login = () => {
                     if (result.role === "faculty") {
                         sessionStorage.setItem("user", JSON.stringify(result.result));
                         sessionStorage.setItem("token", JSON.stringify(result.auth));
-                        sessionStorage.setItem("role", JSON.stringify("librarian"));
+                        sessionStorage.setItem("role", JSON.stringify("faculty"));
                         sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
+                        sessionStorage.setItem("memberid",JSON.stringify(result.result._id));
                         swal({
                             title: "Login",
                             text: "Faculty Login Successfull!",

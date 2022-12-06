@@ -68,6 +68,9 @@ import PrivateComponentStudent from './components/PrivateComponentStudent';
 //Import faculty dashboard
 import FacultyDashboard from './components/faculty/dashboard';
 
+//Import manage issue book
+import ManageFacultyIssueBook from './components/faculty/ManageIssueBook';
+
 //Import private component for faculty
 import PrivateComponentFaculty from './components/PrivateComponentFaculty';
 
@@ -117,6 +120,7 @@ function App() {
 
           <Route element={<PrivateComponentFaculty/>}>
             <Route path='/faculty/dashboard' element={<FacultyDashboard/>}></Route>
+            <Route path='/faculty/ManageIssueBook' element={<ManageFacultyIssueBook/>}></Route>
           </Route>
 
           <Route element={<PrivateComponentLibrarian/>}>

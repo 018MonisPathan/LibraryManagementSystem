@@ -9,6 +9,7 @@ router.get("/selectIssueBookDetails",IssueBookController.selectallIssueBookDetai
 
 router.get("/selectActiveIssueBookDetails",IssueBookController.select_onlyActiveDetails);
 router.get("/selectDeactiveIssueBookDetails",IssueBookController.select_onlyDeactiveDetails);
+router.get("/selectallIssueBookDetailsByMembershipId/:membership_id",IssueBookController.selectallIssueBookDetailsByMembershipId);
 
 router.patch("/activate_deactivateIssueBookDetails/:id",IssueBookController.changeFlagStatus_ReturnBookDetails);
 

@@ -11,6 +11,9 @@ import RegisterLibrarianStudent from './components/admin/register_librarian_stud
 //import login
 import Login from './components/login';
 
+//Import profile
+import Profile from './components/Profile';
+
 //Import  Category
 import AddCategory from './components/admin/AddCategory';
 
@@ -93,6 +96,7 @@ function App() {
       
         <Routes>
           <Route element={<PrivateComponentAdmin/>}>
+            <Route path='/admin/profile' element={<Profile/>}></Route>
             <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
             <Route path='/admin/registerlibrarianstudent/:id' element={<RegisterLibrarianStudent/>}></Route>
             <Route path='/admin/AddCategory' element={<AddCategory />} />
@@ -114,11 +118,13 @@ function App() {
           </Route>
 
           <Route element={<PrivateComponentStudent/>}>
+            <Route path='/student/profile' element={<Profile/>}></Route>
             <Route path='/student/dashboard' element={<StudentDashboard/>}></Route>
             <Route path='/student/ManageIssueBook' element={<ManageIssueBook/>}></Route>
           </Route>
 
           <Route element={<PrivateComponentFaculty/>}>
+            <Route path='/faculty/profile' element={<Profile/>}></Route>
             <Route path='/faculty/dashboard' element={<FacultyDashboard/>}></Route>
             <Route path='/faculty/ManageIssueBook' element={<ManageFacultyIssueBook/>}></Route>
           </Route>

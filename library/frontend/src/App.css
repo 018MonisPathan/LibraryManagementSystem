@@ -135,6 +135,23 @@
   left: 16px;
 }
 
+/*Profile module css*/
+.UpdateProfile{
+  margin-top: 50px;
+}
+
+.UpdateProfile .UpdateProfile-form .txtpfname, .txtplname, .txtpemail, .txtpcontactno{
+  width: 267px;
+  border: 1px solid #b5b3b3;
+  border-radius: 5px;
+  height: 40px;
+}
+
+.UpdateProfile .UpdateProfile-form .txtpaddress{
+  border: 1px solid #b5b3b3;
+  border-radius: 5px;
+}
+
 /* Extra large devices (large desktops, 1300px and up) */
 @media (max-width: 1299px) { 
   .breadcrumb-div .breadcrumbimg {

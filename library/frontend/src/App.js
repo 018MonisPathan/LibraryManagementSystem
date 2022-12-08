@@ -11,6 +11,12 @@ import RegisterLibrarianStudent from './components/admin/register_librarian_stud
 //import login
 import Login from './components/login';
 
+//Import home page
+import HomePage from './components/HomePage';
+
+//Import footer
+import Footer from './components/Footer';
+
 //Import profile
 import Profile from './components/Profile';
 
@@ -95,6 +101,9 @@ function App() {
       <div style={{display:'flex'}}>
       
         <Routes>
+
+          <Route path='/home' element={<HomePage/>}></Route>
+
           <Route element={<PrivateComponentAdmin/>}>
             <Route path='/admin/profile' element={<Profile/>}></Route>
             <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
@@ -137,6 +146,7 @@ function App() {
           
         </Routes>
         </div>
+        <Footer/>
       </BrowserRouter>
     </div>
   );

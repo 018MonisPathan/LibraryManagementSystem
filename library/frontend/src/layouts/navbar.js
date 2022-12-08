@@ -28,10 +28,13 @@ const Navbar = () => {
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav">
 
+      <Link to='/home' className="nav-link">Home</Link>
         {
           adminauth ?
             <>
               <Link to='/login' className="nav-link" onClick={logout}>Logout</Link>
+
+              
             </>
           :
             <>

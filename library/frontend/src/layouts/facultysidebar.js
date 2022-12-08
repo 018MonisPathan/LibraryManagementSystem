@@ -25,7 +25,7 @@ const FacultySidebar = () => {
 
         </svg>
 
-        </svg><span className="fs-5 fw-semibold">{firstname.replace(/['"]+/g, '')}</span></a>
+        </svg><span className="fs-5 fw-semibold"><Link to='/faculty/profile'>{firstname.replace(/['"]+/g, '')}</Link></span></a>
 
       <ul className="list-unstyled ps-0">
 

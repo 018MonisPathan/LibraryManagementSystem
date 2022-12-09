@@ -102,6 +102,11 @@ function App() {
       
         <Routes>
 
+          {/* <Route exact path="/" element/> */}
+
+          {/* Default page is home page */}
+          <Route path='/' element={<HomePage/>}></Route>
+
           <Route path='/home' element={<HomePage/>}></Route>
 
           <Route element={<PrivateComponentAdmin/>}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { mockComponent } from 'react-dom/test-utils';
 // import {Outlet} from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import validator from 'validator';
 const { VerifyToken } = require('../AuthGuard');
@@ -17,6 +18,7 @@ const AddBook = () => {
     const [published_on, setPublishedon] = useState('');
     const [quantity, setQuantitity] = useState('');
     const [pdf, setPdf] = useState("");
+    const [categoryupdate,setCategoryUpdate]=useState('');
 
     const [error, setError] = useState(false);
     const [titleError, setTitleError] = useState('');
@@ -31,13 +33,49 @@ const AddBook = () => {
     const [pdfError, setPDFError] = useState('');
 
    // const [categoryid,setCategoryid] = useState("");
-    
+   let params = useParams();
     const [subcategorystatus,setSubcategorystatus] = useState(true);
 
     useEffect(() => {
         VerifyToken();
         getcategoryname();
+        if(params.id){
+            getAllBooksForUpdate();
+        }
     }, []);
+
+    const getAllBooksForUpdate=async ()=>{
+        try{
+            const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+
+        let result=await fetch(`http://localhost:5000/AddBook/SelectBookById/${params.id}`,{
+            method: "GET",
+            headers:{
+                "authorization": token
+            }
+        });
+
+        result = await result.json();
+
+        setTitle(result.result.title);
+        setAuthor(result.result.author);
+        setPublisher(result.result.publisher);
+       // setCategory(result.result.category);
+      //  setSubCategory(result.result.subcategory);
+        setSubCategoryID(result.result.subcategoryid);
+        setISBNno(result.result.ISBN_no);
+        setEdition(result.result.edition);
+        setPublishedon(result.result.published_on);
+        setQuantitity(result.result.quantity);
+
+
+        }catch(err){
+            console.log("Server error in Bookupdate");
+            //console.log(err.message);
+        }
+    
+    } 
+   
 
     const collectdata = async () => {
         //setTotalissuedbooks(total_issued_books,"0");
@@ -394,6 +432,8 @@ const AddBook = () => {
                                                     Select Category
                                                 </option>
 
+                                                
+
                                                 {category.length > 0 ? (
                                                     category.map((item, index) => (
                                                         <option
@@ -644,7 +684,7 @@ const AddBook = () => {
                                                     }}
                                                 >
                                                     Please fill out this field!
-                                                </span>
+                                                </span> 
                                             )}
                                         </div>
                                     </div>

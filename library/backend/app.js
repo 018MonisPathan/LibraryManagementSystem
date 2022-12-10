@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const nodemailer = require('nodemailer');
 
 const PORT = 5000;
 const MemberRoute = require('./Routes/member.route');
@@ -26,4 +27,31 @@ app.use('/IssueBook', IssueBookRoute);
 app.use('/ReturnBook', ReturnBookRoute);
 
 console.log('Running at Port: ' + PORT);
+
+// let transporter = nodemailer.createTransport({
+//     service: "gmail",
+//     auth: {
+//         user: "projectcollaboration00@gmail.com",
+//         pass: "bpyzdozqmzqzmjao",
+//     }
+// })
+
+// let details ={
+//     from:"projectcollaboration00@gmail.com",
+//     to:"19bmiit018@gmail.com",
+//     subject:"Testing nodemailer",
+//     text:"testing mail"
+// }
+
+// transporter.sendMail(details ,err =>{
+//     if(err){
+//         console.log("Error");
+//         console.log(err.message);
+//     }
+//     else{
+//         console.log("Mail sent");
+//     }
+// })
+
 app.listen(PORT);
+

@@ -111,6 +111,7 @@ function App() {
             <Route path='/admin/AddSetting' element={<AddSettings/>}></Route>
             <Route path='/admin/ManageSettings' element={<ManageSettings/>}></Route>
             <Route path='/admin/AddSetting/:id' element={<AddSettings/>}></Route>
+            <Route path='/admin/AddBook/:id' element={<AddBook/>}></Route>
           </Route>
 
           <Route element={<PrivateComponentStudent/>}>

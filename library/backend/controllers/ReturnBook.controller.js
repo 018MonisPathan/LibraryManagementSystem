@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const ReturnBookModule=require('../Models/returnbook.model');
 const AddBookModel = require('../Models/addbook.model');
-
+const IssueBookModel=require('../Models/issuebook.model');
 module.exports={
     insertReturnBookDetails: async (req, res) => {
         setting = new ReturnBookModule(req.body);
@@ -10,14 +10,21 @@ module.exports={
         if(!req.body.latedays || !req.body.totalpanelty){
             return res.send("Please Fill all the fields");
         }
-        const checkquantity=await AddBookModel.findById(req.body.issuebookid);
+        //Issue book model
+        const bookid=await IssueBookModel.findById(req.body.issuebookid);
+
+        //AddBook model
+        const checkquantity=await AddBookModel.findById(bookid.book_id);
+
+        //find book from table then find quantity 
+        if(checkquantity){
         var quant=checkquantity.quantity;
 
             const result = await setting.save();
             if(result)
             {
                 quant=quant+1;
-                const id=req.body.issuebookid;
+                const id=bookid.book_id;
                 const update={quantity: quant}
                 const options = {
                     new: true
@@ -36,10 +43,14 @@ module.exports={
             else{
                 res.send(JSON.stringify('Return book details!'));
             }
+        }else{
+            console.log('No records found');
+            res.send(JSON.stringify('No records found'));
+        }
     },
     selectallReturnBookDetails: async (req, res, next) => {
         try {
-            const result = await ReturnBookModule.find();
+            const result = await ReturnBookModule.find().populate();
             if(result){
                 res.send({ data: result });
                 console.log(result);

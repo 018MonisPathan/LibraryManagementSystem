@@ -166,7 +166,7 @@ const ManageBook = () =>{
 
                                                 <Link
                                                     to={
-                                                        '/AddBook/BookInsert/' +
+                                                        '/admin/AddBook/' +
                                                         item._id
                                                     }
                                                 >

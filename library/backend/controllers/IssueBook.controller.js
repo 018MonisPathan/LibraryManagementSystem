@@ -82,7 +82,7 @@ module.exports={
     },
     select_onlyActiveDetails:async(req,res)=>{
         try {
-            const result = await IssueBookModel.find({flag:1});
+            const result = await IssueBookModel.find({flag:1}).populate("book_id","title pdf").populate("membership_id","firstname");
             if(result){
                 res.send({ data: result });
                 console.log(result);

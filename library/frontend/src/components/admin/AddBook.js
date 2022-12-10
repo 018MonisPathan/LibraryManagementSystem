@@ -232,7 +232,7 @@ const AddBook = () => {
     const validateQuantity = (e) => {
         var pattern = new RegExp(/^[0-9]+$/);
         if (!pattern.test(quantity)) {
-            setQuantitityError('Please Enter Valid Publisedon!');
+            setQuantitityError('Please Enter Valid Quantity!');
             return;
         } else {
             setQuantitityError('');

@@ -38,7 +38,14 @@ module.exports={
                     console.log("Quantitiy NOT increased by one");
                 }
 
+                const id1=req.body.issuebookid;
+                const update1={flag:false}               
+
+                const bookreturned=await IssueBookModel.findByIdAndUpdate(id1,update1,options);
+
                 return res.send(JSON.stringify('Return book details added Successsfully'));
+
+                
             }
             else{
                 res.send(JSON.stringify('Return book details!'));

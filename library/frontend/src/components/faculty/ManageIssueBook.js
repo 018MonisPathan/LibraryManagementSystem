@@ -110,7 +110,7 @@ const ManageFacultyIssueBook=()=>{
                                         <td style={{width: "12%"}}>{item['book_id'][0].title}</td>
                                         <td style={{width: "5%"}}><a href={"http://localhost:5000"+item['book_id'][0].pdf} target="_blank">PDF</a></td>
                                         <td style={{width: "25%"}}>{item.duedate.split("T")[0]}</td>
-                                        <td style={{width: "25%"}}>{item.issuedate}</td>
+                                        <td style={{width: "25%"}}>{item.issuedate.split("T")[0]}</td>
                                         <td>
                                             {
                                                 new Date().toISOString().split("T")[0] > item.duedate.split("T")[0] ? <>

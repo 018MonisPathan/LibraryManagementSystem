@@ -1,3 +1,58 @@
+/*Home page css*/
+
+.home-page h1{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-page .img1{
+  float: right;
+  padding: 2px 2px 2px 2px;
+}
+
+.home-page .content-1{
+  float: left;
+  padding: 5px 5px 5px 5px;
+}
+
+.home-page .block-1{
+  background-color: #d0ebc2;
+  border-radius: 2px;
+}
+
+.home-page .img2{
+  float: left;
+  padding: 2px 2px 2px 2px;
+}
+
+.home-page .content-2{
+  padding: 1px 5px 5px 5px;
+}
+
+.home-page .block-2 i{
+  color: orange;
+  margin-right: 5px;
+}
+
+.home-page .block-2{
+  background-color: #ffe5e1;
+}
+
+/*Footer css*/
+
+.footer{
+  background-color: #dfe3e3;
+  height: 50px;
+}
+
+.footer h6{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
 /*Registration Form css*/
 
 .registerLibrarianStudent-form {
@@ -92,7 +147,7 @@
 }
 
 /*Manage all module css*/
-.managecategory, .managesubcategory,.managebook, .managedeletedmember, .manageissuebook {
+.managecategory, .managesubcategory,.managebook, .managedeletedmember, .manageissuebook, .studentdashboard , .facultydashboard{
   width: 100%;
   align-items: center;
   justify-content: center;
@@ -135,10 +190,32 @@
   left: 16px;
 }
 
+/*Profile module css*/
+.UpdateProfile{
+  margin-top: 50px;
+}
+
+.UpdateProfile .UpdateProfile-form .txtpfname, .txtplname, .txtpemail, .txtpcontactno{
+  width: 267px;
+  border: 1px solid #b5b3b3;
+  border-radius: 5px;
+  height: 40px;
+}
+
+.UpdateProfile .UpdateProfile-form .txtpaddress{
+  border: 1px solid #b5b3b3;
+  border-radius: 5px;
+}
+
 /* Extra large devices (large desktops, 1300px and up) */
 @media (max-width: 1299px) { 
   .breadcrumb-div .breadcrumbimg {
       width: 99%;
+  }
+
+  .home-page .img1, .img2{
+    height: 300px;
+    width: 500px;
   }
 }
 
@@ -147,12 +224,26 @@
   .breadcrumb-div .breadcrumbimg {
       width: 99%;
   }
+
+  .home-page .img1, .img2{
+    height: 280px;
+    width: 460px;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (max-width: 991px) { 
   .breadcrumb-div .breadcrumbimg {
       width: 99%;
+  }
+
+  .home-page .img1, .img2{
+    height: 180px;
+    width: 350px;
+  }
+
+  .home-page .content-1, .content-2{
+    font-size: 13px;
   }
 }
 

@@ -51,6 +51,7 @@ const Login = () => {
                         sessionStorage.setItem("token", JSON.stringify(result.auth));
                         sessionStorage.setItem("role", JSON.stringify("admin"));
                         sessionStorage.setItem("firstname",JSON.stringify(result.result.firstname));
+                        sessionStorage.setItem("memberid",JSON.stringify(result.result._id));
                         swal({
                             title: "Login",
                             text: "Admin Login Successfull!",

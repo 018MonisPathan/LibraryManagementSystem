@@ -25,9 +25,21 @@ const StudentSidebar = () => {
 
         </svg>
 
-        </svg><span className="fs-5 fw-semibold">{firstname.replace(/['"]+/g, '')}</span></a>
+        </svg><span className="fs-5 fw-semibold"><Link to='/student/profile'>{firstname.replace(/['"]+/g, '')}</Link></span></a>
 
       <ul className="list-unstyled ps-0">
+
+      <li className="mb-1">
+          <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+            Dashboard
+          </button>
+          <div className="collapse" id="dashboard-collapse">
+            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><Link to='/student/dashboard' className="link-dark rounded">Available Books</Link></li>
+            </ul>
+          </div>
+        </li>
+
         <li className="mb-1">
           <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#member-collapse" aria-expanded="false">
             Manage Issue book

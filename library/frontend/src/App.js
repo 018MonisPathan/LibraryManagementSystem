@@ -11,6 +11,15 @@ import RegisterLibrarianStudent from './components/admin/register_librarian_stud
 //import login
 import Login from './components/login';
 
+//Import home page
+import HomePage from './components/HomePage';
+
+//Import footer
+import Footer from './components/Footer';
+
+//Import profile
+import Profile from './components/Profile';
+
 //Import  Category
 import AddCategory from './components/admin/AddCategory';
 
@@ -92,7 +101,16 @@ function App() {
       <div style={{display:'flex'}}>
       
         <Routes>
+
+          {/* <Route exact path="/" element/> */}
+
+          {/* Default page is home page */}
+          <Route path='/' element={<HomePage/>}></Route>
+
+          <Route path='/home' element={<HomePage/>}></Route>
+
           <Route element={<PrivateComponentAdmin/>}>
+            <Route path='/admin/profile' element={<Profile/>}></Route>
             <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
             <Route path='/admin/registerlibrarianstudent/:id' element={<RegisterLibrarianStudent/>}></Route>
             <Route path='/admin/AddCategory' element={<AddCategory />} />
@@ -115,11 +133,13 @@ function App() {
           </Route>
 
           <Route element={<PrivateComponentStudent/>}>
+            <Route path='/student/profile' element={<Profile/>}></Route>
             <Route path='/student/dashboard' element={<StudentDashboard/>}></Route>
             <Route path='/student/ManageIssueBook' element={<ManageIssueBook/>}></Route>
           </Route>
 
           <Route element={<PrivateComponentFaculty/>}>
+            <Route path='/faculty/profile' element={<Profile/>}></Route>
             <Route path='/faculty/dashboard' element={<FacultyDashboard/>}></Route>
             <Route path='/faculty/ManageIssueBook' element={<ManageFacultyIssueBook/>}></Route>
           </Route>
@@ -132,6 +152,7 @@ function App() {
           
         </Routes>
         </div>
+        <Footer/>
       </BrowserRouter>
     </div>
   );

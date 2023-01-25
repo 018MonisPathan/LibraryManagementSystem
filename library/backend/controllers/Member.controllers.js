@@ -127,6 +127,69 @@ module.exports = {
             res.send(error.message);
         }
     },
+
+    changePassword: async (req, res, next) => {
+        try{
+            // const id = req.params.id;
+            //const update = {password: req.body.password};
+            const options = {
+                new: true
+            };
+
+            const id = req.params.id
+
+            const userExists = await MemberModule.findById(id);
+
+            if(userExists){
+
+                //const result = await MemberModule.findOne()
+
+                const validatPassword = await bcrypt.compare(req.body.Oldpassword,userExists.password);
+
+                if(validatPassword){
+                   console.log("User has entered correct old password");
+                    
+                    const pwd = req.body.password;
+                    
+                    const CompareOldAndNewPassword = await bcrypt.compare(pwd,userExists.password);
+
+                    if(CompareOldAndNewPassword){
+                        return res.send(JSON.stringify("Old and new password can not be same!!"));
+                    }else{
+                        //return console.log("Both are different");
+                        //Generate salt to hash the password
+                        const salt = await bcrypt.genSalt(10);
+    
+                        const HashPassword = await bcrypt.hash(pwd, salt);
+    
+                        //console.log(HashPassword);
+    
+                        const hashPwd = {password: HashPassword}
+    
+                        console.log(hashPwd);
+
+                        const updatePassword = await  MemberModule.findByIdAndUpdate(
+                            id,
+                            hashPwd,
+                            options
+                        );
+    
+                        if(updatePassword){
+                            res.send(JSON.stringify("Password Updated Successfully!!"));
+                        }else{
+                            console.log("Password not updated");
+                        }
+                    }
+                    
+                }else{
+                    res.send(JSON.stringify("Please Enter correct old password!!"));
+                }
+            }
+        }catch(err){
+            res.send(err)
+        }
+    },
+
     softdelete: async (req, res, next) => {
         try {
             const id = req.params.id;

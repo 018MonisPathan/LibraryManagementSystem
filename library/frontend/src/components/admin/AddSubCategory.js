@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams,useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
+const { VerifyToken } = require('../AuthGuard');
 
 const AddSubCategory = () => {
     
@@ -19,6 +20,7 @@ const AddSubCategory = () => {
 
     useEffect(() => {
         getcategoryname();
+        VerifyToken();
 
         if(params.id){
             getAllSubCategoryForUpdate();

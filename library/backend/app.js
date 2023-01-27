@@ -2,12 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const nodemailer = require('nodemailer');
-
+var randomNumber = require("random-number-csprng");
+var Promise=require('bluebird');
 const PORT = 5000;
 const MemberRoute = require('./Routes/member.route');
 const CategoryRoute = require('./Routes/category.route');
 const SubCategoryRoute = require('./Routes/subcategory.route');
-const AddBookRoute = require('./Routes/addbook.route');
+const AddBookRoute = require('./Routes/addbook.route');1
 const SettingsRoute=require('./Routes/settings.route');
 const ReturnBookRoute=require('./Routes/returnbook.route');
 const IssueBookRoute=require('./Routes/issueBook.route');
@@ -27,6 +28,15 @@ app.use('/IssueBook', IssueBookRoute);
 app.use('/ReturnBook', ReturnBookRoute);
 
 console.log('Running at Port: ' + PORT);
+
+// Promise.try(function(){
+//  return randomNumber(1000,9999);
+
+// }).then(function(number) {
+//     console.log(number);
+// }).catch({code:"RandomGenerationError"},function(err) {
+//     console.log("Something Went wrong!");
+// });
 
 // let transporter = nodemailer.createTransport({
 //     service: "gmail",

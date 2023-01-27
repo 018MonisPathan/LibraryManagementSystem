@@ -170,6 +170,7 @@ const Login = () => {
                                 </div>
 
                                 <div className="mt-4">
+                                    <Link to="/ForgetPassword_email">Forget Password</Link>
                                     <center>
                                         <button type="button" onClick={handlelogin} className="btn btn-success">Login</button>
                                     </center>

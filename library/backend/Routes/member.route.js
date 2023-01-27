@@ -19,6 +19,10 @@ router.get('/listActiveMembers',[auth], MemberController.selectActiveMembers);
 router.get('/listMembersByid/:id',[auth], MemberController.selectByid);
 router.delete('/deleteMemberByid/:id',[auth], MemberController.deleteByid);
 router.post('/login', MemberController.login);
+router.get('/listMemberByEmail/:email',MemberController.listMemberByEmail);
+router.get('/resendOTP',MemberController.ResendOTP);
+router.post('/verifyOTP',MemberController.verifyOTP);
+router.patch('/updatepassword/:id',MemberController.changePassword_afterOTP);
 
 function auth(req, res, next) {
     let token = req.headers['authorization'];

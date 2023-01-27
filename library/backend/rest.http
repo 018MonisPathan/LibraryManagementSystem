@@ -53,13 +53,43 @@ DELETE http://localhost:5000/member/deleteMemberByid/632ac89b5ec8818373039b70
 
 
 ### Login
-POST http://localhost:5000/member/login
+POST http://localhost:5000/member/login/
 Content-Type: application/json
 
 {
     "username":"meet",
     "password":"Meet@123"  
 }
+
+### Fetch Record by Email and send otp email and 
+GET http://localhost:5000/member/listMemberByEmail/a
+Content-Type: application/json
+
+### Resend OTP
+GET http://localhost:5000/member/resendOTP
+Content-Type: application/json
+
+{
+    "email":"19bmiit018@gmail.com"
+}
+
+###OTP VERIFY
+POST http://localhost:5000/member/verifyOTP
+Content-Type: application/json
+
+{
+    "hashedOTP": "$2b$10$.VVyX94eqojv0AJmJQUixeHQO.l5KaynlVImlWICTzR347nu0fQl",
+    "actualOTP": "4506"
+}
+
+###Update password
+PATCH http://localhost:5000/member/updatepassword/6312f9adcebb3af0d3c07c90
+Content-Type: application/json
+
+{
+    "password":"Meet@124"
+}
+
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ###Category
 

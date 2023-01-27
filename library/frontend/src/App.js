@@ -8,6 +8,15 @@ import Navbar from './layouts/navbar';
 //import sign up
 import RegisterLibrarianStudent from './components/admin/register_librarian_student';
 
+//import ForgetPassword Email Check
+import ForgetPassword_EmailCheck from './components/ForgetPassword_EmailCheck'
+
+//Verify OTP
+import VerifyOTP from './components/OTP_verify'
+
+//change password after otp verification
+import ChangePasswordAfterOTP from './components/changePassword_afterOTP'
+
 //import login
 import Login from './components/login';
 
@@ -149,6 +158,9 @@ function App() {
           </Route>
           
           <Route path='/login' element={<Login />} />
+          <Route path='/ForgetPassword_email' element={<ForgetPassword_EmailCheck />} />
+          <Route path='/VerifyOTP' element={< VerifyOTP />} />
+          <Route path='/ChangePasswordAfterOTP' element={< ChangePasswordAfterOTP />} />
           
         </Routes>
         </div>

@@ -5,6 +5,9 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 
 const MemberModule = require('../Models/Member.model');
+const Emailer= require('../controllers/ForgetPassword.controller');
+var randomNumber = require("random-number-csprng");
+var Promise=require('bluebird');
 
 module.exports = {
     registerMember: async (req, res, next) => {
@@ -78,12 +81,134 @@ module.exports = {
             console.log(err.message);
         }
     },
+    ResendOTP:async(req,res)=>{
+
+        var provided_email= req.body.email;
+
+        if(provided_email){
+            console.log(provided_email);
+
+            var OTP="";
+            Promise.try(function(){
+                return randomNumber(1000,9999);
+               }).then(function(number) {
+                   console.log(number);
+                   OTP=String(number);
+               }).catch({code:"RandomGenerationError"},function(err) {
+                   console.log("Something Went wrong!");
+               });
+    
+            //now we set OTP to hashed OTP
+            const salt = await bcrypt.genSalt(10);
+            var hashedOTP = await bcrypt.hash(OTP, salt);
+            console.log("Resent Hashed OTP" + hashedOTP);
+            
+            Emailer.Send_Email(provided_email,"OPT For Forget Password",OTP);
+
+        }else{
+            console.log("No Email found");
+        }
+    },
+    verifyOTP:async (req,res) => {
+        try {
+           var hashedOTP=req.body.hashedOTP;
+            var actualOTP=req.body.OTP;
+
+            // const salt = await bcrypt.genSalt(10);
+            // var hashing = await bcrypt.hash(actualOTP,salt);
+
+            //console.log(hashing);
+
+            var result= await bcrypt.compare(actualOTP,hashedOTP);
+            console.log(result);
+            if(result){
+                return res.send(JSON.stringify("ValidOTP"));
+            }else{
+                return res.send(JSON.stringify("Invalid OTP"));
+            }
+
+        } catch (err) {
+           console.log(err.message);
+        }
+    },
+    listMemberByEmail:async (req,res) => {
+        try {
+            var provided_email= req.params.email;
+            const result =await MemberModule.findOne({email:provided_email}).select([
+                '-password',
+                '-__v'
+            ]);
+            if (result) {
+                if(result.flag==0){
+                    console.log("Your status is deactive right now!!");
+                    return res.send(JSON.stringify("Your status is deactive right now!!"));
+                }else{
+                    //res.send(result);
+                    console.log("Email Found");
+                    console.log(result);
+
+                    var OTP="";
+                    Promise.try(function(){
+                        return randomNumber(1000,9999);
+                       }).then(function(number) {
+                           console.log(number);
+                           OTP=String(number);
+                       }).catch({code:"RandomGenerationError"},function(err) {
+                           console.log("Something Went wrong!");
+                       });
+
+                    //now we set OTP to hashed OTP
+                    const salt = await bcrypt.genSalt(10);
+                    var hashedOTP = await bcrypt.hash(OTP, salt);
+                    console.log("Hashed OTP" + hashedOTP);
+                    var id=result._id
+                    var email=result.email
+
+                    const obj={id,email,hashedOTP}
+                      // Model.create(obj)
+                    res.send(obj)
+                    console.log(obj);
+
+                    Emailer.Send_Email(provided_email,"OPT For Forget Password",OTP);
+                       
+                }
+            } else {
+                return res.send(JSON.stringify("Invalid email"));
+                
+            }
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
+    changePassword_afterOTP:async(req,res) => {
+        const id = req.params.id;
+
+        var toencrypt=req.body.password;
+
+        const salt = await bcrypt.genSalt(10);
+        var hashed_password = await bcrypt.hash(toencrypt, salt);
+
+        const updates = {password:hashed_password}
+            const options = {
+                new: true
+            };
+            const result = await MemberModule.findByIdAndUpdate(
+                id,
+                updates,
+                options
+            );
+            if (!result) {
+                return res.send({ error: 'New password caould not be added' });
+            }
+            res.send(result);
+    } 
+    ,
     selectByid: async (req, res, next) => {
         try {
             const id = req.params.id;
             const result = await MemberModule.findById(id);
             if (result) {
-                res.send(result);
+                return res.send(result);
             } else {
                 res.send('Not found');
                 return;
@@ -112,7 +237,6 @@ module.exports = {
             const options = {
                 new: true
             };
-            
             const result = await MemberModule.findByIdAndUpdate(
                 id,
                 updates,

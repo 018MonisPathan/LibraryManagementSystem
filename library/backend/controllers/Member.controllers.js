@@ -182,7 +182,7 @@ module.exports = {
                     }
                     
                 }else{
-                    res.send(JSON.stringify("Please Enter correct old password!!"));
+                    return res.send(JSON.stringify("Please Enter correct old password!!"));
                 }
             }
         }catch(err){

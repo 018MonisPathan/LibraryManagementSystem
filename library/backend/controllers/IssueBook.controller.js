@@ -193,7 +193,7 @@ module.exports={
 
             //return console.log(id);
 
-            const result = await IssueBookModel.find({membership_id: membership_id}).populate("book_id","title pdf").populate("membership_id","firstname");
+            const result = await IssueBookModel.find({flag:true,membership_id: membership_id}).populate("book_id","title pdf").populate("membership_id","firstname");
             //return console.log(JSON.stringify(result));
             if(result){
                 res.send({ data: result });

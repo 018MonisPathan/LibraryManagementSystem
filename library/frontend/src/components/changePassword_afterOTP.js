@@ -17,38 +17,49 @@ const ChangePassword_AfterOTP = () => {
             return false;
         }
         try {
-                let hashedOTP= sessionStorage.getItem("OTP").replace(/['"]+/g, '');
-                let id= sessionStorage.getItem("id").replace(/['"]+/g, '');
+
+                if(new_password == retype_password){
+                    let hashedOTP= sessionStorage.getItem("OTP").replace(/['"]+/g, '');
+                    let id= sessionStorage.getItem("id").replace(/['"]+/g, '');
+                   
+    
+                    //return console.log(id);
+    
+                    console.log("this is hashed otp "+hashedOTP);
+                    var password=new_password
+                    let result = await fetch(`http://localhost:5000/member/updatepassword/${id}`, {
+                        method: 'PATCH',
+                        body: JSON.stringify({password}),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    result = await result.json();
+                    //return console.log(result);
+                    if(result)
+                    {
+                        navigate("/login");
+                        return swal({
+                            title: "Add new password",
+                            text: "Password Changed!",
+                            icon: "success",
+                        });
+                    }else{
+                        return swal({
+                            title: "Add new password",
+                            text: "Fail!!",
+                            icon: "warning",
+                        });
+                    }   
+                }
+                else{
+                    swal({
+                        title: "Change Password!",
+                        text: "Password and confirm password must be same!!",
+                        timer: 2000
+                      });
+                }
                
-
-                //return console.log(id);
-
-                console.log("this is hashed otp "+hashedOTP);
-                var password=new_password
-                let result = await fetch(`http://localhost:5000/member/updatepassword/${id}`, {
-                    method: 'PATCH',
-                    body: JSON.stringify({password}),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                result = await result.json();
-                //return console.log(result);
-                if(result)
-                {
-                    navigate("/login");
-                    return swal({
-                        title: "Add new password",
-                        text: "Password Changed!",
-                        icon: "success",
-                    });
-                }else{
-                    return swal({
-                        title: "Add new password",
-                        text: "Fail!!",
-                        icon: "warning",
-                    });
-                }   
         } catch (error) {
             console.log(error.message);
         }
@@ -86,6 +97,7 @@ const ChangePassword_AfterOTP = () => {
 
                                        
                                 <div className="mt-4">
+                                
                                     <center>
                                         <button type="button" onClick={handlelogin_OTP_changePassword} className="btn btn-success">Add</button>
                                     </center>

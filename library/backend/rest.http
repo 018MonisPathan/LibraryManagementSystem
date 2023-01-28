@@ -66,7 +66,7 @@ GET http://localhost:5000/member/listMemberByEmail/a
 Content-Type: application/json
 
 ### Resend OTP
-GET http://localhost:5000/member/resendOTP
+POST http://localhost:5000/member/resendOTP
 Content-Type: application/json
 
 {

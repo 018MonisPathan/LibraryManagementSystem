@@ -21,7 +21,7 @@ router.delete('/deleteMemberByid/:id',[auth], MemberController.deleteByid);
 router.post('/changePassword/:id',[auth],MemberController.changePassword);
 router.post('/login', MemberController.login);
 router.get('/listMemberByEmail/:email',MemberController.listMemberByEmail);
-router.get('/resendOTP',MemberController.ResendOTP);
+router.post('/resendOTP',MemberController.ResendOTP);
 router.post('/verifyOTP',MemberController.verifyOTP);
 router.patch('/updatepassword/:id',MemberController.changePassword_afterOTP);
 

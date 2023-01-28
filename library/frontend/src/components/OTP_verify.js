@@ -11,6 +11,26 @@ const VerifyOTP = () => {
 
     let navigate = useNavigate();
 
+    const resendOTP = async () => {
+        try {
+            console.log("resend otp");
+            var email=sessionStorage.getItem("email");
+           // return console.log(email);
+            let result = await fetch("http://localhost:5000/member/resendOTP", {
+                method: 'POST',
+                body: JSON.stringify({email}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            result = await result.json();
+            sessionStorage.setItem("OTP", JSON.stringify(result.hashedOTP));
+        } catch (error) {
+            console.log(error.message);
+        }
+ 
+    }
+
     const handlelogin_OTP = async () => {
         if (!OTP) {
             setError(true);
@@ -77,6 +97,8 @@ const VerifyOTP = () => {
                                     </div>
                                 </div>        
                                 <div className="mt-4">
+                                    <Link to="/VerifyOTP"> <span onClick={resendOTP}>Resend OTP</span></Link>
+                              
                                     <center>
                                         <button type="button" onClick={handlelogin_OTP} className="btn btn-success">Verify</button>
                                     </center>

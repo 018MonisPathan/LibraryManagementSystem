@@ -82,7 +82,7 @@ module.exports = {
         }
     },
     ResendOTP:async(req,res)=>{
-
+    console.log("Resend OTP called");
         var provided_email= req.body.email;
 
         if(provided_email){
@@ -103,6 +103,10 @@ module.exports = {
             var hashedOTP = await bcrypt.hash(OTP, salt);
             console.log("Resent Hashed OTP" + hashedOTP);
             
+            const obj={hashedOTP}
+            // Model.create(obj)
+            res.send(obj)
+
             Emailer.Send_Email(provided_email,"OPT For Forget Password",OTP);
 
         }else{

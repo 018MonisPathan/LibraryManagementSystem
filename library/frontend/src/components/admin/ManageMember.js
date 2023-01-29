@@ -7,6 +7,11 @@ const { VerifyToken } = require('../AuthGuard');
 const ManageMember = () => {
 
     const [member, setMember] = useState("");
+    const [memberid,setMemberId] = useState("");
+    const [firstname,setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [email, setEmail] = useState("");
+    const [contactno, setContactno] = useState("");
 
     useEffect(()=>{
         VerifyToken();
@@ -83,6 +88,78 @@ const ManageMember = () => {
         }
     }
 
+    //Select member by id
+
+    const SelectMemberById = async (id) => {
+        
+        //return console.log(id);
+
+        const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+
+        let result = await fetch(`http://localhost:5000/member/listMembersByid/${id}`,{
+            method: 'get',
+            headers:{
+                "authorization": token
+            }
+        });
+
+        result = await result.json();
+
+        console.log(result);
+
+        if(result){
+            setMemberId(result._id)
+            setFirstname(result.firstname)
+            setLastname(result.lastname)
+            setEmail(result.email)
+            setContactno(result.contactno)
+        }
+    }
+
+    //Update member by id
+    const UpdateMemberById=async()=>{
+
+        //return console.log("Update called");
+
+        if(firstname != "" || lastname != "" || email != "" || contactno != ""){
+            const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+
+            let result = await fetch(`http://localhost:5000/member/updatemember/${memberid}`,{
+                method: "PATCH",
+                body: JSON.stringify({firstname,lastname,email,contactno}),
+                headers:{
+                    'Content-Type': 'application/json',
+                    "authorization": token
+                }
+            })
+
+            result = await result.json();
+
+            if(result){
+                swal({
+                    title: 'Update Member',
+                    text: 'Member Updated Successfully!',
+                    timer: 2000
+                });
+
+                getAllMember();
+            }else{
+                swal({
+                    title: 'Update Member',
+                    text: 'Member Updation Failed!',
+                    timer: 2000
+                });
+            }
+        }else{
+            swal({
+                title: 'Update Member',
+                text: 'Please Fill all the details!',
+                timer: 2000
+            });
+        }
+
+    }
+
     return(
         <div className="managecategory container">
 
@@ -98,9 +175,49 @@ const ManageMember = () => {
                 </div>
             </div>
 
+            <div class="modal fade" id="updatememberdetailsmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Member details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div className='changePwd_modal_body'>
+                        <div className='row'>
+                            <div className='col-md-6'>
+                            <input type="text" className='txtlname' placeholder="Enter Your Firstname" value={firstname} onChange={(e)=>setFirstname(e.target.value)}/>
+                            </div>
+
+                            <div className='col-md-6'>
+                                <input type="text" className='txtlname' placeholder="Enter Your Lastname" value={lastname} onChange={(e)=>setLastname(e.target.value)}/>
+                            </div>
+                        </div>
+
+                        <div className='row'>
+                            <div className='col-md-6'>
+                                <br/><input type="email" className='txtemail' placeholder="Enter Your Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                            </div>
+
+                            <div className='col-md-6'>
+                                <br/><input type="number" className='txtcontactno' placeholder="Enter Your Contactno" value={contactno} onChange={(e)=>setContactno(e.target.value)}/>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onClick={UpdateMemberById} data-bs-dismiss="modal">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="card">
                 <div className="card-header">
                     Manage Member
+
+                    <Link to="/admin/registerlibrarianstudent" className='btn btn-info' style={{float: "right"}}><i className="fa fa-plus" style={{ color: "white" }} /></Link>
                 </div>
 
                 <div className="card-body">
@@ -142,7 +259,11 @@ const ManageMember = () => {
                                                                 <i className="fa fa-trash" style={{ padding: 2, color: "red", fontSize: 16 }} />
                                                             </button>
                                                             
-                                                            <Link to={"/admin/registerlibrarianstudent/" + item._id}><i className="fa fa-edit" style={{ color: "green" }} /></Link>
+                                                            {/* <Link to={"/admin/registerlibrarianstudent/" + item._id} ><i className="fa fa-edit" style={{ color: "green" }} /></Link> */}
+
+                                                            <button data-bs-toggle="modal" data-bs-target="#updatememberdetailsmodal" onClick={()=>{SelectMemberById(item._id)}} style={{width:"20px", backgroundColor: "white", border: "0px"}}>
+                                                            <i className="fa fa-edit" style={{ color: "green" }} />
+                                                            </button>
                                                         </center>
                                                     </td>
                                                 </tr>

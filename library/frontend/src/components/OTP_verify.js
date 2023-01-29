@@ -14,6 +14,7 @@ const VerifyOTP = () => {
     const resendOTP = async () => {
         try {
             console.log("resend otp");
+
             var email=sessionStorage.getItem("email");
            // return console.log(email);
             let result = await fetch("http://localhost:5000/member/resendOTP", {
@@ -58,13 +59,13 @@ const VerifyOTP = () => {
                     navigate("/ChangePasswordAfterOTP");
 
                     return swal({
-                        title: "OTP Verify",
-                        text: "OTP Verified!!",
-                        icon: "success",
-                    });
+                        title: "OTP verification!",
+                        text: "Your OTP is verified",
+                        timer: 2000
+                      });
                 }else{
                     return swal({
-                        title: "OTP Verify",
+                        title: "OTP Verification",
                         text: "Invalid OTP!!",
                         icon: "warning",
                     });

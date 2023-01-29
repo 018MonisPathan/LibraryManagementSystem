@@ -51,10 +51,10 @@ const Login_ForgetPassword = () => {
                 navigate("/VerifyOTP");
 
                 return swal({
-                    title: "Forget Password",
-                    text: "Email Verified!",
-                    icon: "success",
-                });
+                    title: "Email Verification!",
+                    text: "Your email is verified",
+                    timer: 2000
+                  });
             }
                 
         } catch (error) {

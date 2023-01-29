@@ -216,6 +216,28 @@
   border-radius: 5px;
 }
 
+/*Update Member modal*/
+
+.updatememberdetailsmodal .txtfname, .txtlname, .txtemail, .txtcontactno{
+  border: 1px solid lightgray;
+  width: 210px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+/*Update Category modal*/
+
+.updatecategorydetailmodal .txtcategoryname{
+  border: 1px solid lightgray;
+  width: 210px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.updatecategorydetailmodal .txtcategorydesc{
+  border: 1px solid lightgray;
+}
+
 /* Extra large devices (large desktops, 1300px and up) */
 @media (max-width: 1299px) { 
   .breadcrumb-div .breadcrumbimg {

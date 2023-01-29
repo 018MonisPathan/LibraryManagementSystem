@@ -82,7 +82,7 @@ const RegisterLibrarianStudent = () => {
 
                 let concate_date = fullyear + "-" + month + "-" + onlydate;
 
-                alert(concate_date)
+                //alert(concate_date)
 
                 setDob(concate_date)
                 setAltcontactname(result.alternate_contact_name);

@@ -229,13 +229,27 @@
 
 .updatecategorydetailmodal .txtcategoryname{
   border: 1px solid lightgray;
-  width: 210px;
+  width: 220px;
   height: 40px;
   border-radius: 5px;
 }
 
 .updatecategorydetailmodal .txtcategorydesc{
   border: 1px solid lightgray;
+}
+
+/*Update book modal*/
+
+.updatebookdetailmodal .modal-dialog{
+  width: 1000px !important;
+}
+
+/*Update subcategory detail modal*/
+#updatesubcategorydetailmodal .txtsubcategoryname, .ddlsubcategory, .txtsubcategorydesc{
+  border: 1px solid lightgray;
+  width: 390px;
+  height: 40px;
+  border-radius: 5px;
 }
 
 /* Extra large devices (large desktops, 1300px and up) */

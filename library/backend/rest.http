@@ -131,7 +131,7 @@ Content-Type: application/json
 
 {
     
-    "subcategory_name":"21/09/22ffffff",
+    "subcategory_name":"21/3/2223",
     "categoryid":"6322c85c4d21070a910e296e",
     "subcategory_description":"Subcategory Description"
     
@@ -236,9 +236,9 @@ POST http://localhost:5000/IssueBook/insertIssueBookDetails
 Content-Type: application/json
 
 {
-    "book_id":"6334176c8a6a0f07eeac8b12",
-    "membership_id":"62e8f4daa0669c0d478e8c85",
-    "duedate":"10/20/2099"
+    "ISBN_no":"1234567890233",
+    "membership_id":"641a9fced02dd64d1f17b963"
+    
 }
 
 ###Select all IssueBook
@@ -279,9 +279,7 @@ POST http://localhost:5000/ReturnBook/insertReturnBookDetails
 Content-Type: application/json
 
 {
-    "issuebookid":"632ad34c55508edd64430551",
-    "latedays":"10",
-    "totalpanelty":"10"
+    "issuebookid":"634aa255da789b406a87a7be"                              
 }
 
 
@@ -315,3 +313,11 @@ Content-Type: application/json
 {
     
 }
+
+
+###~~~~~~~~~~~~~~~~~~Paypal~~~~~~~~~~~~~~~~~~~~~~~~~
+
+GET http://localhost:5000/PaypalController/success
+
+###post
+POST http://localhost:5000/PaypalController/sendItem

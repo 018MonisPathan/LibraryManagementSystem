@@ -3,24 +3,51 @@ const mongoose = require('mongoose');
 const ReturnBookModule=require('../Models/returnbook.model');
 const AddBookModel = require('../Models/addbook.model');
 const IssueBookModel=require('../Models/issuebook.model');
+const SettingModel = require('../Models/Settings');
 module.exports={
     insertReturnBookDetails: async (req, res) => {
-        setting = new ReturnBookModule(req.body);
-        
-        if(!req.body.latedays || !req.body.totalpanelty){
-            return res.send("Please Fill all the fields");
-        }
+
+        //ADD this to IssuBook for due date
+        // var dateget = new Date();
+        // dateget.setDate(dateget.getDate() + 15);
+        // var date = dateget.toISOString().split('T')[0]
+    
         //Issue book model
         const bookid=await IssueBookModel.findById(req.body.issuebookid);
 
         //AddBook model
         const checkquantity=await AddBookModel.findById(bookid.book_id);
 
+        //Calculate late days 
+         var DueDate = bookid.duedate
+         var currentDate = new Date();
+         var total_seconds = Math.abs(DueDate-currentDate)/1000
+         var LateDays = Math.floor(total_seconds/(60*60*24))
+
+         var issuebookid = req.body.issuebookid
+         if(currentDate>DueDate){
+            //Settings to get penalty amount
+            const settings_penalty=await SettingModel.findOne();
+            //  console.log(JSON.stringify(settings_penalty.penalty_amount));
+
+            var setting_penaltyamount = JSON.stringify(settings_penalty.penalty_amount);            
+         }else{
+            setting_penaltyamount = 0
+            LateDays = 0
+         }
+        
+        setting = new ReturnBookModule({
+            issuebookid:issuebookid,
+            totalpanelty:setting_penaltyamount,
+            latedays:LateDays
+        });
+
         //find book from table then find quantity 
         if(checkquantity){
         var quant=checkquantity.quantity;
-
+            //Return Book Field/Document Created
             const result = await setting.save();
+
             if(result)
             {
                 quant=quant+1;

@@ -3,15 +3,31 @@ const mongoose = require('mongoose');
 const IssueBookModel=require('../Models/issuebook.model');
 const AddBookModel = require('../Models/addbook.model');
 
+
 module.exports={
  insertIssueBookDetails: async (req, res) => {
     try{
-        Issuebook = new IssueBookModel(req.body);
         
-        if(!req.body.book_id || !req.body.membership_id  || !req.body.duedate)
+        if(!req.body.ISBN_no || !req.body.membership_id )
         {
             return res.send("Please Fill all the fields");
         }
+
+        //Calculating DueDate
+         var dateget = new Date();
+         dateget.setDate(dateget.getDate() + 15);
+         var dueDate = dateget.toISOString().split('T')[0];
+    
+        //To get Book ID Form ISBN Number
+        var ISBN = req.body.ISBN_no
+        const book_id_get = await AddBookModel.findOne({ISBN_no:ISBN}).lean();
+        console.log(book_id_get._id);
+
+        Issuebook = new IssueBookModel({
+            book_id:book_id_get,
+            membership_id:req.body.membership_id,
+            duedate:dueDate,
+        });
 
         //Check total issue book limit
         const membership_id = req.body.membership_id;
@@ -25,7 +41,7 @@ module.exports={
             return res.send(JSON.stringify("You have already issue 3 book!!"));
         }
 
-        const checkquantity=await AddBookModel.findById(req.body.book_id);
+        const checkquantity=await AddBookModel.findById(book_id_get);
 
         var quant=checkquantity.quantity;
 
@@ -36,7 +52,7 @@ module.exports={
             if(result)
             {  
                 quant=quant-1;
-                const id=req.body.book_id;
+                const id=book_id_get;
                 const update={quantity: quant}
                 const options = {
                     new: true

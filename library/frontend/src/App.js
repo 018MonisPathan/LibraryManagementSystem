@@ -100,6 +100,12 @@ import LibrarianDashboard from './components/librarian/dashboard';
 //Import private component for librarian
 import PrivateComponentLibrarian from './components/PrivateComponentLibrarian';
 
+import FinePage from './components/Fine';
+
+import Success from './components/SuccessPage_Paypal';
+import Cancel from './components/CancelPage_Paypal';
+
+
 function App() {
   
   return (
@@ -139,6 +145,7 @@ function App() {
             <Route path='/admin/ManageSettings' element={<ManageSettings/>}></Route>
             <Route path='/admin/AddSetting/:id' element={<AddSettings/>}></Route>
             <Route path='/admin/AddBook/:id' element={<AddBook/>}></Route>
+           
           </Route>
 
           <Route element={<PrivateComponentStudent/>}>
@@ -161,6 +168,9 @@ function App() {
           <Route path='/ForgetPassword_email' element={<ForgetPassword_EmailCheck />} />
           <Route path='/VerifyOTP' element={< VerifyOTP />} />
           <Route path='/ChangePasswordAfterOTP' element={< ChangePasswordAfterOTP />} />
+          <Route path='/Finepage' element={<FinePage/>}/>
+          <Route path='/Success' element={<Success/>}/>
+          <Route path='/Cancel' element={<Cancel/>}/>
           
         </Routes>
         </div>

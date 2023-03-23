@@ -13,6 +13,9 @@ const SettingsRoute=require('./Routes/settings.route');
 const ReturnBookRoute=require('./Routes/returnbook.route');
 const IssueBookRoute=require('./Routes/issueBook.route');
 
+const PaypalController = require('./controllers/PayPal.controller');
+const PaypalRoute = require('./Routes/paypal.route');
+
 app.use(express.json());
 app.use(cors());
 app.use("/uploads",express.static("uploads"));
@@ -26,7 +29,8 @@ app.use('/AddBook', AddBookRoute);
 app.use('/Settings', SettingsRoute);
 app.use('/IssueBook', IssueBookRoute);
 app.use('/ReturnBook', ReturnBookRoute);
-
+app.use('/PaypalController',PaypalRoute);
+app.get("/PaypalTestPage", (req, res) => res.sendFile(__dirname + "/index.html"));
 console.log('Running at Port: ' + PORT);
 
 // Promise.try(function(){

@@ -238,6 +238,68 @@
   border: 1px solid lightgray;
 }
 
+/*Success Form*/
+.PaymentForm-body {
+  height: 100%;
+  display: table;
+  margin: auto;
+  display: table-cell;
+  vertical-align: middle;
+  margin-top: 50px;
+  text-align: center;
+  background: #FFF;
+}
+.PaymentForm-h1 {
+    color: #88B04B;
+    
+    font-weight: 900;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.PaymentForm-h1-X {
+  color: #f61919;
+  
+  font-weight: 900;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.PaymentForm-p {
+    color: #404F5E;
+   height: 100%;
+    font-size:20px;
+    margin: 0;
+}
+.PaymentForm-i {
+  color: #9ABC66;
+  font-size: 100px;
+  line-height: 200px;
+  margin-left:-15px;
+}
+.PaymentForm-i-X {
+  color: #f61919;
+  font-size: 100px;
+  line-height: 200px;
+  
+}
+.PaymentForm-card {
+  background: white;
+  padding: 60px;
+  
+  border-radius: 4px;
+  box-shadow: 0 2px 3px #C8D0D8;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.styling{
+  border-radius:200px; 
+  height:200px;
+  width:200px;
+  background: #F8FAF5;
+  margin:0 auto;
+}
+
 /* Extra large devices (large desktops, 1300px and up) */
 @media (max-width: 1299px) { 
   .breadcrumb-div .breadcrumbimg {

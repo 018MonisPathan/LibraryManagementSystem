@@ -16,7 +16,7 @@ const LibrarianSidebar = () => {
   return (
 
 
-    <div className="d-flex flex-column flex-shrink-0 p-3 bg-light  sidebar-div" style={{ width: 200, minHeight: '100vh' }}>
+    <div className="d-flex flex-column flex-shrink-0 p-3 bg-light  sidebar-div" style={{ width: 260, minHeight: '100vh' }}>
 
       <a href="#" className="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
         <svg className="bi me-4" width={30} height={27}><svg xmlns="http://www.w3.org/2000/svg" width={25} height={25} fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
@@ -25,58 +25,46 @@ const LibrarianSidebar = () => {
 
         </svg>
 
-        </svg><span className="fs-5 fw-semibold">{firstname.replace(/['"]+/g, '')}</span></a>
+        </svg><span className="fs-5 fw-semibold"><Link to='/librarian/profile'>{firstname.replace(/['"]+/g, '')}</Link></span></a>
 
       <ul className="list-unstyled ps-0">
+
+      <li className="mb-1">
+          <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+            Dashboard
+          </button>
+          <div className="collapse" id="dashboard-collapse">
+            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><Link to='/librarian/dashboard' className="link-dark rounded">Available Books</Link></li>
+            </ul>
+          </div>
+        </li>
+
         <li className="mb-1">
           <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#member-collapse" aria-expanded="false">
-            Member
+            Manage Issue book
           </button>
           <div className="collapse" id="member-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><Link to='/admin/ManageMember' className="link-dark rounded">Manage Member</Link></li>
-              <li><Link to='/admin/registerlibrarianstudent' className="link-dark rounded">Add Member</Link></li>
-              <li><Link to="/admin/ManageDeletedMember" className="link-dark rounded">View Deleted Members</Link></li>
+              <li><Link to='/student/ManageIssueBook' className="link-dark rounded">Manage Issue book</Link></li>
+              
             </ul>
           </div>
         </li>
         <li className="mb-1">
           <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="false">
-            Category
+            Manage Return book
           </button>
           <div className="collapse" id="category-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><Link to='/admin/ManageCategory' className="link-dark rounded">Manage Category</Link></li>
-              <li><Link to='/admin/AddCategory' className="link-dark rounded">Add Category</Link></li>
+              <li><Link to='#' className="link-dark rounded">Manage Return book</Link></li>
+              {/* <li><Link to='/admin/AddCategory' className="link-dark rounded">Add Category</Link></li> */}
 
-              <li><a href="#" className="link-dark rounded">Deleted</a></li>
+              {/* <li><a href="#" className="link-dark rounded">Deleted</a></li> */}
             </ul>
           </div>
         </li>
-        <li className="mb-1">
-          <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#subcategory-collapse" aria-expanded="false">
-            SubCategory
-          </button>
-          <div className="collapse" id="subcategory-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><Link to='/admin/ManageSubCategory' className="link-dark rounded">Manage SubCategory</Link></li>
-              <li><Link to='/admin/AddSubCategory' className="link-dark rounded">Add SubCategory</Link></li>
-              <li><a href="#" className="link-dark rounded">Deleted</a></li>
-            </ul>
-          </div>
-        </li>
-        <li className="mb-1">
-          <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#book-collapse" aria-expanded="false">
-            Book
-          </button>
-          <div className="collapse" id="book-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><Link to='/admin/ManageBook' className="link-dark rounded">Manage Book</Link></li>
-              <li><Link to='/admin/AddBook' className="link-dark rounded">Add Book</Link></li>
-              <li><a href="#" className="link-dark rounded">View Deleted</a></li>
-            </ul>
-          </div>
-        </li>
+        
       </ul>
     </div>
 

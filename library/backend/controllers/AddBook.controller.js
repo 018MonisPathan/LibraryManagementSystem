@@ -38,7 +38,7 @@ module.exports = {
         }
     },selectBookByID: async (req, res) => {
         try {
-            const result = await AddBookModel.findById(req.params.id);
+            const result = await AddBookModel.findById(req.params.id).populate("subcategoryid","subcategory_name"); 
 
             if (result) {
                 console.log(result);

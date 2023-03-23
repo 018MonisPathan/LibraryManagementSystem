@@ -178,14 +178,17 @@ const ManageCategory = () => {
                             <div className='changePwd_modal_body'>
                                 <div className='row'>
                                     <div className='col-md-12'>
+                                            <label for='catname' style={{paddingLeft: "38px"}}><b>Category Name:</b></label>
                                         <center>
-                                            <input type="text" className="txtcategoryname" placeholder="Enter Category Name" value={category_name} onChange={(e)=>setCategoryname(e.target.value)} title="Enter Category Name" style={{border: "1px solid lightgray", width: "380px", height: "40px", borderRadius: "5px"}}/>
+                                            <input type="text" className="txtcategoryname" id='catname' placeholder="Enter Category Name" value={category_name} onChange={(e)=>setCategoryname(e.target.value)} title="Enter Category Name" style={{border: "1px solid lightgray", width: "390px", height: "40px", borderRadius: "5px"}}/>
                                         </center>
                                     </div>
 
                                     <div className='col-md-12'>
+                                    <br/>
+                                    <label for='catdescription' style={{paddingLeft: "38px"}}><b>Category Description:</b></label>
                                         <center>
-                                            <br/><textarea type="textarea" className="txtcategorydesc" rows={5} cols={50} placeholder="Enter Description" title="Enter Description" value={description} onChange={(e)=>setDescription(e.target.value)} style={{border: "1px solid lightgray", borderRadius: "5px"}}></textarea>
+                                            <textarea type="textarea" className="txtcategorydesc" id='catdescription' rows={5} cols={50} placeholder="Enter Description" title="Enter Description" value={description} onChange={(e)=>setDescription(e.target.value)} style={{border: "1px solid lightgray", borderRadius: "5px"}}></textarea>
                                         </center>
                                     </div>
                                 </div>

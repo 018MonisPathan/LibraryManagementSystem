@@ -46,10 +46,10 @@ const StudentDashboard = () => {
 
                 <div class="breadcrumb-title bottom-left">
                     <h2>Student Dashboard</h2>
-                    {/* <ul class="breadcrumb">
-                        <li className="breadcrumb-item"></li>
-                        <li className="breadcrumb-item"></li>
-                    </ul> */}
+                    <ul class="breadcrumb">
+                        <li className="breadcrumb-item">Home</li>
+                        <li className="breadcrumb-item">Available Books</li>
+                    </ul>
                 </div>
             </div>
 
@@ -87,21 +87,21 @@ const StudentDashboard = () => {
 
                                         {
                                             item.quantity > 0 ? <>
-                                        <th scope="row" style={{ width: "8%" }}>{index + 1}</th>
-                                        <td style={{ width: "11%" }}>{item.title}</td>
-                                        <td>{item.author}</td>
-                                        <td>{item.publisher}</td>
-                                        <td style={{ width: "11%" }}>{item['subcategoryid'][0].subcategory_name}</td>
-                                        <td style={{ width: "11%" }}>{item.ISBN_no}</td>
-                                        <td>{item.edition}</td>
-                                        <td style={{ width: "5%" }}>{item.published_on}</td>
-                                        <td style={{ width: "3%" }}>{item.quantity}</td>
-                                        <td style={{ width: "5%" }}><a href={"http://localhost:5000" + item.pdf} target="_blank">PDF</a></td>
-                                        <td style={{ width: '8%' }}>
-                                            <center>
-
-                                            </center>
-                                        </td>
+                                                <th scope="row" style={{ width: "8%" }}>{index + 1}</th>
+                                                <td style={{ width: "11%" }}>{item.title}</td>
+                                                <td>{item.author}</td>
+                                                <td>{item.publisher}</td>
+                                                <td style={{ width: "11%" }}>{item['subcategoryid'][0].subcategory_name}</td>
+                                                <td style={{ width: "11%" }}>{item.ISBN_no}</td>
+                                                <td>{item.edition}</td>
+                                                <td style={{ width: "5%" }}>{item.published_on}</td>
+                                                <td style={{ width: "3%" }}>{item.quantity}</td>
+                                                <td style={{ width: "5%" }}><a href={"http://localhost:5000" + item.pdf} target="_blank">PDF</a></td>
+                                                <td style={{ width: '8%' }}>
+                                                    <center>
+                                                        
+                                                    </center>
+                                                </td>
 
                                             </> : <>
 

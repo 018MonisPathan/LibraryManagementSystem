@@ -136,6 +136,12 @@ const LibrarianDashboard = () => {
             console.log(err);
         }
     }
+
+    //Issue book
+
+    const IssueBook = async () => {
+        console.log(member);
+    }
     return (
         <div className='managebook container'>
             <div className="breadcrumb-div breadcrumb-wrap bg-spring mb-4">
@@ -189,7 +195,7 @@ const LibrarianDashboard = () => {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                            <button type="button" class="btn btn-primary"  data-bs-dismiss="modal">Save changes</button>
                         </div>
                     </div>
                 </div>

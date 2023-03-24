@@ -118,20 +118,20 @@ const ManageBook = () => {
     //Update book details by book id.
 
     const UpdateBookById = async () => {
-        return title;
+        //return title;
+
+        //return console.log(bookid);
         if (title != "" || author != "" || publisher != "" || edition != "" || quantity != "") {
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
 
             let result = await fetch(`http://localhost:5000/AddBook/UpdateBooks/${bookid}`, {
                 method: "PATCH",
-                body: JSON.stringify(title, author, publisher, edition, quantity),
+                body: JSON.stringify({title, author, publisher, edition, quantity}),
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": token
+                    'Content-Type': 'application/json',
+                    "authorization":token
                 }
             });
-
-
 
             if (result) {
                 swal({

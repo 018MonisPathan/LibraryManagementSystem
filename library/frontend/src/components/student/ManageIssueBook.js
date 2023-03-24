@@ -80,7 +80,24 @@ const ManageIssueBook=()=>{
 
     //Panelty functions.
     
+    const call_paypal = async (req,res) =>{
+        //return console.log("paypal called ");
+       
+        let result = await fetch('http://localhost:5000/PaypalController/sendItem',{
+            method: "POST"
+          
+        });
 
+        result = await result.json();
+        if(result){
+            console.log("success");
+            
+           // console.log(result.forwardLink);
+            window.location = result.forwardLink
+        }else{
+            console.log("Fail");
+        }
+    }
     return(
         <div className="manageissuebook container">
 
@@ -144,7 +161,7 @@ const ManageIssueBook=()=>{
                                                                 <input type="submit" value="Buy"/>
                                                             </form> */}
 
-                                                            <button onClick={"#"} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
+                                                            <button onClick={call_paypal} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
                                                                 <i className="fa fa-undo" style={{ marginRight: 10, color: "#3f6ad" }} />
                                                             </button>
                                                             

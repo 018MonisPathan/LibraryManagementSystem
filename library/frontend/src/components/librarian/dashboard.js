@@ -10,6 +10,7 @@ const LibrarianDashboard = () => {
     const [book, setBook] = useState("");
     const [ISBN_no, setBookISBNNo] = useState("");
     const [member, setMember] = useState("");
+    const [membership_id,setMemberId] = useState("");
 
     useEffect(() => {
         //alert("Librarian");
@@ -92,6 +93,27 @@ const LibrarianDashboard = () => {
         }
     }
 
+    //Get member details for book issue.
+
+    const getMemberDetails = async () => {
+        try {
+            const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            let result = await fetch("http://localhost:5000/member/listActiveMembers/", {
+                headers: {
+                    "authorization": token
+                }
+            });
+
+            result = await result.json()
+
+            console.log(result.data);
+
+            setMember(result.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     //Select book by id.
 
     const SelectBookById = async (id) => {
@@ -116,31 +138,50 @@ const LibrarianDashboard = () => {
         //return console.log(result);
     }
 
-    //Get member details for book issue.
-
-    const getMemberDetails = async () => {
-        try {
-            const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch("http://localhost:5000/member/listActiveMembers/", {
-                headers: {
-                    "authorization": token
-                }
-            });
-
-            result = await result.json()
-
-            console.log(result.data);
-
-            setMember(result.data);
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
     //Issue book
 
     const IssueBook = async () => {
-        console.log(member);
+        console.log(membership_id);
+        try{
+
+            if(ISBN_no != "" || membership_id != ""){
+
+                const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+                let result = await fetch(`http://localhost:5000/IssueBook/insertIssueBookDetails`,{
+                    method: "POST",
+                    body: JSON.stringify({ISBN_no,membership_id}),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "authorization":token
+                    }
+                });
+    
+                if(result){
+                    swal({
+                        title: 'Issue Book',
+                        text: 'Book issued Successfully!',
+                        timer: 2000
+                    });
+    
+                    getAllBook()
+                }else{
+                    swal({
+                        title: 'Issue Book',
+                        text: 'Book issue Failed!',
+                        timer: 2000
+                    });
+                }
+            }else{
+                swal({
+                    title: 'Issue Book',
+                    text: 'Please fill all the fields!',
+                    timer: 2000
+                });
+            }
+
+        }catch(err){
+            console.log(err);
+        }
     }
     return (
         <div className='managebook container'>
@@ -169,7 +210,7 @@ const LibrarianDashboard = () => {
                                     <div className='col-md-12'>
                                         <label for='membername' style={{ paddingLeft: "38px" }}><b>Member Name:</b></label>
                                         <center>
-                                            <select className='ddlmember' onChange={(e) => setMember(e.target.value)}>
+                                            <select className='ddlmember' onChange={(e) => setMemberId(e.target.value)}>
                                                 <option value={0}>----Select Member----</option>
 
                                                 {
@@ -195,7 +236,7 @@ const LibrarianDashboard = () => {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary"  data-bs-dismiss="modal">Save changes</button>
+                            <button type="button" class="btn btn-primary" onClick={IssueBook} data-bs-dismiss="modal">Save changes</button>
                         </div>
                     </div>
                 </div>

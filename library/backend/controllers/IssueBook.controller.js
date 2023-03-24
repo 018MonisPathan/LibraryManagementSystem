@@ -36,7 +36,7 @@ module.exports={
         //return console.log(checkissue_limit);
 
         console.log(checkissue_limit);
-        if(checkissue_limit > 2){
+        if(checkissue_limit > 3){
             console.log("You have already issue 3 book!!");
             return res.send(JSON.stringify("You have already issue 3 book!!"));
         }

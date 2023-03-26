@@ -77,6 +77,34 @@ const ManageDeletedCategory = () =>
             swal("Category record is safe!");
         }
     }
+
+    //Search Category
+    const SearchCategory = async (e) => {
+        try {
+            const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            let key = e.target.value;
+            if (key) {
+                let result = await fetch(`http://localhost:5000/category/searchDeactiveCategory/${key}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "authorization": token
+                    }
+                });
+
+                result = await result.json()
+
+                if (result) {
+                    setDelCategory(result);
+                }
+            } else {
+                getdeletedcategory();
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return(
         <div className="managecategory container">
 
@@ -94,7 +122,21 @@ const ManageDeletedCategory = () =>
 
             <div className="card">
                 <div className="card-header">
-                    Manage Category
+
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            Manage Deleted Category
+                        </div>
+
+                        <div className='col-md-5'>
+
+                        </div>
+
+                        <div className='col-md-3'>
+
+                            <input type="text" name="txtsearch" className="txtsearch" onChange={SearchCategory} placeholder="Search Here" style={{ float: 'right' }} />
+                        </div>
+                    </div>
                 </div>
 
                 <div className="card-body">

@@ -6,11 +6,11 @@ import swal from 'sweetalert';
 import validator from 'validator';
 //const { VerifyToken } = require('../AuthGuard');
 
-const ManageIssueBook=()=>{
+const ManageIssueBook = () => {
 
     const [issuebook, setIssueBook] = useState("");
     const [settings, setSettings] = useState("");
-    let isdate,dedate,month,onlydate,year;
+    let isdate, dedate, month, onlydate, year;
 
     useEffect(() => {
         //VerifyToken();
@@ -22,7 +22,7 @@ const ManageIssueBook=()=>{
 
     //Get all issue book
     const getAllIssueBookByStudent = async () => {
-        try{
+        try {
             console.log(new Date().toISOString().split("T")[0]);
             //return console.log("faculty");
 
@@ -37,68 +37,67 @@ const ManageIssueBook=()=>{
 
             //return console.log(result.data[0].duedate);
 
-            if(result)
-            {
+            if (result) {
                 console.log(result.data);
                 setIssueBook(result.data);
-            }else{
+            } else {
                 console.log("Something went wrong!!");
             }
-        }catch(err){
+        } catch (err) {
             return console.log("Server Error");
         }
     }
 
     //Get All setting for assign panelty to customer
 
-    const getAllSettings=async()=>{
-        try{
+    const getAllSettings = async () => {
+        try {
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
 
-            let result = await fetch("http://localhost:5000/Settings/SelectSettings/",{
+            let result = await fetch("http://localhost:5000/Settings/SelectSettings/", {
                 method: "GET",
-                headers:{
+                headers: {
                     "authorization": token
                 }
-            }) 
+            })
 
             result = await result.json();
 
             //return console.log(result.data);
 
-            if(result){
+            if (result) {
                 console.log(result.data[0].penalty_amount);
                 setSettings(result.data[0].penalty_amount);
-            }else{
+            } else {
                 console.log("something went wrong!");
             }
 
-        }catch(err){
+        } catch (err) {
             console.log("server error!");
         }
     }
 
     //Panelty functions.
-    
-    const call_paypal = async (req,res) =>{
+
+    const call_paypal = async (req, res) => {
         //return console.log("paypal called ");
-       
-        let result = await fetch('http://localhost:5000/PaypalController/sendItem',{
+
+        let result = await fetch('http://localhost:5000/PaypalController/sendItem', {
             method: "POST"
-          
+
         });
 
         result = await result.json();
-        if(result){
+        if (result) {
             console.log("success");
-            
-           // console.log(result.forwardLink);
+
+            // console.log(result.forwardLink);
             window.location = result.forwardLink
-        }else{
+        } else {
             console.log("Fail");
         }
     }
-    return(
+    return (
         <div className="manageissuebook container">
 
             <div className="breadcrumb-div breadcrumb-wrap bg-spring mb-4">
@@ -123,7 +122,7 @@ const ManageIssueBook=()=>{
                     <table className="table table-bordered">
                         <thead>
                             <tr>
-                            <th>SR No.</th>
+                                <th>SR No.</th>
                                 <th>Book Title</th>
                                 <th>PDF</th>
                                 <th>Due Date</th>
@@ -134,46 +133,57 @@ const ManageIssueBook=()=>{
                                 </center>
                             </tr>
                         </thead>
-                        
-                        <tbody>
-                        {
-                                            issuebook.length > 0 ? issuebook.map((item, index) => (
-                                                <tr key={item._id}>
-                                                    <th scope="row">{index + 1}</th>
-                                                    <td style={{width: "12%"}}>{item['book_id'][0].title}</td>
-                                                    <td style={{width: "5%"}}><a href={"http://localhost:5000"+item['book_id'][0].pdf} target="_blank">PDF</a></td>
-                                                    <td style={{width: "25%"}}>{item.duedate.split("T")[0]}</td>
-                                                    <td style={{width: "25%"}}>{item.issuedate.split("T")[0]}</td>
-                                                    <td>
-                                                    {
-                                                        new Date().toISOString().split("T")[0] > item.duedate.split("T")[0] ? <>
-                                                        <p>{settings}</p>
-                                                        </>:<>
-                                                            <p>0</p>
-                                                        </>
-                                                    }
-                                                    </td>
-                                                    
-                                                    <td style={{width: "8%"}}>
-                                                        <center>
 
-                                                            {/* <form action="/pay" method="post">
+                        <tbody>
+                            {
+                                issuebook.length > 0 ? issuebook.map((item, index) => (
+                                    <tr key={item._id}>
+                                        <th scope="row">{index + 1}</th>
+                                        <td style={{ width: "12%" }}>{item['book_id'][0].title}</td>
+                                        <td style={{ width: "5%" }}><a href={"http://localhost:5000" + item['book_id'][0].pdf} target="_blank">PDF</a></td>
+                                        <td style={{ width: "25%" }}>{item.duedate.split("T")[0]}</td>
+                                        <td style={{ width: "25%" }}>{item.issuedate.split("T")[0]}</td>
+                                        <td>
+                                            {
+                                                new Date().toISOString().split("T")[0] > item.duedate.split("T")[0] ? <>
+                                                    <p>{settings}</p>
+                                                </> : <>
+                                                    <p>0</p>
+                                                </>
+                                            }
+                                        </td>
+
+                                        <td style={{ width: "8%" }}>
+                                            <center>
+
+                                                {/* <form action="/pay" method="post">
                                                                 <input type="submit" value="Buy"/>
                                                             </form> */}
+                                                {
+                                                    new Date().toISOString().split("T")[0] > item.duedate.split("T")[0] ? <>
+                                                        <button onClick={call_paypal} style={{ width: "30px", borderRadius: "5px", backgroundColor: "white", border: "0px" }}>
+                                                            <i className="fa fa-undo" style={{ marginRight: 10, color: "#3f6ad" }} />
+                                                        </button>
+                                                    </> : <>
+                                                        <button style={{ width: "30px", borderRadius: "5px", backgroundColor: "white", border: "0px" }}>
+                                                            <i className="fa fa-undo" style={{ marginRight: 10, color: "#3f6ad" }} />
+                                                        </button>
+                                                    </>
+                                                }
 
-                                                            <button onClick={call_paypal} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
-                                                                <i className="fa fa-undo" style={{ marginRight: 10, color: "#3f6ad" }} />
-                                                            </button>
-                                                            
-                                                            
-                                                            {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link> */}
-                                                        </center>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                                : <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
-                                                    Founds!</strong></td></tr>
-                                        }
+                                                {/* <button onClick={call_paypal} style={{ width: "30px", borderRadius: "5px", backgroundColor: "white", border: "0px" }}>
+                                                    <i className="fa fa-undo" style={{ marginRight: 10, color: "#3f6ad" }} />
+                                                </button> */}
+
+
+                                                {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link> */}
+                                            </center>
+                                        </td>
+                                    </tr>
+                                ))
+                                    : <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
+                                        Founds!</strong></td></tr>
+                            }
                         </tbody>
                     </table>
                 </div>

@@ -75,6 +75,53 @@ module.exports = {
             console.log(err.message);
         }
     },
+
+    //Search active category
+    searchActivecategory: async (req,resp) => {
+        try{
+            const result = await CategoryModel.find({flag:1,"$or":[
+                    {
+                        category_name: {$regex:req.params.key}
+                    },
+                    {
+                        description: {$regex:req.params.key}
+                    }
+                ]
+            });
+
+            if(result){
+                resp.send(result);
+            }else{
+                resp.send(JSON.stringify("No records found!"));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },
+
+    //Search deactive category
+
+    searchDeactiveCategory: async (req,resp) => {
+        try{
+            const result = await CategoryModel.find({flag:0,"$or":[
+                    {
+                        category_name: {$regex:req.params.key}
+                    },
+                    {
+                        description: {$regex:req.params.key}
+                    }
+                ]
+            });
+
+            if(result){
+                resp.send(result);
+            }else{
+                resp.send(JSON.stringify("No records found!"));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },
     updateCategorybyid: async (req, res, next) => {
         try {
 

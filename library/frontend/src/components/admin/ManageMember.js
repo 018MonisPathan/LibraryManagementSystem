@@ -6,7 +6,7 @@ const { VerifyToken } = require('../AuthGuard');
 
 const ManageMember = () => {
 
-    const [member, setMember] = useState("");
+    const [member, setMember] = useState([]);
     const [memberid, setMemberId] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -159,6 +159,33 @@ const ManageMember = () => {
 
     }
 
+    //Search member
+    const SearchMember = async (e) => {
+        try {
+            const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            let key = e.target.value;
+            if (key) {
+                let result = await fetch(`http://localhost:5000/member/SearchActiveMembers/${key}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "authorization": token
+                    }
+                });
+
+                result = await result.json()
+
+                if (result) {
+                    setMember(result);
+                }
+            } else {
+                getAllMember();
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
         <div className="managecategory container">
 
@@ -186,12 +213,12 @@ const ManageMember = () => {
                                 <div className='row'>
                                     <div className='col-md-6'>
                                         <label for="fname"><b>Firstname:</b></label>
-                                        <input type="text" className='txtlname' id='fname' placeholder="Enter Your Firstname" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+                                        <input type="text" className='txtufname' id='fname' placeholder="Enter Your Firstname" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
                                     </div>
 
                                     <div className='col-md-6'>
-                                    <label for="lname"><b>Lastname:</b></label>
-                                        <input type="text" className='txtlname' id='lname' placeholder="Enter Your Lastname" value={lastname} onChange={(e) => setLastname(e.target.value)} />
+                                        <label for="lname"><b>Lastname:</b></label>
+                                        <input type="text" className='txtulname' id='lname' placeholder="Enter Your Lastname" value={lastname} onChange={(e) => setLastname(e.target.value)} />
                                     </div>
                                 </div>
 
@@ -199,13 +226,13 @@ const ManageMember = () => {
                                     <div className='col-md-6'>
                                         <br />
                                         <label for="email"><b>Email:</b></label>
-                                        <input type="email" className='txtemail' id='email' placeholder="Enter Your Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                        <input type="email" className='txtuemail' id='email' placeholder="Enter Your Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                     </div>
 
                                     <div className='col-md-6'>
                                         <br />
                                         <label for="contactno"><b>Contact No.:</b></label>
-                                        <input type="number" className='txtcontactno' id='contactno' placeholder="Enter Your Contactno" value={contactno} onChange={(e) => setContactno(e.target.value)} />
+                                        <input type="number" className='txtucontactno' id='contactno' placeholder="Enter Your Contactno" value={contactno} onChange={(e) => setContactno(e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -220,9 +247,27 @@ const ManageMember = () => {
 
             <div className="card">
                 <div className="card-header">
-                    Manage Member
 
-                    <Link to="/admin/registerlibrarianstudent" className='btn btn-info' style={{ float: "right" }}><i className="fa fa-plus" style={{ color: "white" }} /></Link>
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            Manage Member
+                        </div>
+
+                        <div className='col-md-5'>
+
+                        </div>
+
+                        <div className='col-md-2'>
+
+                            <input type="text" name="txtsearch" className="txtsearch" onChange={SearchMember} placeholder="Search Here" />
+                        </div>
+
+                        <div className='col-md-1'>
+
+                            <Link to="/admin/registerlibrarianstudent" className='btn btn-info' style={{ float: "right" }}><i className="fa fa-plus" style={{ color: "white" }} /></Link>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div className="card-body">

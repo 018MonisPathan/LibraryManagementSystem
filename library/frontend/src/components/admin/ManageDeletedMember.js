@@ -5,33 +5,33 @@ const { VerifyToken } = require('../AuthGuard');
 
 const ManageDeletedMember = () => {
 
-    const [deletedmember,setDeletedMember] = useState("");
+    const [deletedmember, setDeletedMember] = useState("");
 
-    useEffect(()=>{
+    useEffect(() => {
         VerifyToken();
         getAllDeletedMember();
-    },[])
+    }, [])
 
     //Get All deleted member
-    const getAllDeletedMember = async () =>{
-        try{
+    const getAllDeletedMember = async () => {
+        try {
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch("http://localhost:5000/member/listMembersdeleted/",{
-                headers:{
+            let result = await fetch("http://localhost:5000/member/listMembersdeleted/", {
+                headers: {
                     "authorization": token
                 }
             });
-            
+
             result = await result.json();
             //return console.log(result.data);
 
-            if(result.data){
+            if (result.data) {
                 setDeletedMember(result.data);
-            }else{
+            } else {
                 console.log("Something went wrong!!");
             }
 
-        }catch(err){
+        } catch (err) {
             console.log("Server Error");
         }
     }
@@ -45,37 +45,65 @@ const ManageDeletedMember = () => {
             dangerMode: true,
         });
 
-        if(willDelete){
+        if (willDelete) {
             //return console.log(id);
 
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch(`http://localhost:5000/member/memberchangeflag/${id}`,{
+            let result = await fetch(`http://localhost:5000/member/memberchangeflag/${id}`, {
                 method: 'PATCH',
-                headers:{
+                headers: {
                     "authorization": token
                 }
             });
 
             result = result.json();
 
-             console.log(result);
+            console.log(result);
 
-            if(result){
+            if (result) {
                 swal({
                     title: "Recover Member",
                     text: "Recovery Successfull!",
                     icon: "success",
                 });
                 getAllDeletedMember();
-            }else{
+            } else {
                 swal({
                     title: "Delete Member",
                     text: "Deleted Fail!!",
                     icon: "warning",
                 });
             }
-        }else{
+        } else {
             swal("Member record is safe!");
+        }
+    }
+
+    //Search member
+    const SearchMember = async (e) => {
+        try {
+            const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            let key = e.target.value;
+            if (key) {
+
+                let result = await fetch(`http://localhost:5000/member/SearchDeactiveMembers/${key}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "authorization": token
+                    }
+                });
+
+                result = await result.json()
+
+                if (result) {
+                    setDeletedMember(result);
+                }
+            } else {
+                getAllDeletedMember();
+            }
+        } catch (err) {
+            console.log(err);
         }
     }
 
@@ -96,7 +124,21 @@ const ManageDeletedMember = () => {
 
             <div className='card'>
                 <div className="card-header">
-                    Manage Deleted Member
+
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            Manage Deleted Member
+                        </div>
+
+                        <div className='col-md-5'>
+
+                        </div>
+
+                        <div className='col-md-3'>
+
+                            <input type="text" name="txtsearch" className="txtsearch" onChange={SearchMember} placeholder="Search Here" style={{ float: 'right' }} />
+                        </div>
+                    </div>
                 </div>
 
                 <div className='card-body'>
@@ -119,33 +161,33 @@ const ManageDeletedMember = () => {
                         </thead>
 
                         <tbody>
-                            
+
                             {
                                 deletedmember.length > 0 ? deletedmember.map((item, index) => (
                                     <tr key={item._id}>
-                                        <th scope="row">{index+1}</th>
-                                        <td style={{width: "12%"}}>{item.firstname}</td>
-                                                    <td style={{width: "12%"}}>{item.lastname}</td>
-                                                    <td style={{width: "18%"}}>{item.address}</td>
-                                                    <td style={{width: "11%"}}>{item.email}</td>
-                                                    <td style={{width: "9%"}}>{item.contactno}</td>
-                                                    <td style={{width: "12%"}}>{item.alternate_contact_name}</td>
-                                                    <td style={{width: "11%"}}>{item.alternate_contact_contactno}</td>
-                                                    <td style={{width: "11%"}}>{item.username}</td>
-                                                    <td style={{width: "8%"}}>
-                                                        <center>
-                                                            <button onClick={()=>undeleteMember(item._id)} style={{width:"30px", borderRadius: "5px", backgroundColor: "white", border: "0px"}}>
-                                                                {/* <i className="fa fa-trash" /> */}
-                                                                <i class="fa fa-recycle"  style={{ marginRight: 10, color: "green", fontSize: 19, padding: 2 }} aria-hidden="true"></i>
-                                                            </button>
-                                                            
-                                                            {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link> */}
-                                                        </center>
-                                                    </td>
+                                        <th scope="row">{index + 1}</th>
+                                        <td style={{ width: "12%" }}>{item.firstname}</td>
+                                        <td style={{ width: "12%" }}>{item.lastname}</td>
+                                        <td style={{ width: "18%" }}>{item.address}</td>
+                                        <td style={{ width: "11%" }}>{item.email}</td>
+                                        <td style={{ width: "9%" }}>{item.contactno}</td>
+                                        <td style={{ width: "12%" }}>{item.alternate_contact_name}</td>
+                                        <td style={{ width: "11%" }}>{item.alternate_contact_contactno}</td>
+                                        <td style={{ width: "11%" }}>{item.username}</td>
+                                        <td style={{ width: "8%" }}>
+                                            <center>
+                                                <button onClick={() => undeleteMember(item._id)} style={{ width: "30px", borderRadius: "5px", backgroundColor: "white", border: "0px" }}>
+                                                    {/* <i className="fa fa-trash" /> */}
+                                                    <i class="fa fa-recycle" style={{ marginRight: 10, color: "green", fontSize: 19, padding: 2 }} aria-hidden="true"></i>
+                                                </button>
+
+                                                {/* <Link to={"/admin/application/edit/" + item.catgeory_name}><i className="fa fa-edit" /></Link> */}
+                                            </center>
+                                        </td>
                                     </tr>
                                 ))
-                                : <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
-                                                    Founds!</strong></td></tr>
+                                    : <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
+                                        Founds!</strong></td></tr>
                             }
                         </tbody>
                     </table>

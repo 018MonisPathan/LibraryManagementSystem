@@ -7,7 +7,7 @@ const { VerifyToken } = require('../AuthGuard');
 const ManageCategory = () => {
 
     const [category, setCategory] = useState("");
-    const[categoryid,setCategoryId] = useState("");
+    const [categoryid, setCategoryId] = useState("");
     const [category_name, setCategoryname] = useState('');
     const [description, setDescription] = useState('');
 
@@ -97,9 +97,9 @@ const ManageCategory = () => {
 
         let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
 
-        let result = await fetch(`http://localhost:5000/category/CategoryById/${id}`,{
-            headers:{
-                "authorization":token
+        let result = await fetch(`http://localhost:5000/category/CategoryById/${id}`, {
+            headers: {
+                "authorization": token
             }
         })
 
@@ -107,7 +107,7 @@ const ManageCategory = () => {
 
         //return console.log(result);
 
-        if(result){
+        if (result) {
             setCategoryId(result.data._id);
             setCategoryname(result.data.category_name);
             setDescription(result.data.description);
@@ -117,18 +117,18 @@ const ManageCategory = () => {
     //Update category by id
 
     const UpdateCategoryById = async () => {
-        if(category_name != "" || description != ""){
+        if (category_name != "" || description != "") {
             let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
-            let result = await fetch(`http://localhost:5000/category/UpdateCategory/${categoryid}`,{
+            let result = await fetch(`http://localhost:5000/category/UpdateCategory/${categoryid}`, {
                 method: "PATCH",
-                body: JSON.stringify({category_name,description}),
-                headers:{
+                body: JSON.stringify({ category_name, description }),
+                headers: {
                     'Content-Type': 'application/json',
-                    "authorization":token
+                    "authorization": token
                 }
             });
 
-            if(result){
+            if (result) {
                 swal({
                     title: 'Update Category',
                     text: 'Category Updated Successfully!',
@@ -136,19 +136,46 @@ const ManageCategory = () => {
                 });
 
                 getAllCategory();
-            }else{
+            } else {
                 swal({
                     title: 'Update Category',
                     text: 'Category Updation Failed!',
                     timer: 2000
                 });
             }
-        }else{
+        } else {
             swal({
                 title: 'Update Category',
                 text: 'Please Fill all the details!',
                 timer: 2000
             });
+        }
+    }
+
+    //Search Category
+    const SearchCategory = async (e) => {
+        try {
+            const token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            let key = e.target.value;
+            if (key) {
+                let result = await fetch(`http://localhost:5000/category/searchActiveCategory/${key}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "authorization": token
+                    }
+                });
+
+                result = await result.json()
+
+                if (result) {
+                    setCategory(result);
+                }
+            } else {
+                getAllCategory();
+            }
+        } catch (err) {
+            console.log(err);
         }
     }
 
@@ -178,17 +205,17 @@ const ManageCategory = () => {
                             <div className='changePwd_modal_body'>
                                 <div className='row'>
                                     <div className='col-md-12'>
-                                            <label for='catname' style={{paddingLeft: "38px"}}><b>Category Name:</b></label>
+                                        <label for='catname' style={{ paddingLeft: "38px" }}><b>Category Name:</b></label>
                                         <center>
-                                            <input type="text" className="txtcategoryname" id='catname' placeholder="Enter Category Name" value={category_name} onChange={(e)=>setCategoryname(e.target.value)} title="Enter Category Name" style={{border: "1px solid lightgray", width: "390px", height: "40px", borderRadius: "5px"}}/>
+                                            <input type="text" className="txtcategoryname" id='catname' placeholder="Enter Category Name" value={category_name} onChange={(e) => setCategoryname(e.target.value)} title="Enter Category Name" style={{ border: "1px solid lightgray", width: "390px", height: "40px", borderRadius: "5px" }} />
                                         </center>
                                     </div>
 
                                     <div className='col-md-12'>
-                                    <br/>
-                                    <label for='catdescription' style={{paddingLeft: "38px"}}><b>Category Description:</b></label>
+                                        <br />
+                                        <label for='catdescription' style={{ paddingLeft: "38px" }}><b>Category Description:</b></label>
                                         <center>
-                                            <textarea type="textarea" className="txtcategorydesc" id='catdescription' rows={5} cols={50} placeholder="Enter Description" title="Enter Description" value={description} onChange={(e)=>setDescription(e.target.value)} style={{border: "1px solid lightgray", borderRadius: "5px"}}></textarea>
+                                            <textarea type="textarea" className="txtcategorydesc" id='catdescription' rows={5} cols={50} placeholder="Enter Description" title="Enter Description" value={description} onChange={(e) => setDescription(e.target.value)} style={{ border: "1px solid lightgray", borderRadius: "5px" }}></textarea>
                                         </center>
                                     </div>
                                 </div>
@@ -204,8 +231,28 @@ const ManageCategory = () => {
 
             <div className="card">
                 <div className="card-header">
-                    Manage Category
-                    <Link to="/admin/AddCategory" className='btn btn-info' style={{float: "right"}}><i className="fa fa-plus" style={{ color: "white" }} /></Link>
+
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            Manage Category
+                        </div>
+
+                        <div className='col-md-5'>
+
+                        </div>
+
+                        <div className='col-md-2'>
+
+                            <input type="text" name="txtsearch" className="txtsearch" onChange={SearchCategory} placeholder="Search Here" />
+                        </div>
+
+                        <div className='col-md-1'>
+
+                            <Link to="/admin/AddCategory" className='btn btn-info' style={{ float: "right" }}><i className="fa fa-plus" style={{ color: "white" }} /></Link>
+                        </div>
+                    </div>
+
+
                 </div>
 
                 <div className="card-body">

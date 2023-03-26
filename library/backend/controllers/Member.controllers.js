@@ -221,6 +221,66 @@ module.exports = {
             console.log(error.message);
         }
     },
+    searchActiveMembers: async (req,resp) => {
+        try{
+            const result = await MemberModule.find({flag:1,"$or":[
+                    {
+                        firstname: {$regex:req.params.key}
+                    },
+                    {
+                        lastname: {$regex:req.params.key}
+                    },
+                    {
+                        email: {$regex:req.params.key}
+                    },
+                    {
+                        username: {$regex:req.params.key}
+                    }
+                ]
+            }).select([
+                '-password',
+                '-__v'
+            ]);
+
+            if(result){
+                resp.send(result);
+            }else{
+                resp.send(JSON.stringify("No records found!"));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },
+    searchDeactiveMembers: async (req,resp) => {
+        try{
+            const result = await MemberModule.find({flag:0,"$or":[
+                    {
+                        firstname: {$regex:req.params.key}
+                    },
+                    {
+                        lastname: {$regex:req.params.key}
+                    },
+                    {
+                        email: {$regex:req.params.key}
+                    },
+                    {
+                        username: {$regex:req.params.key}
+                    }
+                ]
+            }).select([
+                '-password',
+                '-__v'
+            ]);
+
+            if(result){
+                resp.send(result);
+            }else{
+                resp.send(JSON.stringify("No records found!"));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },
     deleteByid: async (req, res, next) => {
         try {
             //return console.log(req.params.id);
@@ -481,5 +541,5 @@ module.exports = {
                 return res.send('Invalid creadential');
             }
         } catch (err) {console.log("server error")}
-    },
+    }
 };

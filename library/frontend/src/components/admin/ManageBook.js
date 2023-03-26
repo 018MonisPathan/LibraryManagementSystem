@@ -237,6 +237,7 @@ const ManageBook = () => {
             <div className="card">
                 <div className="card-header">
                     Manage Book
+                    <Link to="/admin/AddBook" className='btn btn-info' style={{float: "right"}}><i className="fa fa-plus" style={{ color: "white" }} /></Link>
                 </div>
 
                 <div className="card-body">

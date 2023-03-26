@@ -247,6 +247,7 @@ const ManageSubCategory = () => {
             <div className="card">
                 <div className="card-header">
                     Manage SubCategory
+                    <Link to="/admin/AddSubCategory" className='btn btn-info' style={{float: "right"}}><i className="fa fa-plus" style={{ color: "white" }} /></Link>
                 </div>
 
                 <div className="card-body">

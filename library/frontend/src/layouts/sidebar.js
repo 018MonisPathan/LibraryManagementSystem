@@ -29,6 +29,9 @@ const Sidebar = () => {
 
       <ul className="list-unstyled ps-0">
         <li className="mb-1">
+        <button className="btn btn-toggle align-items-center rounded" aria-expanded="false">
+            <Link to='/admin/dashboard' style={{color:'rgba(0, 0, 0, .65)',textDecoration: 'none'}}>Dashboard</Link>
+          </button><br/>
           <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#member-collapse" aria-expanded="false">
             Member
           </button>
@@ -41,6 +44,7 @@ const Sidebar = () => {
           </div>
         </li>
         <li className="mb-1">
+
           <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="false">
             Category
           </button>

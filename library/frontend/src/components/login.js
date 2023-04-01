@@ -58,7 +58,7 @@ const Login = () => {
                             icon: "success",
                         });
     
-                        navigate("/admin/registerlibrarianstudent");
+                        navigate("/admin/dashboard");
                         
                     }
     

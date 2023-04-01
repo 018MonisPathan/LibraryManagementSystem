@@ -26,6 +26,8 @@ router.post('/verifyOTP',MemberController.verifyOTP);
 router.patch('/updatepassword/:id',MemberController.changePassword_afterOTP);
 router.get('/SearchActiveMembers/:key',[auth],MemberController.searchActiveMembers);
 router.get('/SearchDeactiveMembers/:key',[auth],MemberController.searchDeactiveMembers);
+router.get('/countTotalActiveMembers',[auth],MemberController.countTotalActiveMembers);
+router.get('/countTotalDeactiveMembers',[auth],MemberController.countTotalDeactiveMembers);
 
 function auth(req, res, next) {
     let token = req.headers['authorization'];

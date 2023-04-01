@@ -281,6 +281,34 @@ module.exports = {
             console.log(err);
         }
     },
+
+    countTotalActiveMembers: async (req,resp) => {
+        try{
+            const result = await MemberModule.find({flag:1}).count();
+
+            if(result){
+                resp.send(JSON.stringify(result));
+            }else{
+                resp.send(JSON.stringify("No records found!!"));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },
+
+    countTotalDeactiveMembers: async (req,resp) => {
+        try{
+            const result = await MemberModule.find({flag:0}).count();
+
+            if(result){
+                resp.send(JSON.stringify(result));
+            }else{
+                resp.send(JSON.stringify("No records found!!"));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },
     deleteByid: async (req, res, next) => {
         try {
             //return console.log(req.params.id);

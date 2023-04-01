@@ -29,6 +29,11 @@ import Footer from './components/Footer';
 //Import profile
 import Profile from './components/Profile';
 
+//----------Admin module-------------
+
+//import admin dashboard
+import Dashboard from './components/admin/Dashboard';
+
 //Import  Category
 import AddCategory from './components/admin/AddCategory';
 
@@ -125,6 +130,7 @@ function App() {
           <Route path='/home' element={<HomePage/>}></Route>
 
           <Route element={<PrivateComponentAdmin/>}>
+            <Route path='/admin/dashboard' element={<Dashboard/>}></Route>
             <Route path='/admin/profile' element={<Profile/>}></Route>
             <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
             <Route path='/admin/registerlibrarianstudent/:id' element={<RegisterLibrarianStudent/>}></Route>

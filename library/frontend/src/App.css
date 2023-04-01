@@ -164,6 +164,32 @@
   border-radius: 5px;
 }
 
+.admin-dashboard{
+  padding: 25px;
+}
+
+/*Admin dashboard
+
+Box 1 css*/
+.admin-dashboard .box1{
+  height: 150px;
+  width: 320px;
+  background-color: orange;
+  border-radius: 5px;
+}
+
+.admin-dashboard .box1 .box-1-title{
+  padding: 10px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.admin-dashboard .box1 .box-1-body{
+  padding: 10px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
 /*Manage all module css*/
 .managecategory, .managesubcategory,.managebook, .managedeletedmember, .manageissuebook, .studentdashboard , .facultydashboard, .studentchangepassword{
   width: 100%;

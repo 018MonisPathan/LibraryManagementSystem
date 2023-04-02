@@ -168,26 +168,89 @@
   padding: 25px;
 }
 
+.admin-dashboard .link-tag-css{
+  text-decoration: none;
+  color: rgb(54, 54, 54);
+}
+
 /*Admin dashboard
 
 Box 1 css*/
 .admin-dashboard .box1{
   height: 150px;
   width: 320px;
-  background-color: orange;
+  background-color: #89fa85;
   border-radius: 5px;
 }
 
-.admin-dashboard .box1 .box-1-title{
-  padding: 10px;
-  font-weight: bold;
-  font-size: 25px;
+/*Box 2 css*/
+
+.admin-dashboard .box2{
+  height: 150px;
+  width: 320px;
+  background-color: #e24646;
+  border-radius: 5px;
 }
 
-.admin-dashboard .box1 .box-1-body{
+/*Box 3 css*/
+.admin-dashboard .box3{
+  height: 150px;
+  width: 320px;
+  background-color: #b2f3fe;
+  border-radius: 5px;
+}
+
+/*Box 4 css*/
+.admin-dashboard .box4{
+  height: 150px;
+  width: 320px;
+  background-color: #ec4f0081;
+  border-radius: 5px;
+}
+
+/*Box 5 css*/
+.admin-dashboard .box5{
+  height: 150px;
+  width: 320px;
+  background-color: #b8c3f6;
+  border-radius: 5px;
+}
+
+/*Box 6 css*/
+.admin-dashboard .box6{
+  height: 150px;
+  width: 320px;
+  background-color: #f6b8d2;
+  border-radius: 5px;
+}
+
+/*Box 7 css*/
+.admin-dashboard .box7{
+  height: 150px;
+  width: 320px;
+  background-color: #b9f100d1;
+  border-radius: 5px;
+}
+
+/*Box 8 css*/
+.admin-dashboard .box8{
+  height: 150px;
+  width: 320px;
+  background-color: #1fe5a0a2;
+  border-radius: 5px;
+}
+
+/*Common css of admin dashboard boxes*/
+.admin-dashboard .box1 .box-1-title, .box2 .box-2-title, .box3 .box-3-title, .box4 .box-4-title, .box5 .box-5-title, .box6 .box-6-title, .box7 .box-7-title, .box8 .box-8-title{
   padding: 10px;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 22px;
+}
+
+.admin-dashboard .box1 .box-1-body, .box2 .box-2-body, .box3 .box-3-body, .box4 .box-4-body, .box5 .box-5-body, .box6 .box-6-body, .box7 .box-7-body, .box8 .box-8-body{
+  padding: 10px;
+  font-weight: bold;
+  font-size: 22px;
 }
 
 /*Manage all module css*/

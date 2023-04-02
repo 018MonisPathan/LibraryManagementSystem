@@ -133,24 +133,28 @@ function App() {
             <Route path='/admin/dashboard' element={<Dashboard/>}></Route>
             <Route path='/admin/profile' element={<Profile/>}></Route>
             <Route path='/admin/registerlibrarianstudent' element={<RegisterLibrarianStudent />} />
-            <Route path='/admin/registerlibrarianstudent/:id' element={<RegisterLibrarianStudent/>}></Route>
+            <Route path='/admin/registerlibrarianstudent/:id' element={<RegisterLibrarianStudent/>}/>
+            <Route path='/admin/ManageMember' element={<ManageMember/>}/>
+            <Route path='/admin/ManageDeletedMember' element={<ManageDeletedMember/>}/>
+            
             <Route path='/admin/AddCategory' element={<AddCategory />} />
             <Route path='/admin/AddCategory/:id' element={<AddCategory />} />
-            <Route path='/admin/AddSubCategory' element={<AddSubCategory/>}></Route>
-            <Route path='/admin/AddSubCategory/:id' element={<AddSubCategory/>}></Route>
-            <Route path='/admin/AddBook' element={<AddBook />} />
             <Route path='/admin/ManageCategory' element={<ManageCategory />} />
             <Route path='/admin/ManageDeletedCategory'element={<ManageDeletedCategory/>}/>
+            
+            <Route path='/admin/AddSubCategory' element={<AddSubCategory/>}></Route>
+            <Route path='/admin/AddSubCategory/:id' element={<AddSubCategory/>}></Route>
             <Route path='/admin/ManageSubCategory' element={<ManageSubCategory />} />
             <Route path='/admin/ManageDeletedSubCategory' element={<ManageDeletedSubCategory/>}/>
-            <Route path='/admin/ManageMember' element={<ManageMember/>}/>
+            
+            <Route path='/admin/AddBook' element={<AddBook />} />
+            <Route path='/admin/AddBook/:id' element={<AddBook/>}></Route>
             <Route path='/admin/ManageBook' element={<ManageBook/>}/>
             <Route path='/admin/ManageDeletedBook' element={<ManageDeletedBook/>}/>
-            <Route path='/admin/ManageDeletedMember' element={<ManageDeletedMember/>}/>
+            
             <Route path='/admin/AddSetting' element={<AddSettings/>}></Route>
-            <Route path='/admin/ManageSettings' element={<ManageSettings/>}></Route>
             <Route path='/admin/AddSetting/:id' element={<AddSettings/>}></Route>
-            <Route path='/admin/AddBook/:id' element={<AddBook/>}></Route>
+            <Route path='/admin/ManageSettings' element={<ManageSettings/>}></Route>
            
           </Route>
 

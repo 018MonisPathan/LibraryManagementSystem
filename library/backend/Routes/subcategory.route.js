@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Jwt = require('jsonwebtoken');
 const SubCategoryController = require('../controllers/Subcategory.controller');
+const SubcategoryController = require('../controllers/Subcategory.controller');
 
 const jwtKey = 'e-comm';
 
@@ -13,6 +14,8 @@ router.get('/SubSelectDeactive',[auth],SubCategoryController.selectDeactiveSubCa
 router.patch('/SubUpdateCategory/:id',[auth], SubCategoryController.updateSubCategorybyid);
 router.delete('/SubDeleteCategory/:id',[auth], SubCategoryController.deleteSubCategoryByid);
 router.patch('/SoftDeleteSubCategory/:id',[auth],SubCategoryController.SoftdeleteSubCategoryByid);
+router.get('/countTotalActiveSubcategories',[auth],SubcategoryController.countTotalActiveSubcategories);
+router.get('/countTotalDeactiveSubcategories',[auth],SubCategoryController.countTotalDeactiveSubcategories);
 
 function auth(req, res, next) {
     let token = req.headers['authorization'];

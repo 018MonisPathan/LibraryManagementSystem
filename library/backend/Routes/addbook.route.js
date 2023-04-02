@@ -33,4 +33,7 @@ router.get('/SelectAllBooks',[auth], AddBookController.selectallBooks);
 router.patch('/UpdateBooks/:id',[auth],AddBookController.updateBookbyid);
 router.delete('/DeleteBooks/:id',[auth], AddBookController.deleteBookByid);
 router.patch('/ChangeFlagstatus/:id',[auth],AddBookController.changeFlagStatus_AddBookDetails)
+router.get('/countTotalActiveBook',[auth],AddBookController.countTotalActiveBook);
+router.get('/countTotalDeactiveBook',[auth],AddBookController.countTotalDeactiveBook);
+
 module.exports = router;

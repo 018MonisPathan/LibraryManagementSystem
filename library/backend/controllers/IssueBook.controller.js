@@ -128,6 +128,7 @@ module.exports={
             console.log(err.message);
         }
     },
+    
     updateIssueBookDetailsByid: async (req, res, next) => {
         try {
             const id = req.params.id;

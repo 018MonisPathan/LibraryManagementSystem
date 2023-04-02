@@ -99,6 +99,32 @@ module.exports = {
             console.log(err.message);
         }
     },
+    countTotalActiveBook: async (req,resp) => {
+        try{
+            const result = await AddBookModel.find({flag:1}).count();
+
+            if(result){
+                resp.send(JSON.stringify(result));
+            }else{
+                resp.send(JSON.stringify("No Records Found!"));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },
+    countTotalDeactiveBook: async (req,resp) => {
+        try{
+            const result = await AddBookModel.find({flag:0}).count();
+
+            if(result){
+                resp.send(JSON.stringify(result));
+            }else{
+                resp.send(JSON.stringify("No Records Found!"));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },
     updateBookbyid: async (req, res, next) => {
         try {
             const id = req.params.id;

@@ -31,5 +31,7 @@ router.delete('/DeleteCategory/:id',[auth], CategoryController.deleteCategoryByi
 router.patch('/SoftDeleteCategory/:id',[auth],CategoryController.SoftdeleteCategoryByid);
 router.get('/searchActiveCategory/:key',[auth],CategoryController.searchActivecategory);
 router.get('/searchDeactiveCategory/:key',[auth],CategoryController.searchDeactiveCategory);
+router.get('/countTotalActiveCategories',[auth],CategoryController.countTotalActiveCategories);
+router.get('/countTotalDeactiveCategories',[auth],CategoryController.countTotalDeactiveCategories);
 
 module.exports = router;

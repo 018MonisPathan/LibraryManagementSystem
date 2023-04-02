@@ -122,6 +122,35 @@ module.exports = {
             console.log(err);
         }
     },
+
+    countTotalActiveCategories: async (req,resp) => {
+        try{
+            const result = await CategoryModel.find({flag:1}).count();
+
+            if(result){
+                resp.send(JSON.stringify(result));
+            }else{
+                resp.send(JSON.stringify("No Records Found!"));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },
+
+    countTotalDeactiveCategories: async (req,resp) => {
+        try{
+            const result = await CategoryModel.find({flag:0}).count();
+
+            if(result){
+                resp.send(JSON.stringify(result));
+            }else{
+                resp.send(JSON.stringify("No Records Found!"));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },
+
     updateCategorybyid: async (req, res, next) => {
         try {
 

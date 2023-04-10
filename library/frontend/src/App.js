@@ -101,6 +101,7 @@ import PrivateComponentFaculty from './components/PrivateComponentFaculty';
 
 //Import librarian dashboard
 import LibrarianDashboard from './components/librarian/dashboard';
+import LibrarianManageIssueBook from './components/librarian/ManageIssueBook';
 
 //Import private component for librarian
 import PrivateComponentLibrarian from './components/PrivateComponentLibrarian';
@@ -172,6 +173,7 @@ function App() {
 
           <Route element={<PrivateComponentLibrarian/>}>
             <Route path='/librarian/dashboard' element={<LibrarianDashboard/>}></Route>
+            <Route path='/librarian/ManageIssueBook' element={<LibrarianManageIssueBook/>}></Route>
           </Route>
           
           <Route path='/login' element={<Login />} />

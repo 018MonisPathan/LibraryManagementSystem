@@ -46,7 +46,7 @@ const LibrarianSidebar = () => {
           </button>
           <div className="collapse" id="member-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><Link to='/student/ManageIssueBook' className="link-dark rounded">Manage Issue book</Link></li>
+              <li><Link to='/librarian/ManageIssueBook' className="link-dark rounded">Manage Issue book</Link></li>
               
             </ul>
           </div>
@@ -57,7 +57,7 @@ const LibrarianSidebar = () => {
           </button>
           <div className="collapse" id="category-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><Link to='#' className="link-dark rounded">Manage Return book</Link></li>
+              <li><Link to='/librarian/ManageReturnBook' className="link-dark rounded">Manage Return book</Link></li>
               {/* <li><Link to='/admin/AddCategory' className="link-dark rounded">Add Category</Link></li> */}
 
               {/* <li><a href="#" className="link-dark rounded">Deleted</a></li> */}

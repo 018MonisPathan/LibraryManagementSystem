@@ -10,7 +10,8 @@ const ManageIssueBook = () => {
 
     const [issuebook, setIssueBook] = useState("");
     const [settings, setSettings] = useState("");
-    let isdate, dedate, month, onlydate, year;
+    const [itemid, setItemid] = useState("");
+
 
     useEffect(() => {
         //VerifyToken();
@@ -79,9 +80,9 @@ const ManageIssueBook = () => {
 
     //Panelty functions.
 
-    const call_paypal = async (req, res) => {
+    const call_paypal = async (id) => {
         //return console.log("paypal called ");
-
+console.log("id is ",id)
         let result = await fetch('http://localhost:5000/PaypalController/sendItem', {
             method: "POST"
 
@@ -92,7 +93,31 @@ const ManageIssueBook = () => {
             console.log("success");
 
             // console.log(result.forwardLink);
+            //update the due date increase by 15 on success
             window.location = result.forwardLink
+
+          
+            var dateget = new Date();
+            dateget.setDate(dateget.getDate() + 15);
+            var Datetogive = dateget.toISOString().split('T')[0];
+
+            let token = sessionStorage.getItem("token").replace(/['"]+/g, '');
+            //var id = itemid 
+            let resulta = await fetch(`http://localhost:5000/IssueBook/updateIssueBookDetails/${id}`,{
+                method: "PATCH",
+                body: JSON.stringify({ duedate:Datetogive}),
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            console.log("result of update",resulta);
+            if (resulta){
+                console.log("book duedate update Success");
+            }else{
+                console.log("book duedate update Failed");
+            }
+
+           
         } else {
             console.log("Fail");
         }
@@ -159,9 +184,12 @@ const ManageIssueBook = () => {
                                                 {/* <form action="/pay" method="post">
                                                                 <input type="submit" value="Buy"/>
                                                             </form> */}
+                                                            
                                                 {
                                                     new Date().toISOString().split("T")[0] > item.duedate.split("T")[0] ? <>
-                                                        <button onClick={call_paypal} style={{ width: "30px", borderRadius: "5px", backgroundColor: "white", border: "0px" }}>
+
+                                <button onClick={()=>{call_paypal(item._id)}} 
+                                                        style={{ width: "30px", borderRadius: "5px", backgroundColor: "white", border: "0px" }}>
                                                             <i className="fa fa-undo" style={{ marginRight: 10, color: "#3f6ad" }} />
                                                         </button>
                                                     </> : <>

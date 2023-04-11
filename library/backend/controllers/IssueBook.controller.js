@@ -133,6 +133,7 @@ module.exports={
         try {
             const id = req.params.id;
             const updates = req.body;
+            console.log("Body = ",req.body);
             const options = {
                 new: true
             };
@@ -145,6 +146,7 @@ module.exports={
                 return res.send({ error: 'update failed' });
             }
             res.send(result);
+            
         } catch (error) {
             console.log(error.message);
             res.send(error.message);

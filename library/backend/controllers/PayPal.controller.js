@@ -96,6 +96,7 @@ console.log("Payment create called");
         } else {
           console.log(JSON.stringify(payment));
           //res.send("Success");
+         // res.write({msg:"Success"});
           res.redirect("http://localhost:3000/Success");
         }
       }

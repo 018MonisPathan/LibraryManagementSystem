@@ -15,5 +15,6 @@ router.patch("/activate_deactivateIssueBookDetails/:id",IssueBookController.chan
 
 router.patch("/updateIssueBookDetails/:id",IssueBookController.updateIssueBookDetailsByid);
 router.delete("/deleteIssueBookDetails/:id",IssueBookController.deleteIssueBookDetailsid);
+router.get("/selectallIssueBookDetailByIssueBookId/:id",IssueBookController.selectallIssueBookDetailByIssueBookId);
 
 module.exports = router;

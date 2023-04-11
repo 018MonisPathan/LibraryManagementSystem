@@ -225,4 +225,25 @@ module.exports={
             console.log(err.message);
         }
     },
+
+    selectallIssueBookDetailByIssueBookId: async (req,res,next) => {
+        try{
+            const issuebook_id = req.params.id;
+
+            console.log(issuebook_id);
+
+            const result = await IssueBookModel.find({flag:true,_id: issuebook_id}).populate("book_id","title pdf").populate("membership_id","firstname");
+            //return console.log(JSON.stringify(result));
+            if(result){
+                res.send({ data: result });
+                console.log(result);
+            }
+            else{
+                console.log('No records found');
+                res.send(JSON.stringify('No records found'));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
 };

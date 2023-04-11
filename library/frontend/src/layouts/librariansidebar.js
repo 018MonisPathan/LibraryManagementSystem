@@ -51,19 +51,7 @@ const LibrarianSidebar = () => {
             </ul>
           </div>
         </li>
-        <li className="mb-1">
-          <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="false">
-            Manage Return book
-          </button>
-          <div className="collapse" id="category-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><Link to='/librarian/ManageReturnBook' className="link-dark rounded">Manage Return book</Link></li>
-              {/* <li><Link to='/admin/AddCategory' className="link-dark rounded">Add Category</Link></li> */}
-
-              {/* <li><a href="#" className="link-dark rounded">Deleted</a></li> */}
-            </ul>
-          </div>
-        </li>
+        
         
       </ul>
     </div>
